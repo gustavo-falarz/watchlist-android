@@ -44,7 +44,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onStart() {
         super.onStart()
-        var movie = Content("Home Alone", "2014")
+        val movie = Content("Home Alone", "2014")
 
 
         MovieService.addMovie(movie).applySchedulers()
@@ -52,6 +52,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         { content -> showStuff(content) },
                         { error -> toast(error.message!!) }
                 )
+
 
     }
 

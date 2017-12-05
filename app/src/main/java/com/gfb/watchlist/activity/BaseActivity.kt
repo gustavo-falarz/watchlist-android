@@ -1,7 +1,6 @@
 package com.gfb.watchlist.activity
 
 import android.support.v7.app.AppCompatActivity
-import com.gfb.watchlist.R
 import io.reactivex.Observable
 
 import io.reactivex.android.schedulers.AndroidSchedulers
