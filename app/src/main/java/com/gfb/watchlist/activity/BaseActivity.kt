@@ -1,11 +1,9 @@
 package com.gfb.watchlist.activity
 
-import android.os.HandlerThread
-import android.os.Looper
-import android.os.Process
 import android.support.v7.app.AppCompatActivity
-
+import com.gfb.watchlist.R
 import io.reactivex.Observable
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,10 +14,7 @@ import io.reactivex.schedulers.Schedulers
 open class BaseActivity : AppCompatActivity() {
 
 
-    fun prepare(observable: Observable<*>): Observable<*> {
-        return observable
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+    fun <T> Observable<T>.applySchedulers(): Observable<T> {
+        return subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
     }
-
 }

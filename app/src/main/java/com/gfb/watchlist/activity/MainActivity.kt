@@ -47,10 +47,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         var movie = Content("Home Alone", "2014")
 
 
-       prepare(MovieService.addMovie(movie)).subscribe(
-                { content -> showStuff(content as Content) },
-                { error -> toast(error.message!!) }
-        )
+        MovieService.addMovie(movie).applySchedulers()
+                .subscribe(
+                        { content -> showStuff(content) },
+                        { error -> toast(error.message!!) }
+                )
 
     }
 
