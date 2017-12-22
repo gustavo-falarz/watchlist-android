@@ -1,18 +1,23 @@
 package com.gfb.watchlist.activity
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.fragment.MoviesFragment
+import com.gfb.watchlist.fragment.RecentlyAddedFragment
+import com.gfb.watchlist.fragment.SeriesFragment
 import com.gfb.watchlist.service.MovieService
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -20,17 +25,20 @@ import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var mSectionsPagerAdapter: MainActivity.SectionsPagerAdapter? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setupToolbar(R.string.app_name)
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+
+        container.adapter = mSectionsPagerAdapter
+
+        container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(
@@ -40,6 +48,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
+        fab.setOnClickListener { startActivity<AddToListActivity>() }
+
     }
 
     override fun onStart() {
@@ -57,7 +68,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun showStuff(content: Content) {
-        tvTest.text = content.title + content.releaseDate
     }
 
     override fun onBackPressed() {
@@ -69,46 +79,56 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-
-        return if (id == R.id.action_settings) {
-            true
-        } else super.onOptionsItemSelected(item)
-
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_camera) {
-            startActivity<TestActivity>()
-        } else if (id == R.id.nav_gallery) {
+        when (id) {
+            R.id.nav_camera -> {
+            }
+            R.id.nav_gallery -> {
 
-        } else if (id == R.id.nav_slideshow) {
+            }
+            R.id.nav_slideshow -> {
 
-        } else if (id == R.id.nav_manage) {
+            }
+            R.id.nav_manage -> {
 
-        } else if (id == R.id.nav_share) {
+            }
+            R.id.nav_share -> {
 
-        } else if (id == R.id.nav_send) {
+            }
+            R.id.nav_send -> {
 
+            }
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
+        override fun getItem(position: Int): Fragment {
+            when (position) {
+                0 -> {
+                    return RecentlyAddedFragment.newInstance()
+                }
+                1 -> {
+                    return MoviesFragment.newInstance()
+                }
+                2 -> {
+                    return SeriesFragment.newInstance()
+                }
+            }
+            return RecentlyAddedFragment.newInstance()
+        }
+
+
+        override fun getCount(): Int {
+            return 3
+        }
     }
 }
 
