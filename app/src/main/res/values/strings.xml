@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Watchlist</string>
+    <string name="app_name">MyWatchlist</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,4 +9,5 @@
     <string name="tab_title_recently_added">RECENTLY ADDED</string>
     <string name="tab_title_movies">MOVIES</string>
     <string name="tab_title_series">SERIES</string>
+    <string name="error_title">Oops</string>
 </resources>

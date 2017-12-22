@@ -1,13 +1,19 @@
 package com.gfb.watchlist.activity
 
+import android.app.ProgressDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.widget.ProgressBar
 import com.gfb.watchlist.R
 import io.reactivex.Observable
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.progressDialog
+import org.jetbrains.anko.yesButton
 
 /**
  * Created by Gustavo on 12/4/2017.
@@ -15,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 
 open class BaseActivity : AppCompatActivity() {
 
+    lateinit var progress: ProgressDialog
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
         return subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
@@ -44,5 +51,18 @@ open class BaseActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun handleException(exception: Throwable) {
+
+        exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
+
+    }
+
+    fun showProgress() {
+        progress = indeterminateProgressDialog(message = "Please wait a bit…", title = "Fetching data")
+    }
+
+    fun closeProgress() {
+        progress.hide()
+    }
 
 }

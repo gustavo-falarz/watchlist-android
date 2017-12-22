@@ -57,11 +57,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onStart()
         val movie = Content("Home Alone", "2014")
 
-
+        showProgress()
         MovieService.addMovie(movie).applySchedulers()
                 .subscribe(
-                        { content -> showStuff(content) },
-                        { error -> toast(error.message!!) }
+                        { content ->
+                            showStuff(content)
+                            closeProgress()
+                        },
+                        { error ->
+                            handleException(error)
+                            closeProgress()
+                        }
                 )
 
 
