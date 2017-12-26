@@ -15,7 +15,6 @@ import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
-import com.gfb.watchlist.service.MovieService
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.startActivity
@@ -58,7 +57,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 //        val movie = Content("", "", "", "", "", "")
 //
 //        showProgress()
-//        MovieService.addMovie(movie).applySchedulers()
+//        ContentService.addContent(movie).applySchedulers()
 //                .subscribe(
 //                        { content ->
 //                            showStuff(content)
@@ -90,6 +89,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         when (id) {
             R.id.nav_camera -> {
+                startActivity<NewUserActivity>()
             }
             R.id.nav_gallery -> {
 

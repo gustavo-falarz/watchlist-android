@@ -1,11 +1,13 @@
 package com.gfb.watchlist.activity
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.ProgressBar
 import com.gfb.watchlist.R
+import com.gfb.watchlist.util.MyDatabaseOpenHelper
 import io.reactivex.Observable
 
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -65,4 +67,9 @@ open class BaseActivity : AppCompatActivity() {
         progress.hide()
     }
 
+    fun showWarning(message: String){
+        alert (message, getString(R.string.error_title)){yesButton {  }}
+    }
+    val Context.database: MyDatabaseOpenHelper
+        get() = MyDatabaseOpenHelper.getInstance(applicationContext)
 }

@@ -1,6 +1,8 @@
 package com.gfb.watchlist.service
 
 import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.entity.Response
+import com.gfb.watchlist.entity.UserContentDTO
 import com.gfb.watchlist.service.endpoint.MovieEndpoint
 import io.reactivex.Observable
 
@@ -9,11 +11,11 @@ import io.reactivex.Observable
  * Created by Gustavo on 10/26/2017.
  */
 
-object MovieService {
+object ContentService {
 
 
-    fun addMovie(movie: Content): Observable<Content> {
-        return getService().addMovie(movie)
+    fun addContent(dto: UserContentDTO): Observable<Response> {
+        return getService().addContent(dto)
     }
 
     fun searchOnImdb(param: String): Observable<List<Content>>{

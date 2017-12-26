@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.gfb.watchlist.activity.NewUserActivity">
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/field_email" />
+
+    <LinearLayout
+        android:id="@+id/btEnter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/confirmation_button_height"
+        android:background="@color/confirmation_button"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Enter"
+            android:textColor="@color/white"
+            android:textSize="@dimen/confirmation_button_text_size" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

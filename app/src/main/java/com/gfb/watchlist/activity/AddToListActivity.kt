@@ -5,9 +5,13 @@ import android.support.v7.widget.LinearLayoutManager
 import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.service.MovieService
+import com.gfb.watchlist.entity.UserContentDTO
+import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_add_to_list.*
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 
 class AddToListActivity : BaseActivity() {
 
@@ -25,7 +29,7 @@ class AddToListActivity : BaseActivity() {
     fun searchOnImdb() {
         val query = etSearchContent.text.toString()
         showProgress()
-        MovieService.searchOnImdb(query).applySchedulers()
+        ContentService.searchOnImdb(query).applySchedulers()
                 .subscribe(
                         { contents ->
                             setAdapter(contents)
@@ -39,11 +43,36 @@ class AddToListActivity : BaseActivity() {
 
     }
 
-    fun setAdapter(contents: List<Content>) {
+    private fun setAdapter(contents: List<Content>) {
         recyclerView.adapter = ContentAdapter(contents) {
-            toast("${it.title} selected")
+            confirmAddition(it)
         }
     }
+
+    private fun confirmAddition(content: Content) {
+        alert("Add ${content.title} to your watchlist?", "Add content") {
+            yesButton { addToList(content) }
+            noButton {}
+        }.show()
+    }
+
+    private fun addToList(content: Content) {
+        showProgress()
+        ContentService.addContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+                .subscribe(
+                        { response ->
+                            if (response.isStatus) {
+                                finish()
+                            }
+                            closeProgress()
+                        },
+                        { error ->
+                            closeProgress()
+                            handleException(error)
+                        }
+                )
+    }
+
 }
 
 
