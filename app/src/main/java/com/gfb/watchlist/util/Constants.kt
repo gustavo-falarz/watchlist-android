@@ -5,7 +5,7 @@ package com.gfb.watchlist.util
  */
 
 object Constants {
-    val WS_URL_BASE = "http://192.168.1.2:8080"
+    val WS_URL_BASE = "http://10.255.85.78:8080"
     val STATUS_OK = "OK"
     val STATUS_NOK = "NOK"
     val CPF_PATTERN = "###.###.###-##"

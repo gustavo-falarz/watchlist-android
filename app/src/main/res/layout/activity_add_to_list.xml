@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.gfb.watchlist.activity.AddToListActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -19,5 +20,30 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etSearchContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"/>
+        
+        <ImageView
+            android:id="@+id/imSearchOnImdb"
+            android:src="@drawable/ic_search_white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -29,7 +29,7 @@ class ContentAdapter(private val items: List<Content>, private val listener: (Co
     class ContentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(content: Content, listener: (Content) -> Unit) = with(itemView) {
             contentTitle.text = content.title
-            contentRelease.text = content.releaseDate
+            contentRelease.text = content.year
             setOnClickListener { listener(content) }
         }
     }

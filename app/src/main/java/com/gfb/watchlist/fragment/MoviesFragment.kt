@@ -37,7 +37,7 @@ class MoviesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val movies = listOf(Content("Home Alone", "1968"), Content("Castaway","1998"))
+        val movies = listOf(Content("Home Alone", "1968", "1968", "1968", "1968", "1968"))
         val adapter = ContentAdapter(movies){
             toast("${it.title} selected")
         }

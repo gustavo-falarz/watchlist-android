@@ -55,22 +55,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onStart() {
         super.onStart()
-        val movie = Content("Home Alone", "2014")
-
-        showProgress()
-        MovieService.addMovie(movie).applySchedulers()
-                .subscribe(
-                        { content ->
-                            showStuff(content)
-                            closeProgress()
-                        },
-                        { error ->
-                            handleException(error)
-                            closeProgress()
-                        }
-                )
-
-
+//        val movie = Content("", "", "", "", "", "")
+//
+//        showProgress()
+//        MovieService.addMovie(movie).applySchedulers()
+//                .subscribe(
+//                        { content ->
+//                            showStuff(content)
+//                            closeProgress()
+//                        },
+//                        { error ->
+//                            handleException(error)
+//                            closeProgress()
+//                        }
+//                )
     }
 
     private fun showStuff(content: Content) {
