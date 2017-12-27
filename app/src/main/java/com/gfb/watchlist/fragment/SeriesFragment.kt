@@ -14,7 +14,7 @@ import com.gfb.watchlist.R
  * Created by @author Gustavo
  */
 
-class SeriesFragment : Fragment() {
+class SeriesFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

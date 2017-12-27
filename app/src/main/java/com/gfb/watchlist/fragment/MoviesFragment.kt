@@ -13,17 +13,18 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 
 
-class MoviesFragment : Fragment() {
+class MoviesFragment : BaseFragment() {
 
-    private lateinit var movieList:RecyclerView
+    private lateinit var recyclerViewContent:RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         var view = inflater!!.inflate(R.layout.fragment_movies, container, false)
-        movieList = view.findViewById(R.id.movieList)
-        movieList.layoutManager = LinearLayoutManager(view.context)
+        recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
+        recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
         return view
 
     }
@@ -41,7 +42,7 @@ class MoviesFragment : Fragment() {
         val adapter = ContentAdapter(movies){
             toast("${it.title} selected")
         }
-        movieList.adapter = adapter
+        recyclerViewContent.adapter = adapter
 
     }
 }

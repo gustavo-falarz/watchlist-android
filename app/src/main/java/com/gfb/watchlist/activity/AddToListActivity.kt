@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.UserContentDTO
+import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_add_to_list.*
@@ -58,7 +58,7 @@ class AddToListActivity : BaseActivity() {
 
     private fun addToList(content: Content) {
         showProgress()
-        ContentService.addContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+        ContentService.addContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
                             if (response.isStatus) {

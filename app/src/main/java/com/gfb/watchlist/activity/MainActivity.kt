@@ -11,14 +11,12 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 
 @Suppress("DEPRECATION")
@@ -50,28 +48,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
 
-    }
-
-    override fun onStart() {
-        super.onStart()
-//        val movie = Content("", "", "", "", "", "")
-//
-//        showProgress()
-//        ContentService.addContent(movie).applySchedulers()
-//                .subscribe(
-//                        { content ->
-//                            showStuff(content)
-//                            closeProgress()
-//                        },
-//                        { error ->
-//                            handleException(error)
-//                            closeProgress()
-//                        }
-//                )
-    }
-
-    private fun showStuff(content: Content) {
-        toast("${content.title}")
     }
 
     override fun onBackPressed() {
