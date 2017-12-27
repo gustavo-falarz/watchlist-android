@@ -11,9 +11,13 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import com.gfb.watchlist.R
+import com.gfb.watchlist.entity.ContentContainer
+import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
+import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.startActivity
@@ -64,23 +68,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val id = item.itemId
 
         when (id) {
-            R.id.nav_camera -> {
+            R.id.nav_add_content -> {
+                startActivity<AddToListActivity>()
+            }
+            R.id.nav_archive -> {
+                startActivity<ArchiveActivity>()
+            }
+
+            R.id.nav_logout -> {
                 startActivity<NewUserActivity>()
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
             }
         }
 
@@ -111,5 +107,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             return 3
         }
     }
+
 }
 

@@ -2,15 +2,17 @@ package com.gfb.watchlist.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.gfb.watchlist.R
-import com.gfb.watchlist.adapter.ContentAdapter
+import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 
 class AddToListActivity : BaseActivity() {
@@ -19,15 +21,28 @@ class AddToListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_list)
         setupToolbar(R.string.search_menu_title)
-        setuActionBar()
+        setupActionBar()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         imSearchOnImdb.setOnClickListener({ searchOnImdb() })
+        etSearchContent.setOnEditorActionListener(onActionSearch())
+    }
+
+    private fun onActionSearch(): TextView.OnEditorActionListener? {
+        return TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchOnImdb()
+                true
+            } else {
+                false
+            }
+        }
     }
 
 
-    fun searchOnImdb() {
-        val query = etSearchContent.text.toString()
+    private fun searchOnImdb() {
+        hideKeyboard()
+        val query = etSearchContent.text.toString().trim()
         showProgress()
         ContentService.searchOnImdb(query).applySchedulers()
                 .subscribe(
@@ -44,15 +59,16 @@ class AddToListActivity : BaseActivity() {
     }
 
     private fun setAdapter(contents: List<Content>) {
-        recyclerView.adapter = ContentAdapter(contents) {
+        recyclerView.adapter = ResumedContentAdapter(contents) {
             confirmAddition(it)
         }
     }
 
     private fun confirmAddition(content: Content) {
-        alert("Add ${content.title} to your watchlist?", "Add content") {
-            yesButton { addToList(content) }
-            noButton {}
+
+        alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.message_title_add_content)) {
+            positiveButton(R.string.yes) { addToList(content) }
+            negativeButton(R.string.no) {}
         }.show()
     }
 
@@ -61,8 +77,14 @@ class AddToListActivity : BaseActivity() {
         ContentService.addContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
-                            if (response.isStatus) {
-                                finish()
+                            if (response.status) {
+
+                                alert(response.message, getString(R.string.message_title_success)) {
+                                    yesButton {
+                                        ContentContainer.content = null
+                                        finish()
+                                    }
+                                }.show()
                             }
                             closeProgress()
                         },

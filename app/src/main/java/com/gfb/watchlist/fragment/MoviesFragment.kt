@@ -2,23 +2,24 @@ package com.gfb.watchlist.fragment
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.entity.ContentContainer
+import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.entity.dto.UserContentDTO
+import com.gfb.watchlist.service.ContentService
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 
 
 class MoviesFragment : BaseFragment() {
 
-    private lateinit var recyclerViewContent:RecyclerView
+    private lateinit var recyclerViewContent: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,8 +30,7 @@ class MoviesFragment : BaseFragment() {
 
     }
 
-        companion object {
-
+    companion object {
         fun newInstance(): MoviesFragment {
             return MoviesFragment()
         }
@@ -38,11 +38,33 @@ class MoviesFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        val movies = listOf(Content("Home Alone", "1968", "1968", "1968", "1968", "1968"))
-        val adapter = ContentAdapter(movies){
+        when {
+            ContentContainer.isEmpty() -> findContent()
+            else -> setAdapter()
+        }
+    }
+
+    private fun setAdapter() {
+        val adapter = ContentAdapter(ContentContainer.getContent(getString(R.string.movies))) {
             toast("${it.title} selected")
         }
         recyclerViewContent.adapter = adapter
-
     }
+
+    private fun findContent() {
+        showProgress()
+        ContentService.findContent(UserContentDTO(UserInfo.userId, null, null)).applySchedulers()
+                .subscribe(
+                        { content ->
+                            closeProgress()
+                            ContentContainer.initContent(content)
+                            setAdapter()
+                        },
+                        { error ->
+                            closeProgress()
+                            handleException(error)
+                        }
+                )
+    }
+
 }

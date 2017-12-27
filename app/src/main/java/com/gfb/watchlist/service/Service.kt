@@ -1,6 +1,7 @@
 package com.gfb.watchlist.service
 
-import com.gfb.watchlist.util.Constants
+import com.gfb.watchlist.BuildConfig
+import com.gfb.watchlist.util.converters.ResponseConverterFactory
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,8 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Service {
 
     private val builder = Retrofit.Builder()
-            .baseUrl(Constants.WS_URL_BASE)
+            .baseUrl(BuildConfig.URL_BASE)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(ResponseConverterFactory(GsonConverterFactory.create()))
             .addConverterFactory(GsonConverterFactory.create())
 
 

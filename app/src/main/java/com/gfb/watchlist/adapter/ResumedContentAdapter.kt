@@ -10,12 +10,15 @@ import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.adapter_content.view.*
 
 /**
- * Created by Gustavo on 12/22/2017.
+ * Created by Gustavo on 12/27/2017.
  */
-class ContentAdapter(private val items: List<Content>, private val listener: (Content) -> Unit) : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
+class ResumedContentAdapter(
+        private val items: List<Content>,
+        private val listener: (Content) -> Unit)
+        : RecyclerView.Adapter<ResumedContentAdapter.ContentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContentViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_content, parent, false)
+        val v = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_content_resumed, parent, false)
         return ContentViewHolder(v)
     }
 
@@ -29,10 +32,9 @@ class ContentAdapter(private val items: List<Content>, private val listener: (Co
         fun bindView(content: Content, listener: (Content) -> Unit) = with(itemView) {
             tvTitle.text = content.title
             tvRelease.text = content.year
-            tvGenre.text = content.genre
-            tvDirector.text = content.director
             imPoster.load(content.poster){request -> request.fit()}
             setOnClickListener { listener(content) }
         }
+
     }
 }

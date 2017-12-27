@@ -21,5 +21,14 @@ class Content(
         @SerializedName("Poster")
         var poster: String,
 
+        @SerializedName("Genre")
+        var genre: String,
+
+        @SerializedName("Director")
+        var director: String,
+
+        @SerializedName("Plot")
+        var plot: String,
+
         @SerializedName("imdbID")
         var imdbID: String)

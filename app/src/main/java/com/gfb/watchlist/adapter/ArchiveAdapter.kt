@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.adapter_content.view.*
 /**
  * Created by Gustavo on 12/22/2017.
  */
-class ContentAdapter(private val items: List<Content>, private val listener: (Content) -> Unit) : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
+class ArchiveAdapter(private val items: List<Content>, private val listener: (Content) -> Unit) : RecyclerView.Adapter<ArchiveAdapter.ContentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContentViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_content, parent, false)
@@ -31,6 +31,7 @@ class ContentAdapter(private val items: List<Content>, private val listener: (Co
             tvRelease.text = content.year
             tvGenre.text = content.genre
             tvDirector.text = content.director
+            imStatus.setImageResource(R.drawable.ic_watched)
             imPoster.load(content.poster){request -> request.fit()}
             setOnClickListener { listener(content) }
         }

@@ -10,12 +10,15 @@
 
     <EditText
         android:id="@+id/etEmail"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/field_email" />
 
     <LinearLayout
         android:id="@+id/btEnter"
+        android:imeOptions="actionGo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/confirmation_button_height"
         android:background="@color/confirmation_button"

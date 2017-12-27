@@ -1,5 +1,6 @@
 package com.gfb.watchlist.util;
 
+
 import java.io.IOException;
 
 /**
@@ -9,6 +10,12 @@ import java.io.IOException;
 public class ServerException extends IOException {
 
     private String message;
+
+    private Error error;
+
+    public ServerException(Error error) {
+        this.error = error;
+    }
 
     public ServerException(String message) {
         this.message = message;

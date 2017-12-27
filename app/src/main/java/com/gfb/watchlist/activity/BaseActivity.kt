@@ -1,13 +1,17 @@
 package com.gfb.watchlist.activity
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import com.gfb.watchlist.R
 import com.gfb.watchlist.util.MyDatabaseOpenHelper
+import com.gfb.watchlist.util.ServerException
 import io.reactivex.Observable
 
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,7 +40,7 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun setuActionBar() {
+    fun setupActionBar() {
         val ab = supportActionBar
         ab?.setDisplayHomeAsUpEnabled(true)
         ab?.setHomeButtonEnabled(true)
@@ -54,9 +58,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun handleException(exception: Throwable) {
-
         exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
-
     }
 
     fun showProgress() {
@@ -67,9 +69,20 @@ open class BaseActivity : AppCompatActivity() {
         progress.hide()
     }
 
-    fun showWarning(message: String){
-        alert (message, getString(R.string.error_title)){yesButton {  }}
+    fun showWarning(message: String) {
+        alert(message, getString(R.string.error_title)) { yesButton { } }
     }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+
     val Context.database: MyDatabaseOpenHelper
         get() = MyDatabaseOpenHelper.getInstance(applicationContext)
 }

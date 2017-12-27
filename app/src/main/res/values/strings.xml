@@ -11,4 +11,15 @@
     <string name="tab_title_series">SERIES</string>
     <string name="error_title">Oops</string>
     <string name="field_email">email</string>
+    <string name="message_confirmation_add_content">Add %1$s to your watchlist?</string>
+    <string name="message_confirmation_archive_content">We are going to archive %1$s from your watchlist, have you watched it?</string>
+    <string name="message_title_add_content">Add to list</string>
+    <string name="message_title_archive_content">Archive item</string>
+    <string name="movies">movie</string>
+    <string name="series">series</string>
+    <string name="message_title_success">Yay!</string>
+    <string name="welcome_message">Hey, good to see you!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="title_archive">Your archive</string>
 </resources>

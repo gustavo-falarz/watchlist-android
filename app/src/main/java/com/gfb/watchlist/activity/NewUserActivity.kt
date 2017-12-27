@@ -19,7 +19,7 @@ class NewUserActivity : BaseActivity() {
     }
 
     private fun addUser() {
-        var email = etEmail.text.toString()
+        var email = etEmail.text.toString().trim()
         if (email != null) {
             showProgress()
             UserService.addUser(email).applySchedulers()
