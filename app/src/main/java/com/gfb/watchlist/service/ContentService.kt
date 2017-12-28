@@ -1,8 +1,7 @@
 package com.gfb.watchlist.service
 
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.Response
-import com.gfb.watchlist.entity.dto.ResponseDTO
+import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.endpoint.MovieEndpoint
 import io.reactivex.Observable
@@ -15,11 +14,11 @@ import io.reactivex.Observable
 object ContentService {
 
 
-    fun addContent(dto: UserContentDTO): Observable<ResponseDTO> {
+    fun addContent(dto: UserContentDTO): Observable<Result> {
         return getService().addContent(dto)
     }
 
-    fun archiveContent(dto: UserContentDTO): Observable<ResponseDTO> {
+    fun archiveContent(dto: UserContentDTO): Observable<Result> {
         return getService().archiveContent(dto)
     }
     fun findArchive(userId: String): Observable<List<Content>> {

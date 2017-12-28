@@ -1,8 +1,7 @@
 package com.gfb.watchlist.service.endpoint
 
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.Response
-import com.gfb.watchlist.entity.dto.ResponseDTO
+import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.dto.UserContentDTO
 
 import io.reactivex.Observable
@@ -18,10 +17,10 @@ import retrofit2.http.Path
 interface MovieEndpoint {
 
     @POST("content/add")
-    fun addContent(@Body dto: UserContentDTO): Observable<ResponseDTO>
+    fun addContent(@Body dto: UserContentDTO): Observable<Result>
 
     @POST("content/archive")
-    fun archiveContent(@Body dto: UserContentDTO): Observable<ResponseDTO>
+    fun archiveContent(@Body dto: UserContentDTO): Observable<Result>
 
     @GET("content/searchOnImdb/{param}")
     fun searchOnImdb(@Path("param") param: String): Observable<List<Content>>
