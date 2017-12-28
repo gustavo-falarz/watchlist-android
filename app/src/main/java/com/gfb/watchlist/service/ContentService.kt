@@ -25,7 +25,7 @@ object ContentService {
         return getService().findArchive(userId)
     }
 
-    fun findContent(dto: UserContentDTO): Observable<List<Content>> {
+    fun findContent(dto: UserContentDTO): Observable<MutableList<Content>> {
         return getService().findContent(dto)
     }
 

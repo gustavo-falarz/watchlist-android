@@ -29,6 +29,6 @@ interface MovieEndpoint {
     fun findArchive(@Path("userId") param: String): Observable<List<Content>>
 
     @POST("content/findWithParameters")
-    fun findContent(@Body dto: UserContentDTO): Observable<List<Content>>
+    fun findContent(@Body dto: UserContentDTO): Observable<MutableList<Content>>
 
 }

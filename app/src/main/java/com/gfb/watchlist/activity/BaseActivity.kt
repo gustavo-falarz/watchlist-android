@@ -3,6 +3,8 @@ package com.gfb.watchlist.activity
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -37,7 +39,6 @@ open class BaseActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.setTitle(title)
         setSupportActionBar(toolbar)
-
     }
 
     fun setupActionBar() {
@@ -62,7 +63,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun showProgress() {
-        progress = indeterminateProgressDialog(message = "Please wait a bit…", title = "Fetching data")
+        progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
     }
 
     fun closeProgress() {
@@ -81,7 +82,6 @@ open class BaseActivity : AppCompatActivity() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
 
     val Context.database: MyDatabaseOpenHelper
         get() = MyDatabaseOpenHelper.getInstance(applicationContext)

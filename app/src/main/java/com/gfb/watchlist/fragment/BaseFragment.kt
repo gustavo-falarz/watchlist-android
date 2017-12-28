@@ -13,7 +13,7 @@ import org.jetbrains.anko.yesButton
 /**
  * Created by Gustavo on 12/26/2017.
  */
-open class BaseFragment: Fragment(){
+open class BaseFragment : Fragment() {
 
     lateinit var progress: ProgressDialog
 
@@ -23,7 +23,7 @@ open class BaseFragment: Fragment(){
     }
 
     fun showProgress() {
-        progress = indeterminateProgressDialog(message = "Please wait a bit…", title = "Fetching data")
+        progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
     }
 
     fun closeProgress() {
@@ -34,7 +34,7 @@ open class BaseFragment: Fragment(){
         exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
     }
 
-    fun showWarning(message: String){
-        alert (message, getString(R.string.error_title)){yesButton {  }}
+    fun showWarning(message: String) {
+        alert(message, getString(R.string.error_title)) { yesButton { } }
     }
 }

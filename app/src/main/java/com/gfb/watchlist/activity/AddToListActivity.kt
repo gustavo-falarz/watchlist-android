@@ -12,8 +12,7 @@ import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_add_to_list.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 
 class AddToListActivity : BaseActivity() {
 
@@ -66,7 +65,7 @@ class AddToListActivity : BaseActivity() {
 
     private fun confirmAddition(content: Content) {
 
-        alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.message_title_add_content)) {
+        alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.title_add_content)) {
             positiveButton(R.string.yes) { addToList(content) }
             negativeButton(R.string.no) {}
         }.show()
@@ -79,9 +78,10 @@ class AddToListActivity : BaseActivity() {
                         { response ->
                             if (response.status) {
 
-                                alert(response.message, getString(R.string.message_title_success)) {
+                                alert(response.message, getString(R.string.title_success)) {
                                     yesButton {
                                         ContentContainer.content = null
+                                        startActivity(intentFor<MainActivity>().clearTask().newTask())
                                         finish()
                                     }
                                 }.show()

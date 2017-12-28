@@ -1,25 +1,22 @@
 package com.gfb.watchlist.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.MainActivity
+import com.gfb.watchlist.activity.ContentDetailsActivity
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.startActivity
-import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.yesButton
 
 
@@ -45,38 +42,27 @@ class RecentlyAddedFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        when {
-            ContentContainer.isEmpty() -> findContent()
-            else -> setAdapter()
-        }
-
+        setAdapter()
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.content!!) {
-            confirmationArchive(it)
+        val adapter = ContentAdapter(ContentContainer.content!!) { content, i ->
+            when (i) {
+                0 -> callActivity(content)
+                1 -> confirmationArchive(content)
+            }
         }
         recyclerViewContent.adapter = adapter
     }
 
-    private fun findContent() {
-        showProgress()
-        ContentService.findContent(UserContentDTO(UserInfo.userId, null, null)).applySchedulers()
-                .subscribe(
-                        { content ->
-                            closeProgress()
-                            ContentContainer.initContent(content)
-                            setAdapter()
-                        },
-                        { error ->
-                            closeProgress()
-                            handleException(error)
-                        }
-                )
+    private fun callActivity(content: Content) {
+        val intent = Intent(context, ContentDetailsActivity::class.java)
+        intent.putExtra("content", content)
+        startActivity(intent)
     }
 
     private fun confirmationArchive(content: Content) {
-        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.message_title_add_content)) {
+        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_add_content)) {
             positiveButton(R.string.yes) { archiveContent(content) }
             negativeButton(R.string.no) {}
         }.show()
@@ -88,9 +74,10 @@ class RecentlyAddedFragment : BaseFragment() {
                 .subscribe(
                         { response ->
                             closeProgress()
-                            alert(response.message, getString(R.string.message_title_success)) {
+                            alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    //TODO Atualizar lista
+                                    ContentContainer.content?.remove(content)
+                                    setAdapter()
                                 }
                             }.show()
                         },

@@ -1,6 +1,7 @@
 package com.gfb.watchlist.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by Gustavo on 10/26/2017.
@@ -31,4 +32,17 @@ class Content(
         var plot: String,
 
         @SerializedName("imdbID")
-        var imdbID: String)
+        var imdbID: String,
+
+        @SerializedName("Actors")
+        var actors: String,
+
+        @SerializedName("Released")
+        var released: String,
+
+        @SerializedName("Production")
+        var production: String,
+
+        @SerializedName("Runtime")
+        var runtime: String)
+    : Serializable

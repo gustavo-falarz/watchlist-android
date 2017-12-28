@@ -1,6 +1,7 @@
 package com.gfb.watchlist.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -8,13 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gfb.watchlist.R
+import com.gfb.watchlist.activity.ContentDetailsActivity
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
-import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.yesButton
 
 
 class MoviesFragment : BaseFragment() {
@@ -38,27 +42,44 @@ class MoviesFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        when {
-            ContentContainer.isEmpty() -> findContent()
-            else -> setAdapter()
-        }
+        setAdapter()
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.getContent(getString(R.string.movies))) {
-            toast("${it.title} selected")
+        val adapter = ContentAdapter(ContentContainer.getContent(getString(R.string.movies))) { content, i ->
+            when (i) {
+                0 -> callActivity(content)
+                1 -> confirmationArchive(content)
+            }
         }
         recyclerViewContent.adapter = adapter
     }
 
-    private fun findContent() {
+    private fun callActivity(content: Content) {
+        val intent = Intent(context, ContentDetailsActivity::class.java)
+        intent.putExtra("content", content)
+        startActivity(intent)
+    }
+
+    private fun confirmationArchive(content: Content) {
+        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_add_content)) {
+            positiveButton(R.string.yes) { archiveContent(content) }
+            negativeButton(R.string.no) {}
+        }.show()
+    }
+
+    private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.findContent(UserContentDTO(UserInfo.userId, null, null)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
                 .subscribe(
-                        { content ->
+                        { response ->
                             closeProgress()
-                            ContentContainer.initContent(content)
-                            setAdapter()
+                            alert(response.message, getString(R.string.title_success)) {
+                                yesButton {
+                                    ContentContainer.content?.remove(content)
+                                    setAdapter()
+                                }
+                            }.show()
                         },
                         { error ->
                             closeProgress()

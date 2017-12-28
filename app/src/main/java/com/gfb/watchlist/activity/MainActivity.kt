@@ -36,8 +36,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
-        container.adapter = mSectionsPagerAdapter
-
         container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
@@ -82,7 +80,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)
-        return true
+        return false
     }
 
     inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -102,10 +100,30 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             return RecentlyAddedFragment.newInstance()
         }
 
-
         override fun getCount(): Int {
             return 3
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        findContent()
+    }
+
+    private fun findContent() {
+        showProgress()
+        ContentService.findContent(UserContentDTO(UserInfo.userId, null, null)).applySchedulers()
+                .subscribe(
+                        { content ->
+                            closeProgress()
+                            ContentContainer.initContent(content)
+                            container.adapter = mSectionsPagerAdapter
+                        },
+                        { error ->
+                            closeProgress()
+                            handleException(error)
+                        }
+                )
     }
 
 }

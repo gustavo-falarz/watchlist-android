@@ -3,7 +3,9 @@ package com.gfb.watchlist.activity
 import android.os.Bundle
 import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.UserInfo
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 
 class SplashActivity : BaseActivity() {
 
@@ -15,9 +17,9 @@ class SplashActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         if (UserInfo.userId == "") {
-            startActivity<NewUserActivity>()
+            startActivity(intentFor<NewUserActivity>().clearTask().newTask())
         } else {
-            startActivity<MainActivity>()
+            startActivity(intentFor<MainActivity>().clearTask().newTask())
         }
     }
 

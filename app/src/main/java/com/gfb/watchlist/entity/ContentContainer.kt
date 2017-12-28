@@ -4,9 +4,9 @@ package com.gfb.watchlist.entity
  * Created by Gustavo on 12/27/2017.
  */
 object ContentContainer {
-    var content: List<Content>? = null
+    var content: MutableList<Content>? = null
 
-    fun initContent(newContent: List<Content>?) {
+    fun initContent(newContent: MutableList<Content>?) {
         content = newContent!!
     }
 

@@ -33,6 +33,7 @@ class ArchiveAdapter(private val items: List<Content>, private val listener: (Co
             tvDirector.text = content.director
             imStatus.setImageResource(R.drawable.ic_watched)
             imPoster.load(content.poster){request -> request.fit()}
+            btWatch.setOnClickListener{listener(content)}
             setOnClickListener { listener(content) }
         }
     }
