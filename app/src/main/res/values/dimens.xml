@@ -10,4 +10,6 @@
     <dimen name="confirmation_button_text_size">17sp</dimen>
     <dimen name="text_spacing">5dp</dimen>
     <dimen name="card_margin">10dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="button_google_height">63dp</dimen>
 </resources>

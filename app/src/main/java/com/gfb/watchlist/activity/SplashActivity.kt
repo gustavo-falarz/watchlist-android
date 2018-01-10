@@ -17,9 +17,9 @@ class SplashActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         if (UserInfo.userId == "") {
-            startActivity(intentFor<NewUserActivity>().clearTask().newTask())
+            startActivity(intentFor<LoginActivity>().clearTask().newTask())
         } else {
-            startActivity(intentFor<MainActivity>().clearTask().newTask())
+            startActivity(intentFor<LoginActivity>().clearTask().newTask())
         }
     }
 

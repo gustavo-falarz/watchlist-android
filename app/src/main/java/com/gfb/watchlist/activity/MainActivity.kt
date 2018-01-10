@@ -117,6 +117,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         { content ->
                             closeProgress()
                             ContentContainer.initContent(content)
+                            //TODO Tratar nullpointer
                             container.adapter = mSectionsPagerAdapter
                         },
                         { error ->
