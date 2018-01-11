@@ -28,7 +28,7 @@ class AddToListActivity : BaseActivity() {
     }
 
     private fun onActionSearch(): TextView.OnEditorActionListener? {
-        return TextView.OnEditorActionListener { v, actionId, event ->
+        return TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchOnImdb()
                 true

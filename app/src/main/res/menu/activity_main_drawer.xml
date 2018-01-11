@@ -5,11 +5,16 @@
         <item
             android:id="@+id/nav_add_content"
             android:icon="@drawable/ic_add_content"
-            android:title="Add to list" />
+            android:title="@string/nav_add_to_list" />
         <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_archive_black"
-            android:title="Your archive" />
+            android:title="@string/nav_your_archive" />
+
+        <item
+            android:id="@+id/nav_add_new_content"
+            android:icon="@drawable/ic_add_content"
+            android:title="@string/nav_add_new_content" />
     </group>
 
     <item android:title="">
@@ -18,7 +23,7 @@
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_logout"
-                android:title="Logout" />
+                android:title="@string/nav_logout" />
         </menu>
     </item>
 

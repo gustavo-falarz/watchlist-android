@@ -72,7 +72,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_archive -> {
                 startActivity<ArchiveActivity>()
             }
-
+            R.id.nav_add_new_content -> {
+                startActivity<CreateContentActivity>()
+            }
             R.id.nav_logout -> {
                 UserInfo.clearData()
                 startActivity<SplashActivity>()

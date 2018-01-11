@@ -1,35 +1,31 @@
 package com.gfb.watchlist.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
 import com.gfb.watchlist.R
 import com.gfb.watchlist.util.MyDatabaseOpenHelper
-import com.gfb.watchlist.util.ServerException
 import io.reactivex.Observable
-
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.progressDialog
 import org.jetbrains.anko.yesButton
 
 /**
  * Created by Gustavo on 12/4/2017.
  */
 
+@SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
 
-    lateinit var progress: ProgressDialog
+    private lateinit var progress: ProgressDialog
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
         return subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())

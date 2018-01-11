@@ -29,8 +29,8 @@ class LoginActivity : BaseActivity() {
                 showProgress()
                 UserService.validateUser(user).applySchedulers()
                         .subscribe(
-                                { user ->
-                                    saveUserLocally(user)
+                                {
+                                    saveUserLocally(it)
                                     closeProgress()
                                 },
                                 { error ->

@@ -23,7 +23,7 @@
     <string name="no">No</string>
     <string name="title_archive">Your archive</string>
     <string name="title_loading">Doing stuff</string>
-    <string name="message_loading">Hang in there...</string>
+    <string name="message_loading">Hang in there…</string>
     <string name="title_details">Details</string>
     <string name="label_director">Director: </string>
     <string name="label_genre">Genre:</string>
@@ -50,4 +50,12 @@
         completions."
     </string>
     <string name="action_sign_up">Sign up</string>
+    <string name="release_year">Release year</string>
+    <string name="label_title">Title</string>
+    <string name="label_plot">Plot</string>
+    <string name="label_poster">Supply a link to the poster</string>
+    <string name="nav_add_to_list">Add to list</string>
+    <string name="nav_your_archive">Your archive</string>
+    <string name="nav_add_new_content">Add new content</string>
+    <string name="nav_logout">Logout</string>
 </resources>

@@ -23,9 +23,8 @@ import org.jetbrains.anko.yesButton
 class SeriesFragment : BaseFragment() {
     private lateinit var recyclerViewContent: RecyclerView
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_recently_added, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_recently_added, container, false)
         recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
         return view

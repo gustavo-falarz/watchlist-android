@@ -31,8 +31,8 @@ class NewUserActivity : BaseActivity() {
                 showProgress()
                 UserService.addUser(user).applySchedulers()
                         .subscribe(
-                                { user ->
-                                    saveUserLocally(user)
+                                {
+                                    saveUserLocally(it)
                                     closeProgress()
                                 },
                                 { error ->
