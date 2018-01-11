@@ -74,7 +74,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             R.id.nav_logout -> {
-                startActivity<NewUserActivity>()
+                UserInfo.clearData()
+                startActivity<SplashActivity>()
             }
         }
 

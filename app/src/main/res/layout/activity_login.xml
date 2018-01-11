@@ -12,12 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gfb.watchlist.activity.LoginActivity">
 
-
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
@@ -29,7 +23,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,7 +43,7 @@
 
                 <EditText
                     android:textColor="@color/white"
-                    android:id="@+id/email"
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -66,7 +61,7 @@
 
                 <EditText
                     android:textColor="@color/white"
-                    android:id="@+id/password"
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -79,7 +74,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/btSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="16dp"
@@ -91,14 +86,14 @@
 
 
             <com.google.android.gms.common.SignInButton
-                android:id="@+id/sign_in_button"
+                android:id="@+id/btSignInWithGoogle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_google_height"
                 android:textAlignment="center"
                 app:buttonSize="wide" />
 
             <TextView
-                android:id="@+id/sign_up_button"
+                android:id="@+id/btSignUp"
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,5 +104,4 @@
                 android:textSize="17sp" />
 
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

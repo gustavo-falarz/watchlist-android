@@ -19,6 +19,6 @@ interface UserEndpoint {
     @POST("user/validate")
     fun validateUser(@Body user: User): Observable<User>
 
-    @POST("user/add/{email}")
+    @POST("user/add")
     fun addUser(@Body user: User): Observable<User>
 }

@@ -3,36 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context="com.gfb.watchlist.activity.NewUserActivity">
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:maxLines="1"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/field_email" />
-
     <LinearLayout
-        android:id="@+id/btEnter"
-        android:imeOptions="actionGo"
+        android:layout_margin="20dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/confirmation_button_height"
-        android:background="@color/confirmation_button"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackground"
-            android:text="Enter"
-            android:textColor="@color/white"
-            android:textSize="@dimen/confirmation_button_text_size" />
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:theme="@style/EditTextLabel" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:theme="@style/EditTextLabel" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/btEnter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/confirmation_button_height"
+            android:background="@color/confirmation_button"
+            android:gravity="center"
+            android:imeOptions="actionGo">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="@string/action_sign_up"
+                android:textColor="@color/white"
+                android:textSize="@dimen/confirmation_button_text_size" />
 
 
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
