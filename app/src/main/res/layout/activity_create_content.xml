@@ -100,5 +100,29 @@
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:id="@+id/btCreate"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:background="@color/green_400"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Confirm addition"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

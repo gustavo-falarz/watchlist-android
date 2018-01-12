@@ -32,7 +32,7 @@ class ResumedContentAdapter(
         fun bindView(content: Content, listener: (Content) -> Unit) = with(itemView) {
             tvTitle.text = content.title
             tvRelease.text = content.year
-            imPoster.load(content.poster){request -> request.fit()}
+            imPoster.load(content.poster!!){request -> request.fit()}
             setOnClickListener { listener(content) }
         }
 

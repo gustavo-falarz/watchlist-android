@@ -19,7 +19,7 @@ class SplashActivity : BaseActivity() {
         if (UserInfo.userId == "") {
             startActivity(intentFor<LoginActivity>().clearTask().newTask())
         } else {
-            startActivity(intentFor<LoginActivity>().clearTask().newTask())
+            startActivity(intentFor<MainActivity>().clearTask().newTask())
         }
     }
 

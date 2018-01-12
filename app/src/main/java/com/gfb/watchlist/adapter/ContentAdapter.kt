@@ -31,7 +31,7 @@ class ContentAdapter(private val items: List<Content>, private val listener: (Co
             tvRelease.text = content.year
             tvGenre.text = content.genre
             tvDirector.text = content.director
-            imPoster.load(content.poster){request -> request.fit()}
+            imPoster.load(content.poster!!){request -> request.fit()}
             btWatch.setOnClickListener { listener (content, 1) }
             setOnClickListener { listener(content, 0) }
         }

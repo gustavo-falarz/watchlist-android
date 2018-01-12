@@ -32,6 +32,7 @@ class LoginActivity : BaseActivity() {
                                 {
                                     saveUserLocally(it)
                                     closeProgress()
+                                    startActivity<MainActivity>()
                                 },
                                 { error ->
                                     handleException(error)
@@ -48,7 +49,6 @@ class LoginActivity : BaseActivity() {
     private fun saveUserLocally(user: User) {
         UserInfo.userId = user.id!!
         UserInfo.email = user.email
-        startActivity<MainActivity>()
     }
 
     private fun checkEmpty(): Boolean {

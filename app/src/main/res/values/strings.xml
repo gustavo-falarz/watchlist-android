@@ -58,4 +58,5 @@
     <string name="nav_your_archive">Your archive</string>
     <string name="nav_add_new_content">Add new content</string>
     <string name="nav_logout">Logout</string>
+    <string name="title_add_new_content">Add new content</string>
 </resources>

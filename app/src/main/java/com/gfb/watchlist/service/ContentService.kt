@@ -36,4 +36,17 @@ object ContentService {
     private fun getService(): MovieEndpoint {
         return Service.createService(MovieEndpoint::class.java)
     }
+
+
+    /**
+     * Funcões pra aula
+     */
+
+    fun addContentAula(content: Content): Observable<Result> {
+        return getService().addContentAula(content)
+    }
+
+    fun searchAula(param: String): Observable<List<Content>>{
+        return getService().searchAula(param)
+    }
 }

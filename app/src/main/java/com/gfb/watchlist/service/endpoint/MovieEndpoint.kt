@@ -31,4 +31,15 @@ interface MovieEndpoint {
     @POST("content/findWithParameters")
     fun findContent(@Body dto: UserContentDTO): Observable<MutableList<Content>>
 
+
+    /**
+     * Funcões pra aula
+     */
+
+    @POST("content/addContent")
+    fun addContentAula(@Body content: Content): Observable<Result>
+
+    @GET("content/findAllByTitle/{param}")
+    fun searchAula(@Path("param") param: String): Observable<List<Content>>
+
 }
