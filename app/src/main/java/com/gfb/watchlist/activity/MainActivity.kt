@@ -10,6 +10,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.TextureView
+import android.widget.TextView
 import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
@@ -47,6 +49,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+        var header = navigationView.getHeaderView(0)
+        var textUser = header.findViewById<TextView>(R.id.textView)
+        textUser.text = UserInfo.email
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
 
