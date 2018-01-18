@@ -43,7 +43,7 @@ class AddToListActivity : BaseActivity() {
         hideKeyboard()
         val query = etSearchContent.text.toString().trim()
         showProgress()
-        ContentService.searchAula(query).applySchedulers()
+        ContentService.searchOnImdb(query).applySchedulers()
                 .subscribe(
                         { contents ->
                             setAdapter(contents)
@@ -77,10 +77,8 @@ class AddToListActivity : BaseActivity() {
                 .subscribe(
                         { response ->
                             if (response.status) {
-
                                 alert(response.message, getString(R.string.title_success)) {
                                     yesButton {
-                                        ContentContainer.content = null
                                         startActivity(intentFor<MainActivity>().clearTask().newTask())
                                         finish()
                                     }

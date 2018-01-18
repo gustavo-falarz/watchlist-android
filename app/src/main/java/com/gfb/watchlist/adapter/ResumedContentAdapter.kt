@@ -10,8 +10,8 @@ import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.adapter_content.view.*
 
 /**
- * Created by Gustavo on 12/27/2017.
- */
+* Created by Gustavo on 12/27/2017.
+*/
 class ResumedContentAdapter(
         private val items: List<Content>,
         private val listener: (Content) -> Unit)
@@ -32,7 +32,7 @@ class ResumedContentAdapter(
         fun bindView(content: Content, listener: (Content) -> Unit) = with(itemView) {
             tvTitle.text = content.title
             tvRelease.text = content.year
-            imPoster.load(content.poster!!){request -> request.fit()}
+            imPoster.load(content.poster){request -> request.fit()}
             setOnClickListener { listener(content) }
         }
 

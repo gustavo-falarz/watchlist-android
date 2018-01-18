@@ -34,7 +34,7 @@ class ContentDetailsActivity : BaseActivity() {
         tvProduction.text = content.production
         tvReleased.text = content.released
         tvActors.text = content.actors
-        imPoster.load(content.poster!!) { request -> request.fit() }
+        imPoster.load(content.poster) { request -> request.fit() }
         fab.setOnClickListener { confirmationArchive() }
 
     }
@@ -68,7 +68,7 @@ class ContentDetailsActivity : BaseActivity() {
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content?.remove(content)
+                                    ContentContainer.content.remove(content)
                                     finish()
                                 }
                             }.show()

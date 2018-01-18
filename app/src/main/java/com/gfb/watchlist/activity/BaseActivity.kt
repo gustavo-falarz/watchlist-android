@@ -66,6 +66,10 @@ open class BaseActivity : AppCompatActivity() {
         progress.hide()
     }
 
+    fun showWarning(message: Int) {
+       showWarning(getString(message))
+    }
+
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }.show()
     }
