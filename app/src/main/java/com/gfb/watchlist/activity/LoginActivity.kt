@@ -39,9 +39,8 @@ class LoginActivity : BaseActivity() {
                                     closeProgress()
                                 }
                         )
-
             }
-            else -> alert("Some fields are empty", getString(R.string.error_title)) { yesButton { } }.show()
+            else -> showWarning(R.string.warning_empty_fields)
 
         }
     }
@@ -52,8 +51,6 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun checkEmpty(): Boolean {
-        val isEmpty1 = etEmail.text.isNullOrEmpty()
-        val isEmpty2 = etPassword.text.isNullOrEmpty()
-        return isEmpty1 || isEmpty2
+        return etEmail.text.isNullOrEmpty() || etPassword.text.isNullOrEmpty()
     }
 }

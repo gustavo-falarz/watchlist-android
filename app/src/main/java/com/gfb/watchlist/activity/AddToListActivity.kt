@@ -43,7 +43,7 @@ class AddToListActivity : BaseActivity() {
         hideKeyboard()
         val query = etSearchContent.text.toString().trim()
         showProgress()
-        ContentService.searchAula(query).applySchedulers()
+        ContentService.searchOnImdb(query).applySchedulers()
                 .subscribe(
                         { contents ->
                             setAdapter(contents)
