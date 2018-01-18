@@ -117,7 +117,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun findContent() {
         showProgress()
-        ContentService.findContent(UserContentDTO(UserInfo.userId, null, null)).applySchedulers()
+        ContentService.findContent(UserContentDTO(UserInfo.userId)).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()

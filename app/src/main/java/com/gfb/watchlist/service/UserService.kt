@@ -10,8 +10,6 @@ import io.reactivex.Observable
  */
 object UserService {
 
-    fun addUser(email: String): Observable<User> = getService().addUser(email)
-
     fun validateUser(user: User): Observable<User> = getService().validateUser(user)
 
     fun addUser(user: User): Observable<User> = getService().addUser(user)

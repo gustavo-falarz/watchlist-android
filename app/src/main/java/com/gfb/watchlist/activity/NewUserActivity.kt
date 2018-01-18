@@ -23,11 +23,10 @@ class NewUserActivity : BaseActivity() {
     private fun addUser() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
-        val user = User(null, email, password, ArrayList<Content>(), ArrayList<Content>())
+        val user = User(email, password, mutableListOf(), mutableListOf())
 
         when {
             !checkEmpty() -> {
-
                 showProgress()
                 UserService.addUser(user).applySchedulers()
                         .subscribe(
@@ -41,19 +40,17 @@ class NewUserActivity : BaseActivity() {
                                 }
                         )
             }
-            else -> alert("Some fields are empty", getString(R.string.error_title)) { yesButton { } }.show()
+            else -> showWarning(R.string.warning_empty_fields)
         }
     }
 
     private fun saveUserLocally(user: User) {
         UserInfo.userId = user.id!!
-        UserInfo.email = user.email
+        UserInfo.email = user.email!!
         startActivity<MainActivity>()
     }
 
     private fun checkEmpty(): Boolean {
-        val isEmpty1 = etEmail.text.isNullOrEmpty()
-        val isEmpty2 = etPassword.text.isNullOrEmpty()
-        return isEmpty1 || isEmpty2
+        return etPassword.text.isNullOrEmpty() || etEmail.text.isNullOrEmpty()
     }
 }

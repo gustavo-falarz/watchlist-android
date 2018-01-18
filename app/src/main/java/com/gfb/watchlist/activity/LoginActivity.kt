@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity() {
     private fun signIn() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
-        val user = User(null, email, password, null, null)
+        val user = User(email, password)
         when {
             !checkEmpty() -> {
                 showProgress()
@@ -47,7 +47,7 @@ class LoginActivity : BaseActivity() {
 
     private fun saveUserLocally(user: User) {
         UserInfo.userId = user.id!!
-        UserInfo.email = user.email
+        UserInfo.email = user.email!!
     }
 
     private fun checkEmpty(): Boolean {
