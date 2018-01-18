@@ -2,14 +2,12 @@ package com.gfb.watchlist.activity
 
 import android.os.Bundle
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
 import kotlinx.android.synthetic.main.activity_new_user.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.yesButton
 
 class NewUserActivity : BaseActivity() {
 
@@ -19,11 +17,10 @@ class NewUserActivity : BaseActivity() {
         btEnter.setOnClickListener({ addUser() })
 
     }
-
     private fun addUser() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
-        val user = User(email, password, mutableListOf(), mutableListOf())
+        val user = UserDTO(email, password, mutableListOf(), mutableListOf())
 
         when {
             !checkEmpty() -> {
@@ -45,8 +42,8 @@ class NewUserActivity : BaseActivity() {
     }
 
     private fun saveUserLocally(user: User) {
-        UserInfo.userId = user.id!!
-        UserInfo.email = user.email!!
+        UserInfo.userId = user.id
+        UserInfo.email = user.email
         startActivity<MainActivity>()
     }
 

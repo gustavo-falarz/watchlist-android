@@ -8,7 +8,7 @@ import java.io.Serializable
  */
 class Content(
         @SerializedName("id")
-        var id: String?,
+        var id: String,
 
         @SerializedName("Title")
         var title: String,
@@ -20,29 +20,29 @@ class Content(
         var type: String,
 
         @SerializedName("Poster")
-        var poster: String?,
+        var poster: String,
 
         @SerializedName("Genre")
-        var genre: String?,
+        var genre: String,
 
         @SerializedName("Director")
-        var director: String?,
+        var director: String,
 
         @SerializedName("Plot")
-        var plot: String?,
+        var plot: String,
 
         @SerializedName("imdbID")
-        var imdbID: String?,
+        var imdbID: String,
 
         @SerializedName("Actors")
-        var actors: String?,
+        var actors: String,
 
         @SerializedName("Released")
-        var released: String?,
+        var released: String,
 
         @SerializedName("Production")
-        var production: String?,
+        var production: String,
 
         @SerializedName("Runtime")
-        var runtime: String?)
+        var runtime: String)
     : Serializable

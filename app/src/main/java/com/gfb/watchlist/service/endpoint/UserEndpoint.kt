@@ -1,6 +1,7 @@
 package com.gfb.watchlist.service.endpoint
 
 import com.gfb.watchlist.entity.User
+import com.gfb.watchlist.entity.dto.UserDTO
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -12,8 +13,8 @@ import retrofit2.http.POST
 interface UserEndpoint {
 
     @POST("user/validate")
-    fun validateUser(@Body user: User): Observable<User>
+    fun validateUser(@Body user: UserDTO): Observable<User>
 
     @POST("user/add")
-    fun addUser(@Body user: User): Observable<User>
+    fun addUser(@Body user: UserDTO): Observable<User>
 }

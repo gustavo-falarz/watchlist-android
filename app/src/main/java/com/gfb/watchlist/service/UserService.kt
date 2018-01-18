@@ -1,6 +1,7 @@
 package com.gfb.watchlist.service
 
 import com.gfb.watchlist.entity.User
+import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.endpoint.UserEndpoint
 import io.reactivex.Observable
 
@@ -10,9 +11,9 @@ import io.reactivex.Observable
  */
 object UserService {
 
-    fun validateUser(user: User): Observable<User> = getService().validateUser(user)
+    fun validateUser(user: UserDTO): Observable<User> = getService().validateUser(user)
 
-    fun addUser(user: User): Observable<User> = getService().addUser(user)
+    fun addUser(user: UserDTO): Observable<User> = getService().addUser(user)
 
     private fun getService(): UserEndpoint = Service.createService(UserEndpoint::class.java)
 

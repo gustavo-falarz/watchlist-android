@@ -77,10 +77,8 @@ class AddToListActivity : BaseActivity() {
                 .subscribe(
                         { response ->
                             if (response.status) {
-
                                 alert(response.message, getString(R.string.title_success)) {
                                     yesButton {
-                                        ContentContainer.content = null
                                         startActivity(intentFor<MainActivity>().clearTask().newTask())
                                         finish()
                                     }

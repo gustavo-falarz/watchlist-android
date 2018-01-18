@@ -10,11 +10,6 @@
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_archive_black"
             android:title="@string/nav_your_archive" />
-
-        <item
-            android:id="@+id/nav_add_new_content"
-            android:icon="@drawable/ic_add_content"
-            android:title="@string/nav_add_new_content" />
     </group>
 
     <item android:title="">

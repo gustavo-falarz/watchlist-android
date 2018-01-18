@@ -10,8 +10,8 @@ import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.adapter_content.view.*
 
 /**
- * Created by Gustavo on 12/22/2017.
- */
+* Created by Gustavo on 12/22/2017.
+*/
 class ArchiveAdapter(private val items: List<Content>, private val listener: (Content) -> Unit) : RecyclerView.Adapter<ArchiveAdapter.ContentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContentViewHolder {
@@ -32,7 +32,7 @@ class ArchiveAdapter(private val items: List<Content>, private val listener: (Co
             tvGenre.text = content.genre
             tvDirector.text = content.director
             imStatus.setImageResource(R.drawable.ic_watched)
-            imPoster.load(content.poster!!){request -> request.fit()}
+            imPoster.load(content.poster){request -> request.fit()}
             btWatch.setOnClickListener{listener(content)}
             setOnClickListener { listener(content) }
         }
