@@ -33,7 +33,7 @@
     <string name="title_misc">Misc</string>
     <string name="label_runtime">Runtime:</string>
     <string name="label_released">Released:</string>
-    <string name="label_production">Production</string>
+    <string name="label_production">Production:</string>
     <string name="label_by">By: </string>
     <string name="title_activity_login">Sign in</string>
 
@@ -61,4 +61,5 @@
     <string name="title_add_new_content">Add new content</string>
     <string name="warning_empty_fields">Looks like some fields are empty</string>
     <string name="user_profile">User profile</string>
+    <string name="description_archive_content">Archive content</string>
 </resources>
