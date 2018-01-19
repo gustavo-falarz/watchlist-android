@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.gfb.watchlist.activity
 
 import android.annotation.SuppressLint
@@ -22,6 +24,7 @@ import org.jetbrains.anko.yesButton
  * Created by Gustavo on 12/4/2017.
  */
 
+@Suppress("DEPRECATION")
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
 
@@ -50,7 +53,6 @@ open class BaseActivity : AppCompatActivity() {
                 return true
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
