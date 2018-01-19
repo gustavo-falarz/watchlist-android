@@ -80,12 +80,12 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="@dimen/text_spacing"
                                 android:text="@string/label_director"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tvDirector"
@@ -96,18 +96,18 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_marginTop="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingRight="@dimen/text_spacing"
                                 android:text="@string/label_genre"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tvGenre"
@@ -146,8 +146,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/card_margin"
-                    android:layout_marginHorizontal="@dimen/card_margin">
+                    android:layout_marginHorizontal="@dimen/card_margin"
+                    android:layout_marginTop="@dimen/card_margin">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -159,7 +159,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_actors"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvActors"
@@ -176,8 +177,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/card_margin"
-                    android:layout_marginHorizontal="@dimen/card_margin">
+                    android:layout_marginHorizontal="@dimen/card_margin"
+                    android:layout_marginTop="@dimen/card_margin">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -189,7 +190,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_plot"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvPlot"
@@ -217,14 +219,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_misc"
-                            android:textSize="18dp" />
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
-                            android:layout_marginTop="10dp"
-                            android:paddingVertical="@dimen/text_spacing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:paddingVertical="@dimen/text_spacing">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -235,15 +238,15 @@
                             <TextView
                                 android:id="@+id/tvRuntime"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:paddingVertical="@dimen/text_spacing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingVertical="@dimen/text_spacing">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -254,16 +257,16 @@
                             <TextView
                                 android:id="@+id/tvReleased"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 
 
                         <LinearLayout
-                            android:paddingVertical="@dimen/text_spacing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:paddingVertical="@dimen/text_spacing">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -274,7 +277,7 @@
                             <TextView
                                 android:id="@+id/tvProduction"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content" />
 
                         </LinearLayout>
 

@@ -45,14 +45,13 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.getContent(getString(R.string.movies))) { content, i ->
-            when (i) {
-                0 -> callActivity(content)
-                1 -> confirmationArchive(content)
-            }
-        }
+        val adapter = ContentAdapter(ContentContainer.content,
+                { content -> callActivity(content) },
+                { content -> confirmationArchive(content) })
+
         recyclerViewContent.adapter = adapter
     }
+
 
     private fun callActivity(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
@@ -75,7 +74,7 @@ class MoviesFragment : BaseFragment() {
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content?.remove(content)
+                                    ContentContainer.content.remove(content)
                                     setAdapter()
                                 }
                             }.show()

@@ -45,12 +45,10 @@ class RecentlyAddedFragment : BaseFragment() {
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.content!!) { content, i ->
-            when (i) {
-                0 -> callActivity(content)
-                1 -> confirmationArchive(content)
-            }
-        }
+        val adapter = ContentAdapter(ContentContainer.content,
+                { content -> callActivity(content) },
+                { content -> confirmationArchive(content) })
+
         recyclerViewContent.adapter = adapter
     }
 
@@ -75,7 +73,7 @@ class RecentlyAddedFragment : BaseFragment() {
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content?.remove(content)
+                                    ContentContainer.content.remove(content)
                                     setAdapter()
                                 }
                             }.show()

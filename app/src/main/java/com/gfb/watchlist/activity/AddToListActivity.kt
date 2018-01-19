@@ -54,7 +54,6 @@ class AddToListActivity : BaseActivity() {
                             closeProgress()
                         }
                 )
-
     }
 
     private fun setAdapter(contents: List<Content>) {
