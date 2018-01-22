@@ -29,7 +29,6 @@ class RecentlyAddedFragment : BaseFragment() {
         recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
         return view
-
     }
 
     companion object {

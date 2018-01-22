@@ -14,7 +14,4 @@ object ContentContainer {
         return content.filter { it.type == type }
     }
 
-    fun isEmpty(): Boolean {
-        return content == null
-    }
 }
