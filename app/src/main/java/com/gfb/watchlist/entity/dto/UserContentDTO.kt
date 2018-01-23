@@ -9,6 +9,8 @@ class UserContentDTO(var userId: String?,
 
     constructor(userId: String?) : this(userId, null, null)
 
+    constructor(userId: String?, content: Content?) : this(userId, content, null)
+
     enum class Type {
         MOVIE,
         SERIES

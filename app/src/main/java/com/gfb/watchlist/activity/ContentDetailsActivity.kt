@@ -9,6 +9,7 @@ import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.activity_content_details.*
 import org.jetbrains.anko.alert
@@ -23,7 +24,7 @@ class ContentDetailsActivity : BaseActivity() {
         setupToolbar(R.string.title_details)
         setupActionBar()
 
-        content = intent.getSerializableExtra("content") as Content
+        content = intent.getSerializableExtra(Constants.TRANSITION_KEY_CONTENT) as Content
 
         tvTitle.text = content.title
         tvYear.text = content.year

@@ -6,4 +6,5 @@ package com.gfb.watchlist.util
 object Constants {
     val TYPE_MOVIE = "movies"
     val TYPE_SERIES = "series"
+    val TRANSITION_KEY_CONTENT = "content"
 }

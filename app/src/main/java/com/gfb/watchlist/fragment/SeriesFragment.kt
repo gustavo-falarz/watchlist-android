@@ -52,7 +52,7 @@ class SeriesFragment : BaseFragment() {
 
     private fun callActivity(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
-        intent.putExtra("content", content)
+        intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
     }
 
@@ -65,7 +65,7 @@ class SeriesFragment : BaseFragment() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content, null )).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

@@ -16,6 +16,7 @@ import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 
@@ -53,7 +54,7 @@ class RecentlyAddedFragment : BaseFragment() {
 
     private fun callActivity(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
-        intent.putExtra("content", content)
+        intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
     }
 
@@ -66,7 +67,7 @@ class RecentlyAddedFragment : BaseFragment() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
