@@ -15,8 +15,8 @@ import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
-import com.gfb.watchlist.entity.dto.UserContentDTO.*
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 
@@ -43,7 +43,7 @@ class SeriesFragment : BaseFragment() {
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.getContent("series"),
+        val adapter = ContentAdapter(ContentContainer.getContent(Constants.TYPE_SERIES),
                 { content -> callActivity(content) },
                 { content -> confirmationArchive(content) })
 
