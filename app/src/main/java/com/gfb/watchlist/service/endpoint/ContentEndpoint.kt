@@ -14,7 +14,7 @@ import retrofit2.http.Path
  * Created by Gustavo on 10/26/2017.
  */
 
-interface MovieEndpoint {
+interface ContentEndpoint {
 
     @POST("content/add")
     fun addContent(@Body dto: UserContentDTO): Observable<Result>
