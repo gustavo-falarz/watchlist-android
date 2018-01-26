@@ -21,6 +21,7 @@ import com.gfb.watchlist.fragment.SeriesFragment
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 
 
@@ -77,8 +78,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 startActivity<ArchiveActivity>()
             }
             R.id.nav_logout -> {
-                UserInfo.clearData(applicationContext)
-                startActivity<SplashActivity>()
+                logoutConfirmation()
             }
         }
 
@@ -128,6 +128,18 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             handleException(error)
                         }
                 )
+    }
+
+    private fun logoutConfirmation() {
+        alert(String.format(getString(R.string.message_confirmation_logout)), getString(R.string.title_logout)) {
+            positiveButton(R.string.yes) { logout() }
+            negativeButton(R.string.no) {}
+        }.show()
+    }
+
+    private fun logout() {
+        UserInfo.clearData(applicationContext)
+        startActivity<SplashActivity>()
     }
 
 }

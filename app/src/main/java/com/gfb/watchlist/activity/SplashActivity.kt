@@ -21,7 +21,7 @@ class SplashActivity : BaseActivity() {
         } else {
             startActivity(intentFor<MainActivity>().clearTask().newTask())
         }
+        finish()
     }
-
 
 }

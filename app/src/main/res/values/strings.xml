@@ -70,4 +70,6 @@
     <string name="message_clear_archive">Are you sure you want to delete all items from your archive?</string>
     <string name="title_clear_archive">Clear archive</string>
     <string name="clear_archive">Clear archive</string>
+    <string name="message_confirmation_logout">Are you sure?</string>
+    <string name="title_logout">Logging you out</string>
 </resources>

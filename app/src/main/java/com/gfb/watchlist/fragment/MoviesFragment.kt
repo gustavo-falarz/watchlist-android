@@ -59,7 +59,7 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun confirmationArchive(content: Content) {
-        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_add_content)) {
+        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_archive_content)) {
             positiveButton(R.string.yes) { archiveContent(content) }
             negativeButton(R.string.no) {}
         }.show()

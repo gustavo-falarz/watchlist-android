@@ -6,14 +6,12 @@ import android.os.Bundle
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
 import com.gfb.watchlist.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import java.util.*
 
@@ -41,7 +39,7 @@ class LoginActivity : BaseActivity() {
                                 {
                                     UserInfo.saveUserLocally(it)
                                     closeProgress()
-                                    startActivity<MainActivity>()
+                                    nextActivity()
                                 },
                                 { error ->
                                     handleException(error)
@@ -98,12 +96,17 @@ class LoginActivity : BaseActivity() {
                         {
                             UserInfo.saveUserLocally(it)
                             closeProgress()
-                            startActivity<MainActivity>()
+                            nextActivity()
                         },
                         { error ->
                             handleException(error)
                             closeProgress()
                         }
                 )
+    }
+
+    private fun nextActivity(){
+        startActivity<MainActivity>()
+        finish()
     }
 }
