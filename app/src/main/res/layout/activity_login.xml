@@ -90,7 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_google_height"
                 android:textAlignment="center"
-                android:visibility="gone"
                 app:buttonSize="wide" />
 
             <TextView

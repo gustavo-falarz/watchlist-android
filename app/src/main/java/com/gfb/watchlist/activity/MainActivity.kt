@@ -22,6 +22,8 @@ import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.startActivity
+import com.firebase.ui.auth.AuthUI
+import java.util.*
 
 
 @Suppress("DEPRECATION")

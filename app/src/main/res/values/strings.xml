@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyWatchlist</string>
+    <!--<string name="default_web_client_id">AIzaSyCG36hZ8VjwDr44CUiXvn8Ndh35gO7C7Ow</string>-->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
