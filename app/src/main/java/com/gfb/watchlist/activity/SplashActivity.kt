@@ -18,11 +18,9 @@ class SplashActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-
         Handler().postDelayed({
             checkStart()
-        }, 1500)
-
+        }, 2500)
     }
 
     private fun checkStart() {

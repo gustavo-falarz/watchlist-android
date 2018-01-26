@@ -15,6 +15,7 @@
         android:layout_height="80dp" />
 
     <TextView
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:padding="30dp"
         android:textSize="20sp"
