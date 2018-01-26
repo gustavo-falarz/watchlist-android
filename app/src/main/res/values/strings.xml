@@ -19,7 +19,7 @@
     <string name="movies">movie</string>
     <string name="series">series</string>
     <string name="title_success">Yay!</string>
-    <string name="welcome_message">We\'re not actually doing anything\n just wanted to say hello!</string>
+    <string name="welcome_message">Not actually doing anything\n just wanted to say hello!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="title_archive">Your archive</string>
