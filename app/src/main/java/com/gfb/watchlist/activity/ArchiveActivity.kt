@@ -2,12 +2,15 @@ package com.gfb.watchlist.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_archive.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.toast
 
 class ArchiveActivity : BaseActivity() {
@@ -22,12 +25,35 @@ class ArchiveActivity : BaseActivity() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_archive, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_clear_archive ->
+                confirmationDelete()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    private fun confirmationDelete(): Boolean {
+        alert(getString(R.string.message_clear_archive), getString(R.string.title_clear_archive)) {
+            positiveButton(R.string.yes) { clearArchive() }
+            negativeButton(R.string.no) {}
+        }.show()
+        return true
+    }
+
     override fun onStart() {
         super.onStart()
         findArchive()
     }
 
-    private fun findArchive(){
+    private fun findArchive() {
         showProgress()
         ContentService.findArchive(UserInfo.userId).applySchedulers()
                 .subscribe(
@@ -42,10 +68,26 @@ class ArchiveActivity : BaseActivity() {
                 )
     }
 
-    private fun setAdapter(content: List<Content>) {
-        val adapter = ArchiveAdapter(content) {
+    private fun setAdapter(contents: List<Content>) {
+        val adapter = ArchiveAdapter(contents) {
             toast("${it.title} selected")
         }
         recyclerViewContent.adapter = adapter
+    }
+
+    private fun clearArchive() {
+        showProgress()
+        ContentService.clearArchive(UserInfo.userId).applySchedulers()
+                .subscribe(
+                        { response ->
+                            closeProgress()
+                            setAdapter(mutableListOf())
+                           showMessage(response.message)
+                        },
+                        { error ->
+                            closeProgress()
+                            handleException(error)
+                        }
+                )
     }
 }

@@ -75,6 +75,9 @@ open class BaseActivity : AppCompatActivity() {
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }.show()
     }
+    fun showMessage(message: String) {
+        alert(message, getString(R.string.title_success)) { yesButton { } }.show()
+    }
 
     fun Activity.hideKeyboard() {
         hideKeyboard(if (currentFocus == null) View(this) else currentFocus)

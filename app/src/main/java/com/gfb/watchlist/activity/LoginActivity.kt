@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity() {
                 UserService.validateUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    saveUserLocally(it)
+                                    UserInfo.saveUserLocally(it)
                                     closeProgress()
                                     startActivity<MainActivity>()
                                 },
@@ -53,11 +53,6 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun saveUserLocally(user: User) {
-        UserInfo.userId = user.id
-        UserInfo.email = user.email
-    }
-
     private fun checkEmpty(): Boolean {
         return etEmail.text.isNullOrEmpty() || etPassword.text.isNullOrEmpty()
     }
@@ -69,6 +64,7 @@ class LoginActivity : BaseActivity() {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setIsSmartLockEnabled(false)
                         .setAvailableProviders(providers)
                         .build(),
                 Constants.RC_SIGN_IN)
@@ -77,15 +73,37 @@ class LoginActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == Constants.RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
+        when (requestCode) {
+            Constants.RC_SIGN_IN -> {
+                val response = IdpResponse.fromResultIntent(data)
 
-            if (resultCode == Activity.RESULT_OK) {
-                val user = FirebaseAuth.getInstance().currentUser
-                alert { user }
-            } else {
-
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val user = FirebaseAuth.getInstance().currentUser
+                        if (user != null) {
+                            onUserValidated(user.email)
+                        }
+                    }
+                    else -> showWarning(response.toString())
+                }
             }
         }
+    }
+
+    private fun onUserValidated(email: String?) {
+        val user = UserDTO(email)
+        showProgress()
+        UserService.googleSignIn(user).applySchedulers()
+                .subscribe(
+                        {
+                            UserInfo.saveUserLocally(it)
+                            closeProgress()
+                            startActivity<MainActivity>()
+                        },
+                        { error ->
+                            handleException(error)
+                            closeProgress()
+                        }
+                )
     }
 }

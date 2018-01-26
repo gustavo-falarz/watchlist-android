@@ -15,6 +15,8 @@ object UserService {
 
     fun addUser(user: UserDTO): Observable<User> = getService().addUser(user)
 
+    fun googleSignIn(user: UserDTO): Observable<User> = getService().googleSignIn(user)
+
     private fun getService(): UserEndpoint = Service.createService(UserEndpoint::class.java)
 
 }

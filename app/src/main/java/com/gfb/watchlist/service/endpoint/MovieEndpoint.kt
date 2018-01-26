@@ -22,11 +22,17 @@ interface MovieEndpoint {
     @POST("content/archive")
     fun archiveContent(@Body dto: UserContentDTO): Observable<Result>
 
+    @POST("content/delete")
+    fun deleteContent(@Body dto: UserContentDTO): Observable<Result>
+
     @GET("content/searchOnImdb/{param}")
     fun searchOnImdb(@Path("param") param: String): Observable<List<Content>>
 
     @GET("content/findArchive/{userId}")
     fun findArchive(@Path("userId") param: String): Observable<List<Content>>
+
+    @GET("content/clearArchive/{userId}")
+    fun clearArchive(@Path("userId") param: String): Observable<Result>
 
     @POST("content/findWithParameters")
     fun findContent(@Body dto: UserContentDTO): Observable<MutableList<Content>>

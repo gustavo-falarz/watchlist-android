@@ -63,4 +63,11 @@
     <string name="warning_empty_fields">Looks like some fields are empty</string>
     <string name="user_profile">User profile</string>
     <string name="description_archive_content">Archive content</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_content">Delete item</string>
+    <string name="message_confirmation_delete_content">Are you sure you want to remove this item from your list?</string>
+    <string name="title_delete_content">Delete item</string>
+    <string name="message_clear_archive">Are you sure you want to delete all items from your archive?</string>
+    <string name="title_clear_archive">Clear archive</string>
+    <string name="clear_archive">Clear archive</string>
 </resources>

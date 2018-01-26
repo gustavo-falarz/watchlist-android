@@ -17,4 +17,7 @@ interface UserEndpoint {
 
     @POST("user/add")
     fun addUser(@Body user: UserDTO): Observable<User>
+
+    @POST("user/googleSignIn")
+    fun googleSignIn(@Body user: UserDTO): Observable<User>
 }
