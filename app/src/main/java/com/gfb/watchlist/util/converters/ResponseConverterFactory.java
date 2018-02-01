@@ -1,6 +1,5 @@
 package com.gfb.watchlist.util.converters;
 
-
 import com.gfb.watchlist.entity.Response;
 
 import java.lang.annotation.Annotation;
