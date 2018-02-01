@@ -12,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.gfb.watchlist.R
-import com.gfb.watchlist.util.MyDatabaseOpenHelper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -64,8 +63,11 @@ open class BaseActivity : AppCompatActivity() {
         progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
     }
 
+    @Suppress("SENSELESS_COMPARISON")
     fun closeProgress() {
-        progress.hide()
+        when {
+            progress != null -> progress.hide()
+        }
     }
 
     fun showWarning(message: Int) {
@@ -88,6 +90,4 @@ open class BaseActivity : AppCompatActivity() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    val Context.database: MyDatabaseOpenHelper
-        get() = MyDatabaseOpenHelper.getInstance(applicationContext)
 }
