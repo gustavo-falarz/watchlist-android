@@ -72,4 +72,6 @@
     <string name="clear_archive">Clear archive</string>
     <string name="message_confirmation_logout">Are you sure?</string>
     <string name="title_logout">Logging you out</string>
+    <string name="message_activate_acc">You account is pending activation, change your password to proceed.</string>
+    <string name="title_pending_activation">Pending activation</string>
 </resources>

@@ -40,18 +40,6 @@
             app:passwordToggleTint="@color/white"
             android:theme="@style/TextLabel">
 
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:imeOptions="actionGo"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:theme="@style/EditTextLabel" />
-
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout

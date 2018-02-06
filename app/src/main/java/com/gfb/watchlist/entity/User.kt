@@ -7,6 +7,7 @@ class User(
         var id: String,
         var email: String,
         var password: String,
+        var status: String,
         var watchList: List<Content>,
         var archive: List<Content>)
 

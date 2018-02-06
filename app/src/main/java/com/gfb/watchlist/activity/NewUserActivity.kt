@@ -19,9 +19,7 @@ class NewUserActivity : BaseActivity() {
     }
     private fun addUser() {
         val email = etEmail.text.toString().trim()
-        val password = etPassword.text.toString().trim()
-        val user = UserDTO(email, password, mutableListOf(), mutableListOf())
-
+        val user = UserDTO(email)
         when {
             !checkEmpty() -> {
                 showProgress()
@@ -43,6 +41,6 @@ class NewUserActivity : BaseActivity() {
     }
 
     private fun checkEmpty(): Boolean {
-        return etPassword.text.isNullOrEmpty() || etEmail.text.isNullOrEmpty()
+        return etEmail.text.isNullOrEmpty()
     }
 }
