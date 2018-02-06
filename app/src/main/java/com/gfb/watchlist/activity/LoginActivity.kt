@@ -97,7 +97,6 @@ class LoginActivity : BaseActivity() {
         UserService.googleSignIn(user).applySchedulers()
                 .subscribe(
                         {
-                            UserInfo.saveUserLocally(it)
                             closeProgress()
                             nextActivity(it)
                         },
@@ -111,20 +110,22 @@ class LoginActivity : BaseActivity() {
     private fun nextActivity(user: User) {
         when (USER_STATUS_PENDING) {
             user.status -> {
-                warnUser()
+                warnUser(user)
             }
             else -> {
+                UserInfo.saveUserLocally(user)
                 startActivity<MainActivity>()
                 finish()
             }
         }
     }
 
-    private fun warnUser() {
+    private fun warnUser(user: User) {
         alert(getString(R.string.message_activate_acc), getString(R.string.title_pending_activation)) {
             positiveButton(R.string.yes) {
-                startActivity<ChangePasswordActivity>()
-                finish()
+                val intent = Intent(baseContext, ChangePasswordActivity::class.java)
+                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, user)
+                startActivity(intent)
             }
             negativeButton(R.string.no) {}
         }.show()

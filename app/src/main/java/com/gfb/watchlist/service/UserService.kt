@@ -1,5 +1,6 @@
 package com.gfb.watchlist.service
 
+import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.endpoint.UserEndpoint
@@ -14,6 +15,8 @@ object UserService {
     fun validateUser(user: UserDTO): Observable<User> = getService().validateUser(user)
 
     fun addUser(user: UserDTO): Observable<User> = getService().addUser(user)
+
+    fun changePassword(user: UserDTO): Observable<Result> = getService().changePassword(user)
 
     fun googleSignIn(user: UserDTO): Observable<User> = getService().googleSignIn(user)
 

@@ -2,7 +2,6 @@ package com.gfb.watchlist.activity
 
 import android.os.Bundle
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
@@ -28,7 +27,8 @@ class NewUserActivity : BaseActivity() {
                                 {
                                     UserInfo.saveUserLocally(it)
                                     closeProgress()
-                                    startActivity<MainActivity>()
+                                    startActivity<LoginActivity>()
+                                    finish()
                                 },
                                 { error ->
                                     handleException(error)

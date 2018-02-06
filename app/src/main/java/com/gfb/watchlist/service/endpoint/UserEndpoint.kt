@@ -1,5 +1,6 @@
 package com.gfb.watchlist.service.endpoint
 
+import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.dto.UserDTO
 import io.reactivex.Observable
@@ -17,6 +18,9 @@ interface UserEndpoint {
 
     @POST("user/add")
     fun addUser(@Body user: UserDTO): Observable<User>
+
+    @POST("user/changePassword")
+    fun changePassword(@Body user: UserDTO): Observable<Result>
 
     @POST("user/googleSignIn")
     fun googleSignIn(@Body user: UserDTO): Observable<User>
