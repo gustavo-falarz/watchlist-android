@@ -9,16 +9,18 @@ import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
 import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.activity_change_password.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.yesButton
 
 class ChangePasswordActivity : BaseActivity() {
-    lateinit var user: User
+    lateinit var email: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
         setupToolbar(R.string.title_new_password)
         setupActionBar()
-        user = intent.getSerializableExtra(Constants.TRANSITION_KEY_CONTENT) as User
+        email = intent.getSerializableExtra(Constants.TRANSITION_KEY_CONTENT) as String
 
         btChangePassword.setOnClickListener { prepare() }
     }
@@ -47,7 +49,7 @@ class ChangePasswordActivity : BaseActivity() {
 
     private fun changePassword() {
         showProgress()
-        val email = user.email
+        val email = email
         val user = UserDTO(email, etConfirmation.text.toString())
         UserService.changePassword(user).applySchedulers()
                 .subscribe(
@@ -62,12 +64,16 @@ class ChangePasswordActivity : BaseActivity() {
                 )
     }
 
-    private fun handleResult(result: Result) {
-        when { result.status -> {
-            startActivity<MainActivity>()
-            UserInfo.saveUserLocally(user)
-        }
-        }
+    private fun handleResult(user: User) {
+        alert(getString(R.string.message_password_changed), getString(R.string.error_title)) {
+            yesButton {
+                startActivity<MainActivity>()
+                UserInfo.saveUserLocally(user)
+                finish()
+            }
+        }.show()
     }
+
 }
+
 

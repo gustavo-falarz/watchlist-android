@@ -1,5 +1,6 @@
 package com.gfb.watchlist.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -19,6 +20,7 @@ import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.alert
@@ -76,6 +78,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_archive -> {
                 startActivity<ArchiveActivity>()
+            }
+            R.id.nav_password -> {
+                val intent = Intent(baseContext, ChangePasswordActivity::class.java)
+                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, UserInfo.email)
+                startActivity(intent)
             }
             R.id.nav_logout -> {
                 logoutConfirmation()

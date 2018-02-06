@@ -124,7 +124,7 @@ class LoginActivity : BaseActivity() {
         alert(getString(R.string.message_activate_acc), getString(R.string.title_pending_activation)) {
             positiveButton(R.string.yes) {
                 val intent = Intent(baseContext, ChangePasswordActivity::class.java)
-                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, user)
+                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, user.email)
                 startActivity(intent)
             }
             negativeButton(R.string.no) {}

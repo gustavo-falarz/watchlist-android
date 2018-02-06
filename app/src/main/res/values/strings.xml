@@ -78,4 +78,6 @@
     <string name="action_change_password">Change password</string>
     <string name="title_new_password">New password</string>
     <string name="warning_passwords_do_not_match">Passwords do not match.</string>
+    <string name="message_password_changed">Password successfully changed.</string>
+    <string name="nav_chnage_password">Change password</string>
 </resources>

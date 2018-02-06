@@ -16,7 +16,7 @@ object UserService {
 
     fun addUser(user: UserDTO): Observable<User> = getService().addUser(user)
 
-    fun changePassword(user: UserDTO): Observable<Result> = getService().changePassword(user)
+    fun changePassword(user: UserDTO): Observable<User> = getService().changePassword(user)
 
     fun googleSignIn(user: UserDTO): Observable<User> = getService().googleSignIn(user)
 
