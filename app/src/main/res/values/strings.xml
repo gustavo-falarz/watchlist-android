@@ -74,4 +74,6 @@
     <string name="title_logout">Logging you out</string>
     <string name="message_activate_acc">You account is pending activation, change your password to proceed.</string>
     <string name="title_pending_activation">Pending activation</string>
+    <string name="prompt_confirmation">Confirmation</string>
+    <string name="action_change_password">Change password</string>
 </resources>

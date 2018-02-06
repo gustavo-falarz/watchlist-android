@@ -33,15 +33,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/white"
-            android:theme="@style/TextLabel">
-
-        </android.support.design.widget.TextInputLayout>
-
         <LinearLayout
             android:id="@+id/btEnter"
             android:layout_width="match_parent"
