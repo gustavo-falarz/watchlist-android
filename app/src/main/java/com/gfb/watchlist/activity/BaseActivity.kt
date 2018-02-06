@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.gfb.watchlist.activity
 
 import android.annotation.SuppressLint
@@ -10,7 +12,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.gfb.watchlist.R
-import com.gfb.watchlist.util.MyDatabaseOpenHelper
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,6 +23,7 @@ import org.jetbrains.anko.yesButton
  * Created by Gustavo on 12/4/2017.
  */
 
+@Suppress("DEPRECATION")
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
 
@@ -50,7 +52,6 @@ open class BaseActivity : AppCompatActivity() {
                 return true
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -62,8 +63,11 @@ open class BaseActivity : AppCompatActivity() {
         progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
     }
 
+    @Suppress("SENSELESS_COMPARISON")
     fun closeProgress() {
-        progress.hide()
+        when {
+            progress != null -> progress.hide()
+        }
     }
 
     fun showWarning(message: Int) {
@@ -72,6 +76,9 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }.show()
+    }
+    fun showMessage(message: String) {
+        alert(message, getString(R.string.title_success)) { yesButton { } }.show()
     }
 
     fun Activity.hideKeyboard() {
@@ -83,6 +90,4 @@ open class BaseActivity : AppCompatActivity() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    val Context.database: MyDatabaseOpenHelper
-        get() = MyDatabaseOpenHelper.getInstance(applicationContext)
 }

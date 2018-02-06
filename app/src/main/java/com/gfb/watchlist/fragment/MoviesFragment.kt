@@ -16,7 +16,7 @@ import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
-import org.jetbrains.anko.alert
+import com.gfb.watchlist.util.Constants
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 
@@ -30,7 +30,6 @@ class MoviesFragment : BaseFragment() {
         recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
         return view
-
     }
 
     companion object {
@@ -45,23 +44,22 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun setAdapter() {
-        val adapter = ContentAdapter(ContentContainer.getContent(getString(R.string.movies))) { content, i ->
-            when (i) {
-                0 -> callActivity(content)
-                1 -> confirmationArchive(content)
-            }
-        }
+        val adapter = ContentAdapter(ContentContainer.getContent(Constants.TYPE_MOVIE),
+                { content -> callActivity(content) },
+                { content -> confirmationArchive(content) })
+
         recyclerViewContent.adapter = adapter
     }
 
+
     private fun callActivity(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
-        intent.putExtra("content", content)
+        intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
     }
 
     private fun confirmationArchive(content: Content) {
-        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_add_content)) {
+        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_archive_content)) {
             positiveButton(R.string.yes) { archiveContent(content) }
             negativeButton(R.string.no) {}
         }.show()
@@ -69,13 +67,13 @@ class MoviesFragment : BaseFragment() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content?.remove(content)
+                                    ContentContainer.content.remove(content)
                                     setAdapter()
                                 }
                             }.show()
@@ -86,5 +84,6 @@ class MoviesFragment : BaseFragment() {
                         }
                 )
     }
+
 
 }

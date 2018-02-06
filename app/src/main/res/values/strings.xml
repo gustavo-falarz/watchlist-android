@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyWatchlist</string>
+    <!--<string name="default_web_client_id">AIzaSyCG36hZ8VjwDr44CUiXvn8Ndh35gO7C7Ow</string>-->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,7 +19,7 @@
     <string name="movies">movie</string>
     <string name="series">series</string>
     <string name="title_success">Yay!</string>
-    <string name="welcome_message">Hey, good to see you!</string>
+    <string name="welcome_message">Not actually doing anything\n just wanted to say hello!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="title_archive">Your archive</string>
@@ -33,7 +34,7 @@
     <string name="title_misc">Misc</string>
     <string name="label_runtime">Runtime:</string>
     <string name="label_released">Released:</string>
-    <string name="label_production">Production</string>
+    <string name="label_production">Production:</string>
     <string name="label_by">By: </string>
     <string name="title_activity_login">Sign in</string>
 
@@ -61,4 +62,14 @@
     <string name="title_add_new_content">Add new content</string>
     <string name="warning_empty_fields">Looks like some fields are empty</string>
     <string name="user_profile">User profile</string>
+    <string name="description_archive_content">Archive content</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_content">Delete item</string>
+    <string name="message_confirmation_delete_content">Are you sure you want to remove this item from your list?</string>
+    <string name="title_delete_content">Delete item</string>
+    <string name="message_clear_archive">Are you sure you want to delete all items from your archive?</string>
+    <string name="title_clear_archive">Clear archive</string>
+    <string name="clear_archive">Clear archive</string>
+    <string name="message_confirmation_logout">Are you sure?</string>
+    <string name="title_logout">Logging you out</string>
 </resources>

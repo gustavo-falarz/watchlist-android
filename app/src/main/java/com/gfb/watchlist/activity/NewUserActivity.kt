@@ -28,8 +28,9 @@ class NewUserActivity : BaseActivity() {
                 UserService.addUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    saveUserLocally(it)
+                                    UserInfo.saveUserLocally(it)
                                     closeProgress()
+                                    startActivity<MainActivity>()
                                 },
                                 { error ->
                                     handleException(error)
@@ -39,12 +40,6 @@ class NewUserActivity : BaseActivity() {
             }
             else -> showWarning(R.string.warning_empty_fields)
         }
-    }
-
-    private fun saveUserLocally(user: User) {
-        UserInfo.userId = user.id
-        UserInfo.email = user.email
-        startActivity<MainActivity>()
     }
 
     private fun checkEmpty(): Boolean {

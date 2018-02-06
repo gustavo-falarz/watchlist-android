@@ -9,6 +9,7 @@ import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.activity_content_details.*
 import org.jetbrains.anko.alert
@@ -23,7 +24,7 @@ class ContentDetailsActivity : BaseActivity() {
         setupToolbar(R.string.title_details)
         setupActionBar()
 
-        content = intent.getSerializableExtra("content") as Content
+        content = intent.getSerializableExtra(Constants.TRANSITION_KEY_CONTENT) as Content
 
         tvTitle.text = content.title
         tvYear.text = content.year
@@ -40,21 +41,31 @@ class ContentDetailsActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.menu_content, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings ->
+            R.id.action_mark_watched ->
                 confirmationArchive()
+            R.id.action_delete_content ->
+                confirmationDelete()
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun confirmationArchive(): Boolean {
-        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_add_content)) {
+        alert(String.format(getString(R.string.message_confirmation_archive_content), content.title), getString(R.string.title_archive_content)) {
             positiveButton(R.string.yes) { archiveContent(content) }
+            negativeButton(R.string.no) {}
+        }.show()
+        return true
+    }
+
+    private fun confirmationDelete(): Boolean {
+        alert(String.format(getString(R.string.message_confirmation_delete_content), content.title), getString(R.string.title_delete_content)) {
+            positiveButton(R.string.yes) { deleteContent(content) }
             negativeButton(R.string.no) {}
         }.show()
         return true
@@ -62,7 +73,27 @@ class ContentDetailsActivity : BaseActivity() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+                .subscribe(
+                        { response ->
+                            closeProgress()
+                            alert(response.message, getString(R.string.title_success)) {
+                                yesButton {
+                                    ContentContainer.content.remove(content)
+                                    finish()
+                                }
+                            }.show()
+                        },
+                        { error ->
+                            closeProgress()
+                            handleException(error)
+                        }
+                )
+    }
+
+    private fun deleteContent(content: Content) {
+        showProgress()
+        ContentService.deleteContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

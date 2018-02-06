@@ -1,10 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.gfb.watchlist.activity.ContentActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_mark_watched"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_archive"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_delete_content"
+        android:orderInCategory="100"
+        android:title="@string/delete_content"
         app:showAsAction="never" />
 </menu>

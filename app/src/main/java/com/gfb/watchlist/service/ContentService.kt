@@ -3,7 +3,7 @@ package com.gfb.watchlist.service
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.dto.UserContentDTO
-import com.gfb.watchlist.service.endpoint.MovieEndpoint
+import com.gfb.watchlist.service.endpoint.ContentEndpoint
 import io.reactivex.Observable
 
 
@@ -21,19 +21,28 @@ object ContentService {
     fun archiveContent(dto: UserContentDTO): Observable<Result> {
         return getService().archiveContent(dto)
     }
+
+    fun deleteContent(dto: UserContentDTO): Observable<Result> {
+        return getService().deleteContent(dto)
+    }
+
     fun findArchive(userId: String): Observable<List<Content>> {
         return getService().findArchive(userId)
+    }
+
+    fun clearArchive(userId: String): Observable<Result> {
+        return getService().clearArchive(userId)
     }
 
     fun findContent(dto: UserContentDTO): Observable<MutableList<Content>> {
         return getService().findContent(dto)
     }
 
-    fun searchOnImdb(param: String): Observable<List<Content>>{
+    fun searchOnImdb(param: String): Observable<List<Content>> {
         return getService().searchOnImdb(param)
     }
 
-    private fun getService(): MovieEndpoint {
-        return Service.createService(MovieEndpoint::class.java)
+    private fun getService(): ContentEndpoint {
+        return Service.createService(ContentEndpoint::class.java)
     }
 }

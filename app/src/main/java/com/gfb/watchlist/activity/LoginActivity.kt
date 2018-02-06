@@ -1,13 +1,20 @@
 package com.gfb.watchlist.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
+import com.gfb.watchlist.util.Constants
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
+import java.util.*
+
 
 class LoginActivity : BaseActivity() {
 
@@ -16,7 +23,8 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         btSignUp.setOnClickListener { startActivity<NewUserActivity>() }
-        btSignIn.setOnClickListener({ signIn() })
+        btSignIn.setOnClickListener { signIn() }
+        btSignInWithGoogle.setOnClickListener { googleSignIn() }
     }
 
     private fun signIn() {
@@ -29,9 +37,9 @@ class LoginActivity : BaseActivity() {
                 UserService.validateUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    saveUserLocally(it)
+                                    UserInfo.saveUserLocally(it)
                                     closeProgress()
-                                    startActivity<MainActivity>()
+                                    nextActivity()
                                 },
                                 { error ->
                                     handleException(error)
@@ -43,12 +51,62 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun saveUserLocally(user: User) {
-        UserInfo.userId = user.id
-        UserInfo.email = user.email
-    }
-
     private fun checkEmpty(): Boolean {
         return etEmail.text.isNullOrEmpty() || etPassword.text.isNullOrEmpty()
+    }
+
+    private fun googleSignIn() {
+        val providers = Arrays.asList(
+                AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setIsSmartLockEnabled(false)
+                        .setAvailableProviders(providers)
+                        .build(),
+                Constants.RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            Constants.RC_SIGN_IN -> {
+                val response = IdpResponse.fromResultIntent(data)
+
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val user = FirebaseAuth.getInstance().currentUser
+                        if (user != null) {
+                            onUserValidated(user.email)
+                        }
+                    }
+                    else -> showWarning(response.toString())
+                }
+            }
+        }
+    }
+
+    private fun onUserValidated(email: String?) {
+        val user = UserDTO(email)
+        showProgress()
+        UserService.googleSignIn(user).applySchedulers()
+                .subscribe(
+                        {
+                            UserInfo.saveUserLocally(it)
+                            closeProgress()
+                            nextActivity()
+                        },
+                        { error ->
+                            handleException(error)
+                            closeProgress()
+                        }
+                )
+    }
+
+    private fun nextActivity(){
+        startActivity<MainActivity>()
+        finish()
     }
 }
