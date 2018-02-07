@@ -80,7 +80,7 @@
     <string name="warning_passwords_do_not_match">Passwords do not match.</string>
     <string name="message_password_changed">Password successfully changed.</string>
     <string name="nav_change_password">Change password</string>
-    <string name="message_sign_up">Please provide an active active email address so we can create your account and keep your lists stored :)</string>
+    <string name="message_sign_up">Please provide an active email address so we can create your account and keep your lists stored :)</string>
     <string name="action_cancel">Cancel</string>
     <string name="message_email_sent">Your account was successfully created, check you email for further instructions.</string>
     <string name="title_account_created">Account created!</string>

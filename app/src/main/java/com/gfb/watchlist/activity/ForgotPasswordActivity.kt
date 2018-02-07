@@ -26,7 +26,7 @@ class ForgotPasswordActivity : BaseActivity() {
         when {
             !checkEmpty() -> {
                 showProgress()
-                UserService.addUser(user).applySchedulers()
+                UserService.forgotPassword(user).applySchedulers()
                         .subscribe(
                                 {
                                     closeProgress()

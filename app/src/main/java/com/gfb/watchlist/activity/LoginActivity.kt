@@ -139,7 +139,6 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun forgotPassword(){
-        startActivity<MainActivity>()
-        finish()
+        startActivity<ForgotPasswordActivity>()
     }
 }
