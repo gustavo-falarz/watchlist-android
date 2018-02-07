@@ -2,11 +2,14 @@ package com.gfb.watchlist.activity
 
 import android.os.Bundle
 import com.gfb.watchlist.R
+import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
 import kotlinx.android.synthetic.main.activity_new_user.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.yesButton
 
 class NewUserActivity : BaseActivity() {
 
@@ -14,8 +17,10 @@ class NewUserActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_user)
         btEnter.setOnClickListener({ addUser() })
+        btCancel.setOnClickListener({ onBackPressed() })
 
     }
+
     private fun addUser() {
         val email = etEmail.text.toString().trim()
         val user = UserDTO(email)
@@ -25,10 +30,8 @@ class NewUserActivity : BaseActivity() {
                 UserService.addUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    UserInfo.saveUserLocally(it)
                                     closeProgress()
-                                    startActivity<LoginActivity>()
-                                    finish()
+                                    warnUser(it)
                                 },
                                 { error ->
                                     handleException(error)
@@ -38,6 +41,15 @@ class NewUserActivity : BaseActivity() {
             }
             else -> showWarning(R.string.warning_empty_fields)
         }
+    }
+
+    private fun warnUser(result: Result) {
+        alert(result.message, getString(R.string.title_account_created)) {
+            yesButton {
+                startActivity<LoginActivity>()
+                finish()
+            }
+        }.show()
     }
 
     private fun checkEmpty(): Boolean {

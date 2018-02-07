@@ -15,6 +15,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_marginBottom="100dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="@string/message_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +58,19 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/confirmation_button_text_size" />
 
-
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btCancel"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/action_cancel"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
     </LinearLayout>
 </LinearLayout>

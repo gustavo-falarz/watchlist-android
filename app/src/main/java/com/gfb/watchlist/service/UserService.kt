@@ -12,11 +12,13 @@ import io.reactivex.Observable
  */
 object UserService {
 
+    fun addUser(user: UserDTO): Observable<Result> = getService().addUser(user)
+
     fun validateUser(user: UserDTO): Observable<User> = getService().validateUser(user)
 
-    fun addUser(user: UserDTO): Observable<User> = getService().addUser(user)
-
     fun changePassword(user: UserDTO): Observable<User> = getService().changePassword(user)
+
+    fun forgotPassword(email: String): Observable<Result> = getService().forgotPassword(email)
 
     fun googleSignIn(user: UserDTO): Observable<User> = getService().googleSignIn(user)
 

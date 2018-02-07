@@ -59,6 +59,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun googleSignIn() {
+        showProgress()
         val providers = Arrays.asList(
                 AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
 
@@ -84,8 +85,12 @@ class LoginActivity : BaseActivity() {
                         if (user != null) {
                             onUserValidated(user.email)
                         }
+                        closeProgress()
                     }
-                    else -> showWarning(response.toString())
+                    else -> {
+                        showWarning(response.toString())
+                        closeProgress()
+                    }
                 }
             }
         }
@@ -126,6 +131,7 @@ class LoginActivity : BaseActivity() {
                 val intent = Intent(baseContext, ChangePasswordActivity::class.java)
                 intent.putExtra(Constants.TRANSITION_KEY_CONTENT, user.email)
                 startActivity(intent)
+                finish()
             }
             negativeButton(R.string.no) {}
         }.show()
