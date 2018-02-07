@@ -5,22 +5,22 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
-import kotlinx.android.synthetic.main.activity_new_user.*
+import kotlinx.android.synthetic.main.activity_forgot_password.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class NewUserActivity : BaseActivity() {
+class ForgotPasswordActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_user)
-        btEnter.setOnClickListener({ addUser() })
+        setContentView(R.layout.activity_forgot_password)
+        btEnter.setOnClickListener({ resetPassword() })
         btCancel.setOnClickListener({ onBackPressed() })
-
     }
 
-    private fun addUser() {
+
+    private fun resetPassword() {
         val email = etEmail.text.toString().trim()
         val user = UserDTO(email)
         when {
@@ -41,6 +41,7 @@ class NewUserActivity : BaseActivity() {
             else -> showWarning(R.string.warning_empty_fields)
         }
     }
+
 
     private fun warnUser(result: Result) {
         alert(result.message, getString(R.string.title_account_created)) {

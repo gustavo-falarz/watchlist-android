@@ -15,7 +15,7 @@
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -34,7 +34,6 @@
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
-
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -84,7 +83,6 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"/>
 
-
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/btSignInWithGoogle"
                 android:layout_width="match_parent"
@@ -103,5 +101,22 @@
                 android:textColor="@color/white"
                 android:textSize="17sp" />
 
+            <LinearLayout
+                android:gravity="center_horizontal|bottom"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/btForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_forgot_password"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
+
 </LinearLayout>

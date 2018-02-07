@@ -84,4 +84,7 @@
     <string name="action_cancel">Cancel</string>
     <string name="message_email_sent">Your account was successfully created, check you email for further instructions.</string>
     <string name="title_account_created">Account created!</string>
+    <string name="action_reset_password">Reset password</string>
+    <string name="message_reset_password">Inform the email you used to sign up and we will reset your passowrd and send you a new one.</string>
+    <string name="action_forgot_password">Forgot password</string>
 </resources>

@@ -28,6 +28,7 @@ class LoginActivity : BaseActivity() {
         btSignUp.setOnClickListener { startActivity<NewUserActivity>() }
         btSignIn.setOnClickListener { signIn() }
         btSignInWithGoogle.setOnClickListener { googleSignIn() }
+        btForgotPassword.setOnClickListener{forgotPassword()}
     }
 
     private fun signIn() {
@@ -135,5 +136,10 @@ class LoginActivity : BaseActivity() {
             }
             negativeButton(R.string.no) {}
         }.show()
+    }
+
+    private fun forgotPassword(){
+        startActivity<MainActivity>()
+        finish()
     }
 }
