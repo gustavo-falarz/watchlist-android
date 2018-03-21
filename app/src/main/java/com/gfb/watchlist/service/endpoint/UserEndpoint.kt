@@ -24,7 +24,7 @@ interface UserEndpoint {
     @POST("user/changePassword")
     fun changePassword(@Body user: UserDTO): Observable<User>
 
-    @GET("user/forgotPassword")
+    @POST("user/forgotPassword")
     fun forgotPassword(@Body user: UserDTO): Observable<Result>
 
     @POST("user/googleSignIn")
