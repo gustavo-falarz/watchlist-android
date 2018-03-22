@@ -17,13 +17,13 @@ class ResumedContentAdapter(
         private val listener: (Content) -> Unit)
         : RecyclerView.Adapter<ResumedContentAdapter.ContentViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContentViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_content_resumed, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_content_resumed, parent, false)
         return ContentViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ContentViewHolder?, position: Int) {
-        holder?.bindView(items[position], listener)
+    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
+        holder.bindView(items[position], listener)
     }
 
     override fun getItemCount(): Int = items.size
