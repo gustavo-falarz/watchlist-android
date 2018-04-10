@@ -11,7 +11,7 @@
     <dimen name="text_spacing">5dp</dimen>
     <dimen name="card_margin">10dp</dimen>
     <dimen name="button_height">60dp</dimen>
-    <dimen name="button_google_height">63dp</dimen>
+    <dimen name="button_google_height">60dp</dimen>
     <dimen name="text_padding">10dp</dimen>
     <dimen name="subtitle_size">18sp</dimen>
 </resources>

@@ -8,6 +8,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -56,6 +57,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun handleException(exception: Throwable) {
+        Log.d("Handler", exception.message)
         exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
     }
 

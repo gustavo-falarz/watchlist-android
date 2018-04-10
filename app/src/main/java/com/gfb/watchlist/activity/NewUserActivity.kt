@@ -17,11 +17,15 @@ class NewUserActivity : BaseActivity() {
         setContentView(R.layout.activity_new_user)
         btEnter.setOnClickListener({ addUser() })
         btCancel.setOnClickListener({ onBackPressed() })
+        etEmail.setOnEditorActionListener { _, _, _ ->
+            addUser()
+            true
+        }
 
     }
 
     private fun addUser() {
-        val email = etEmail.text.toString().trim()
+        val email = etEmail.text.toString().trim().toLowerCase()
         val user = UserDTO(email)
         when {
             !checkEmpty() -> {

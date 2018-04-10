@@ -15,13 +15,17 @@ class ForgotPasswordActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
-        btEnter.setOnClickListener({ resetPassword() })
+        btReset.setOnClickListener({ resetPassword() })
         btCancel.setOnClickListener({ onBackPressed() })
+        etEmail.setOnEditorActionListener { _, _, _ ->
+            resetPassword()
+            true
+        }
     }
 
 
     private fun resetPassword() {
-        val email = etEmail.text.toString().trim()
+        val email = etEmail.text.toString().trim().toLowerCase()
         val user = UserDTO(email)
         when {
             !checkEmpty() -> {
@@ -44,7 +48,7 @@ class ForgotPasswordActivity : BaseActivity() {
 
 
     private fun warnUser(result: Result) {
-        alert(result.message, getString(R.string.title_account_created)) {
+        alert(result.message, getString(R.string.title_success)) {
             yesButton {
                 startActivity<LoginActivity>()
                 finish()

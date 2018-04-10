@@ -22,6 +22,10 @@ class ChangePasswordActivity : BaseActivity() {
         setupActionBar()
         email = intent.getSerializableExtra(Constants.TRANSITION_KEY_CONTENT) as String
 
+        etConfirmation.setOnEditorActionListener { _, _, _ ->
+            prepare()
+            true
+        }
         btChangePassword.setOnClickListener { prepare() }
     }
 
@@ -65,7 +69,7 @@ class ChangePasswordActivity : BaseActivity() {
     }
 
     private fun handleResult(user: User) {
-        alert(getString(R.string.message_password_changed), getString(R.string.error_title)) {
+        alert(getString(R.string.message_password_changed), getString(R.string.title_success)) {
             yesButton {
                 startActivity<MainActivity>()
                 UserInfo.saveUserLocally(user)
