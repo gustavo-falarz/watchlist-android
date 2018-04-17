@@ -23,11 +23,13 @@ import org.jetbrains.anko.yesButton
 
 class SeriesFragment : BaseFragment() {
     private lateinit var recyclerViewContent: RecyclerView
+    private var inflated = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recently_added, container, false)
         recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
+        setAdapter()
         return view
     }
 
@@ -37,9 +39,11 @@ class SeriesFragment : BaseFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        setAdapter()
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        when {
+            inflated && isVisibleToUser -> setAdapter()
+        }
     }
 
     private fun setAdapter() {
@@ -48,6 +52,7 @@ class SeriesFragment : BaseFragment() {
                 { content -> confirmationArchive(content) })
 
         recyclerViewContent.adapter = adapter
+        inflated = true
     }
 
     private fun callActivity(content: Content) {

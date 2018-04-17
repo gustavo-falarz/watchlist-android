@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.crashlytics.android.Crashlytics
 import com.gfb.watchlist.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -58,6 +59,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun handleException(exception: Throwable) {
         Log.d("Handler", exception.message)
+        Crashlytics.logException(exception)
         exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
     }
 

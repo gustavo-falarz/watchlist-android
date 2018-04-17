@@ -66,7 +66,6 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun googleSignIn() {
-        showProgress()
         val providers = Arrays.asList(
                 AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
 
@@ -81,22 +80,18 @@ class LoginActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-
         when (requestCode) {
             Constants.RC_SIGN_IN -> {
                 val response = IdpResponse.fromResultIntent(data)
-
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         val user = FirebaseAuth.getInstance().currentUser
                         if (user != null) {
                             onUserValidated(user.email)
                         }
-                        closeProgress()
                     }
                     else -> {
                         showWarning(response.toString())
-                        closeProgress()
                     }
                 }
             }
@@ -108,7 +103,7 @@ class LoginActivity : BaseActivity() {
         showProgress()
         UserService.googleSignIn(user).applySchedulers()
                 .subscribe(
-                        {
+                        { it ->
                             closeProgress()
                             nextActivity(it)
                         },
