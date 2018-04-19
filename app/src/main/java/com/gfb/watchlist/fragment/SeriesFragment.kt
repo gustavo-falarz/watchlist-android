@@ -50,7 +50,6 @@ class SeriesFragment : BaseFragment() {
         val adapter = ContentAdapter(ContentContainer.getContent(Constants.TYPE_SERIES),
                 { content -> callActivity(content) },
                 { content -> confirmationArchive(content) })
-
         recyclerViewContent.adapter = adapter
         inflated = true
     }

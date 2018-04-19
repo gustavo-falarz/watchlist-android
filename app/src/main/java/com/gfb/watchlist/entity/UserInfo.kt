@@ -13,6 +13,7 @@ object UserInfo : KotprefModel() {
 
     var userId by stringPref()
     var email by stringPref()
+    var googleSignIn by booleanPref()
 
     fun saveUserLocally(user: User) {
         UserInfo.userId = user.id
@@ -28,6 +29,7 @@ object UserInfo : KotprefModel() {
         UserInfo.bulk {
             userId = ""
             email = ""
+            googleSignIn = false
         }
     }
 

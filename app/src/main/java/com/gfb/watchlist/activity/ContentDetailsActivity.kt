@@ -79,7 +79,7 @@ class ContentDetailsActivity : BaseActivity() {
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content.remove(content)
+                                    ContentContainer.updated = true
                                     finish()
                                 }
                             }.show()
@@ -99,7 +99,7 @@ class ContentDetailsActivity : BaseActivity() {
                             closeProgress()
                             alert(response.message, getString(R.string.title_success)) {
                                 yesButton {
-                                    ContentContainer.content.remove(content)
+                                    ContentContainer.updated = true
                                     finish()
                                 }
                             }.show()

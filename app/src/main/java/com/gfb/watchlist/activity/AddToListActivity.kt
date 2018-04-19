@@ -79,6 +79,7 @@ class AddToListActivity : BaseActivity() {
                                 alert(response.message, getString(R.string.title_success)) {
                                     yesButton {
                                         startActivity(intentFor<MainActivity>().clearTask().newTask())
+                                        ContentContainer.updated = true
                                         finish()
                                     }
                                 }.show()

@@ -49,6 +49,7 @@ class LoginActivity : BaseActivity() {
                         .subscribe(
                                 {
                                     closeProgress()
+                                    UserInfo.googleSignIn = false
                                     nextActivity(it)
                                 },
                                 { error ->
@@ -87,6 +88,7 @@ class LoginActivity : BaseActivity() {
                     Activity.RESULT_OK -> {
                         val user = FirebaseAuth.getInstance().currentUser
                         if (user != null) {
+                            UserInfo.googleSignIn = true
                             onUserValidated(user.email)
                         }
                     }

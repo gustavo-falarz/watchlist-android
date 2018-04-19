@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.ContentContainer
@@ -56,6 +57,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         textUser.text = UserInfo.email
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
+        when {
+            UserInfo.googleSignIn -> hideForgotPass()
+        }
 
     }
 
@@ -118,7 +122,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onResume() {
         super.onResume()
-        findContent()
+        when {
+            ContentContainer.updated -> findContent()
+        }
     }
 
     private fun findContent() {
@@ -147,6 +153,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun logout() {
         UserInfo.clearData(applicationContext)
         startActivity<SplashActivity>()
+    }
+
+    private fun hideForgotPass() {
+        var navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val navMenu = navigationView.menu
+        navMenu.findItem(R.id.nav_password).isVisible = false
     }
 
 }

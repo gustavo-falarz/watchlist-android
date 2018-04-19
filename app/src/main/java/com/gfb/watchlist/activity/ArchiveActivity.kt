@@ -11,7 +11,6 @@ import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_archive.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.toast
 
 class ArchiveActivity : BaseActivity() {
 
@@ -69,9 +68,7 @@ class ArchiveActivity : BaseActivity() {
     }
 
     private fun setAdapter(contents: List<Content>) {
-        val adapter = ArchiveAdapter(contents) {
-            toast("${it.title} selected")
-        }
+        val adapter = ArchiveAdapter(contents) {}
         recyclerViewContent.adapter = adapter
     }
 

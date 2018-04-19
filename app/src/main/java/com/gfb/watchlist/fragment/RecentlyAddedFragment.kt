@@ -52,7 +52,6 @@ class RecentlyAddedFragment : BaseFragment() {
         val adapter = ContentAdapter(ContentContainer.content,
                 { content -> callActivity(content) },
                 { content -> confirmationArchive(content) })
-
         recyclerViewContent.adapter = adapter
         inflated = true
     }
