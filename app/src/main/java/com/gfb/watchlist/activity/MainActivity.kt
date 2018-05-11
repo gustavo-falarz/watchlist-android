@@ -135,6 +135,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             closeProgress()
                             ContentContainer.initContent(content)
                             container.adapter = mSectionsPagerAdapter
+                            ContentContainer.updated = false
                         },
                         { error ->
                             closeProgress()
@@ -156,7 +157,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun hideForgotPass() {
-        var navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         val navMenu = navigationView.menu
         navMenu.findItem(R.id.nav_password).isVisible = false
     }

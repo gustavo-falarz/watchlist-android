@@ -20,6 +20,9 @@ import com.gfb.watchlist.util.Constants
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 
+/**
+ * TODO Compartilhar com amigos pelo app
+ */
 
 class SeriesFragment : BaseFragment() {
     private lateinit var recyclerViewContent: RecyclerView

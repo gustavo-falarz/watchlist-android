@@ -59,7 +59,7 @@
             android:name=".activity.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".activity.PreviewActivity"></activity>
     </application>
 
 </manifest>

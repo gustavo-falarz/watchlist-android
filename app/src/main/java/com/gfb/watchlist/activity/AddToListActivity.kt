@@ -1,5 +1,6 @@
 package com.gfb.watchlist.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.inputmethod.EditorInfo
@@ -8,9 +9,10 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
-import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.*
 
@@ -57,9 +59,13 @@ class AddToListActivity : BaseActivity() {
     }
 
     private fun setAdapter(contents: List<Content>) {
-        recyclerView.adapter = ResumedContentAdapter(contents) {
-            confirmAddition(it)
-        }
+        recyclerView.adapter = ResumedContentAdapter(contents,
+                {
+                    confirmAddition(it)
+                },
+                {
+                    showDetails(it)
+                })
     }
 
     private fun confirmAddition(content: Content) {
@@ -68,6 +74,11 @@ class AddToListActivity : BaseActivity() {
             positiveButton(R.string.yes) { addToList(content) }
             negativeButton(R.string.no) {}
         }.show()
+    }
+
+    private fun showDetails(content: Content) {
+        val intent = Intent(this, PreviewActivity::class.java)
+        intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content.imdbID)
     }
 
     private fun addToList(content: Content) {

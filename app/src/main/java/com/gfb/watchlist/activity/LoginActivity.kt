@@ -68,7 +68,7 @@ class LoginActivity : BaseActivity() {
 
     private fun googleSignIn() {
         val providers = Arrays.asList(
-                AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
+                AuthUI.IdpConfig.GoogleBuilder().build())
 
         startActivityForResult(
                 AuthUI.getInstance()

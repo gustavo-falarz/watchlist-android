@@ -38,6 +38,10 @@ object ContentService {
         return getService().findContent(dto)
     }
 
+    fun getContent(id: String): Observable<Content> {
+        return getService().getContent(id)
+    }
+
     fun searchOnImdb(param: String): Observable<List<Content>> {
         return getService().searchOnImdb(param)
     }
