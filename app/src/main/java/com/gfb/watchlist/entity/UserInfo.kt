@@ -11,9 +11,9 @@ import com.firebase.ui.auth.AuthUI
  */
 object UserInfo : KotprefModel() {
 
-    var userId by stringPref()
-    var email by stringPref()
-    var googleSignIn by booleanPref()
+    var userId by stringPref(default = "")
+    var email by stringPref(default = "")
+    var googleSignIn by booleanPref(default = false)
 
     fun saveUserLocally(user: User) {
         UserInfo.userId = user.id
