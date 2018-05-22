@@ -33,7 +33,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private var mSectionsPagerAdapter: MainActivity.SectionsPagerAdapter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,7 +59,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when {
             UserInfo.googleSignIn -> hideForgotPass()
         }
-
     }
 
     override fun onBackPressed() {
@@ -71,7 +69,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             super.onBackPressed()
         }
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -161,6 +158,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val navMenu = navigationView.menu
         navMenu.findItem(R.id.nav_password).isVisible = false
     }
+
 
 }
 

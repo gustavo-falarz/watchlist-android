@@ -61,10 +61,10 @@ class AddToListActivity : BaseActivity() {
     private fun setAdapter(contents: List<Content>) {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
-                    confirmAddition(it)
+                    showDetails(it)
                 },
                 {
-                    showDetails(it)
+                    confirmAddition(it)
                 })
     }
 
@@ -79,6 +79,7 @@ class AddToListActivity : BaseActivity() {
     private fun showDetails(content: Content) {
         val intent = Intent(this, PreviewActivity::class.java)
         intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content.imdbID)
+        startActivity(intent)
     }
 
     private fun addToList(content: Content) {
