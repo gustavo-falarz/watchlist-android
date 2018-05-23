@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
@@ -73,7 +74,7 @@ class ContentDetailsActivity : BaseActivity() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(WatchlistApplication.prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
@@ -93,7 +94,7 @@ class ContentDetailsActivity : BaseActivity() {
 
     private fun deleteContent(content: Content) {
         showProgress()
-        ContentService.deleteContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+        ContentService.deleteContent(UserContentDTO(WatchlistApplication.prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

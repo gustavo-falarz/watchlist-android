@@ -90,4 +90,5 @@
     <string name="message_pending_reset">Your password has been reset, change it to proceed.</string>
     <string name="ok">Ok</string>
     <string name="action_add_content">Add to your list</string>
+    <string name="title_search">Search</string>
 </resources>

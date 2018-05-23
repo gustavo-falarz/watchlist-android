@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
@@ -72,7 +73,7 @@ class PreviewActivity : BaseActivity() {
 
     private fun confirmationAdd(): Boolean {
         showProgress()
-        ContentService.addContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
+        ContentService.addContent(UserContentDTO(WatchlistApplication.prefs.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
                             if (response.status) {

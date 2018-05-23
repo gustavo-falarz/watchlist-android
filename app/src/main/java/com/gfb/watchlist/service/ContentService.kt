@@ -39,7 +39,7 @@ object ContentService {
     }
 
     fun getContent(id: String): Observable<Content> {
-        return getService().getContent(id)
+        return getService().getContentDetails(id)
     }
 
     fun searchOnImdb(param: String): Observable<List<Content>> {

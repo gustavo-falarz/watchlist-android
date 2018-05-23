@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.UserInfo
@@ -54,7 +55,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun findArchive() {
         showProgress()
-        ContentService.findArchive(UserInfo.userId).applySchedulers()
+        ContentService.findArchive(WatchlistApplication.prefs.userId).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
@@ -74,7 +75,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun clearArchive() {
         showProgress()
-        ContentService.clearArchive(UserInfo.userId).applySchedulers()
+        ContentService.clearArchive(WatchlistApplication.prefs.userId).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

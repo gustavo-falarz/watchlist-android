@@ -3,10 +3,10 @@ package com.gfb.watchlist.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
@@ -17,7 +17,6 @@ import com.gfb.watchlist.util.Constants.USER_STATUS_PENDING_RESET
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.sdk25.coroutines.onEditorAction
 import org.jetbrains.anko.startActivity
 import java.util.*
 
@@ -49,7 +48,7 @@ class LoginActivity : BaseActivity() {
                         .subscribe(
                                 {
                                     closeProgress()
-                                    UserInfo.googleSignIn = false
+                                    WatchlistApplication.prefs.googleSignIn = false
                                     nextActivity(it)
                                 },
                                 { error ->
@@ -88,7 +87,7 @@ class LoginActivity : BaseActivity() {
                     Activity.RESULT_OK -> {
                         val user = FirebaseAuth.getInstance().currentUser
                         if (user != null) {
-                            UserInfo.googleSignIn = true
+                            WatchlistApplication.prefs.googleSignIn = true
                             onUserValidated(user.email)
                         }
                     }

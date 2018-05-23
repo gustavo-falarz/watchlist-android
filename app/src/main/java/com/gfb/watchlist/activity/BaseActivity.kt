@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.crashlytics.android.Crashlytics
 import com.gfb.watchlist.R
@@ -27,6 +28,7 @@ import org.jetbrains.anko.*
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
 
+    private val TAG = "BaseActivity"
     private lateinit var progress: ProgressDialog
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
@@ -35,8 +37,14 @@ open class BaseActivity : AppCompatActivity() {
 
     fun setupToolbar(title: Int) {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle(title)
-        setSupportActionBar(toolbar)
+        when {
+            toolbar != null -> {
+                toolbar.setTitle(title)
+                setSupportActionBar(toolbar)
+            }
+            else -> Log.d(TAG, "Toolbar not found, check if you have it in your layout " +
+                    "or if setContentView() was called.")
+        }
     }
 
     fun setupActionBar() {
@@ -56,13 +64,17 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun handleException(exception: Throwable) {
-        Log.d("Handler", exception.message)
+        exception.printStackTrace()
         Crashlytics.logException(exception)
-        exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
+        exception.message?.let {
+            alert(it, getString(R.string.error_title))
+            { yesButton { } }.show()
+        }
     }
 
     fun showProgress() {
-        progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
+        progress = indeterminateProgressDialog(message = getString(R.string.message_loading),
+                title = getString(R.string.title_loading))
     }
 
     @Suppress("SENSELESS_COMPARISON")
@@ -73,12 +85,13 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun showWarning(message: Int) {
-       showWarning(getString(message))
+        showWarning(getString(message))
     }
 
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }.show()
     }
+
     fun showMessage(message: String) {
         alert(message, getString(R.string.title_success)) { yesButton { } }.show()
     }

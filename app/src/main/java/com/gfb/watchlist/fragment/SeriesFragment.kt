@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.activity.ContentDetailsActivity
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
@@ -72,7 +73,7 @@ class SeriesFragment : BaseFragment() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(WatchlistApplication.prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

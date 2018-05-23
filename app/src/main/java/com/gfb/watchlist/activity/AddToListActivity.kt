@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
@@ -21,7 +22,7 @@ class AddToListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_list)
-        setupToolbar(R.string.search_menu_title)
+        setupToolbar(R.string.title_search)
         setupActionBar()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -61,7 +62,9 @@ class AddToListActivity : BaseActivity() {
     private fun setAdapter(contents: List<Content>) {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
-                    showDetails(it)
+//                    showDetails(it)
+                    confirmAddition(it)
+
                 },
                 {
                     confirmAddition(it)
@@ -84,7 +87,7 @@ class AddToListActivity : BaseActivity() {
 
     private fun addToList(content: Content) {
         showProgress()
-        ContentService.addContent(UserContentDTO(UserInfo.userId, content, null)).applySchedulers()
+        ContentService.addContent(UserContentDTO(WatchlistApplication.prefs.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
                             if (response.status) {

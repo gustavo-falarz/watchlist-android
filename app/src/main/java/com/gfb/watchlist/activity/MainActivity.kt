@@ -1,5 +1,6 @@
 package com.gfb.watchlist.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -13,13 +14,16 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.firebase.ui.auth.AuthUI
 import com.gfb.watchlist.R
+import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -53,11 +57,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         navigationView.setNavigationItemSelectedListener(this)
         val header = navigationView.getHeaderView(0)
         val textUser = header.findViewById<TextView>(R.id.textView)
-        textUser.text = UserInfo.email
+        textUser.text = prefs.userEmail
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
         when {
-            UserInfo.googleSignIn -> hideForgotPass()
+            WatchlistApplication.prefs.googleSignIn -> hideForgotPass()
         }
     }
 
@@ -82,7 +86,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_password -> {
                 val intent = Intent(baseContext, ChangePasswordActivity::class.java)
-                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, UserInfo.email)
+                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, prefs.userEmail)
                 startActivity(intent)
             }
             R.id.nav_logout -> {
@@ -126,13 +130,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun findContent() {
         showProgress()
-        ContentService.findContent(UserContentDTO(UserInfo.userId)).applySchedulers()
+        ContentService.findContent(UserContentDTO(WatchlistApplication.prefs.userId)).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
                             ContentContainer.initContent(content)
-                            container.adapter = mSectionsPagerAdapter
                             ContentContainer.updated = false
+                            container.adapter = mSectionsPagerAdapter
                         },
                         { error ->
                             closeProgress()
@@ -149,7 +153,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun logout() {
-        UserInfo.clearData(applicationContext)
+        UserInfo.clearData(this)
+        ContentContainer.updated = true
         startActivity<SplashActivity>()
     }
 
