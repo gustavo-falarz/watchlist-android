@@ -47,8 +47,7 @@ class LoginActivity : BaseActivity() {
                 UserService.validateUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    WatchlistApplication.prefs.googleSignIn = false
-                                    nextActivity(it)
+                                    nextActivity(it, false)
                                 },
                                 { error ->
                                     handleException(error)
@@ -87,7 +86,6 @@ class LoginActivity : BaseActivity() {
                     Activity.RESULT_OK -> {
                         val user = FirebaseAuth.getInstance().currentUser
                         if (user != null) {
-                            WatchlistApplication.prefs.googleSignIn = true
                             onUserValidated(user.email)
                         }
                     }
@@ -104,7 +102,7 @@ class LoginActivity : BaseActivity() {
         UserService.googleSignIn(user).applySchedulers()
                 .subscribe(
                         { it ->
-                            nextActivity(it)
+                            nextActivity(it, true)
                         },
                         { error ->
                             closeProgress()
@@ -113,7 +111,7 @@ class LoginActivity : BaseActivity() {
                 )
     }
 
-    private fun nextActivity(user: User) {
+    private fun nextActivity(user: User, google: Boolean) {
         when (user.status) {
             USER_STATUS_PENDING -> {
                 warnUser(user, getString(R.string.message_activate_acc))
@@ -122,7 +120,7 @@ class LoginActivity : BaseActivity() {
                 warnUser(user, getString(R.string.message_pending_reset))
             }
             else -> {
-                UserInfo.saveUserLocally(user)
+                UserInfo.saveUserLocally(user, google)
                 startActivity<MainActivity>()
                 finish()
             }

@@ -70,7 +70,7 @@ class ChangePasswordActivity : BaseActivity() {
         alert(getString(R.string.message_password_changed), getString(R.string.title_success)) {
             yesButton {
                 startActivity<MainActivity>()
-                UserInfo.saveUserLocally(user)
+                UserInfo.saveUserLocally(user, false)
                 finish()
             }
         }.show()

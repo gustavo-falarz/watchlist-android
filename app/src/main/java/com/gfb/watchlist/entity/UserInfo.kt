@@ -12,9 +12,10 @@ import com.gfb.watchlist.prefs
  */
 class UserInfo(context: Context) {
     companion object {
-        fun saveUserLocally(user: User) {
+        fun saveUserLocally(user: User, google:Boolean) {
             prefs.userEmail = user.email
             prefs.userId = user.id
+            prefs.googleSignIn = google
         }
 
         fun clearData(context: Context) {
@@ -42,8 +43,8 @@ class UserInfo(context: Context) {
         get() = prefs.getString(PREF_EMAIL, "")
         set(value) = prefs.edit().putString(PREF_EMAIL, value).apply()
 
-    var googleSignIn: Boolean
+    var googleSignIn: Boolean?
         get() = prefs.getBoolean(PREF_GOOGLE, false)
-        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value).apply()
+        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value!!).apply()
 
 }

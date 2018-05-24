@@ -3,7 +3,6 @@ package com.gfb.watchlist.activity
 import android.os.Bundle
 import android.os.Handler
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.prefs
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -22,7 +21,6 @@ class SplashActivity : BaseActivity() {
         Handler().postDelayed({
             checkStart()
         }, 2100)
-        ContentContainer.updated = true
     }
 
     private fun checkStart() {
