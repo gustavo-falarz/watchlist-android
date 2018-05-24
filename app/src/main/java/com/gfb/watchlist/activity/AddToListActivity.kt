@@ -12,6 +12,7 @@ import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.activity_add_to_list.*
@@ -62,8 +63,8 @@ class AddToListActivity : BaseActivity() {
     private fun setAdapter(contents: List<Content>) {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
-//                    showDetails(it)
-                    confirmAddition(it)
+                    showDetails(it)
+//                    confirmAddition(it)
 
                 },
                 {
@@ -72,7 +73,6 @@ class AddToListActivity : BaseActivity() {
     }
 
     private fun confirmAddition(content: Content) {
-
         alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.title_add_content)) {
             positiveButton(R.string.yes) { addToList(content) }
             negativeButton(R.string.no) {}
@@ -87,7 +87,7 @@ class AddToListActivity : BaseActivity() {
 
     private fun addToList(content: Content) {
         showProgress()
-        ContentService.addContent(UserContentDTO(WatchlistApplication.prefs.userId, content, null)).applySchedulers()
+        ContentService.addContent(UserContentDTO(prefs.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
                             if (response.status) {

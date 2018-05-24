@@ -12,4 +12,10 @@
         android:orderInCategory="100"
         android:title="@string/delete_content"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share_content"
+        android:orderInCategory="100"
+        android:title="@string/action_share_content"
+        app:showAsAction="never" />
 </menu>

@@ -61,7 +61,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
         when {
-            WatchlistApplication.prefs.googleSignIn -> hideForgotPass()
+            prefs.googleSignIn -> hideForgotPass()
         }
     }
 
@@ -130,7 +130,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private fun findContent() {
         showProgress()
-        ContentService.findContent(UserContentDTO(WatchlistApplication.prefs.userId)).applySchedulers()
+        ContentService.findContent(UserContentDTO(prefs.userId)).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
@@ -163,7 +163,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val navMenu = navigationView.menu
         navMenu.findItem(R.id.nav_password).isVisible = false
     }
-
 
 }
 

@@ -9,6 +9,7 @@ import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
@@ -40,7 +41,7 @@ class PreviewActivity : BaseActivity() {
         tvReleased.text = content.released
         tvActors.text = content.actors
         imPoster.load(content.poster) { request -> request.fit() }
-        fab.setOnClickListener { confirmationAdd() }
+        fab.setOnClickListener { confirmAddition() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,9 +51,21 @@ class PreviewActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_add_content -> confirmationAdd()
-            else -> super.onOptionsItemSelected(item)
+            R.id.action_add_content ->
+                confirmAddition()
+            R.id.action_share_content ->
+                shareContent()
+            else ->
+                super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun shareContent(): Boolean {
+        when {
+            share("${Constants.URL_IMDB}${content.imdbID}") ->
+                closeProgress()
+        }
+        return true
     }
 
     private fun getContent() {
@@ -71,9 +84,19 @@ class PreviewActivity : BaseActivity() {
                 )
     }
 
-    private fun confirmationAdd(): Boolean {
+
+    private fun confirmAddition(): Boolean {
+        alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.title_add_content)) {
+            positiveButton(R.string.yes) { addToList() }
+            negativeButton(R.string.no) {}
+        }.show()
+        return true
+    }
+
+
+    private fun addToList() {
         showProgress()
-        ContentService.addContent(UserContentDTO(WatchlistApplication.prefs.userId, content, null)).applySchedulers()
+        ContentService.addContent(UserContentDTO(prefs.userId, content, null)).applySchedulers()
                 .subscribe(
                         { response ->
                             if (response.status) {
@@ -92,7 +115,5 @@ class PreviewActivity : BaseActivity() {
                             handleException(it)
                         }
                 )
-
-        return true
     }
 }

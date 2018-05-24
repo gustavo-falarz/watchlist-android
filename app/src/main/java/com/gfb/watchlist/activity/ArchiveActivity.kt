@@ -9,6 +9,7 @@ import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_archive.*
 import org.jetbrains.anko.alert
@@ -55,7 +56,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun findArchive() {
         showProgress()
-        ContentService.findArchive(WatchlistApplication.prefs.userId).applySchedulers()
+        ContentService.findArchive(prefs.userId).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
@@ -75,7 +76,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun clearArchive() {
         showProgress()
-        ContentService.clearArchive(WatchlistApplication.prefs.userId).applySchedulers()
+        ContentService.clearArchive(prefs.userId).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

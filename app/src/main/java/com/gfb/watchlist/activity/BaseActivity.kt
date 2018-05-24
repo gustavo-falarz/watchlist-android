@@ -2,19 +2,17 @@
 
 package com.gfb.watchlist.activity
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.crashlytics.android.Crashlytics
 import com.gfb.watchlist.R
+import com.gfb.watchlist.widget.Progress
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,12 +22,12 @@ import org.jetbrains.anko.*
  * Created by Gustavo on 12/4/2017.
  */
 
-@Suppress("DEPRECATION")
-@SuppressLint("Registered")
+
 open class BaseActivity : AppCompatActivity() {
 
-    private val TAG = "BaseActivity"
-    private lateinit var progress: ProgressDialog
+    private val tag = "BaseActivity"
+    private var mProgress: Progress? = null
+
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
         return subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
@@ -42,7 +40,7 @@ open class BaseActivity : AppCompatActivity() {
                 toolbar.setTitle(title)
                 setSupportActionBar(toolbar)
             }
-            else -> Log.d(TAG, "Toolbar not found, check if you have it in your layout " +
+            else -> Log.d(tag, "Toolbar not found, check if you have it in your layout " +
                     "or if setContentView() was called.")
         }
     }
@@ -72,18 +70,6 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showProgress() {
-        progress = indeterminateProgressDialog(message = getString(R.string.message_loading),
-                title = getString(R.string.title_loading))
-    }
-
-    @Suppress("SENSELESS_COMPARISON")
-    fun closeProgress() {
-        when {
-            progress != null -> progress.hide()
-        }
-    }
-
     fun showWarning(message: Int) {
         showWarning(getString(message))
     }
@@ -103,6 +89,19 @@ open class BaseActivity : AppCompatActivity() {
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    protected fun showProgress() {
+        if (mProgress == null) {
+            mProgress = Progress(this)
+        }
+        mProgress!!.show()
+    }
+
+    protected fun closeProgress() {
+        if (mProgress != null && mProgress!!.isShowing) {
+            mProgress!!.dismiss()
+        }
     }
 
 }

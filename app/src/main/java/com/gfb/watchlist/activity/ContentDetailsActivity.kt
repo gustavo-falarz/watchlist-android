@@ -9,11 +9,13 @@ import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
 import kotlinx.android.synthetic.main.activity_content_details.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.share
 import org.jetbrains.anko.yesButton
 
 class ContentDetailsActivity : BaseActivity() {
@@ -52,8 +54,18 @@ class ContentDetailsActivity : BaseActivity() {
                 confirmationArchive()
             R.id.action_delete_content ->
                 confirmationDelete()
+            R.id.action_share_content ->
+                shareContent()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun shareContent(): Boolean {
+        when {
+            share("${Constants.URL_IMDB}${content.imdbID}") ->
+                closeProgress()
+        }
+        return true
     }
 
     private fun confirmationArchive(): Boolean {
@@ -74,7 +86,7 @@ class ContentDetailsActivity : BaseActivity() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(WatchlistApplication.prefs.userId, content)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
@@ -94,7 +106,7 @@ class ContentDetailsActivity : BaseActivity() {
 
     private fun deleteContent(content: Content) {
         showProgress()
-        ContentService.deleteContent(UserContentDTO(WatchlistApplication.prefs.userId, content)).applySchedulers()
+        ContentService.deleteContent(UserContentDTO(prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
