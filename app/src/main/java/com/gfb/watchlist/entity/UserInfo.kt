@@ -43,8 +43,8 @@ class UserInfo(context: Context) {
         get() = prefs.getString(PREF_EMAIL, "")
         set(value) = prefs.edit().putString(PREF_EMAIL, value).apply()
 
-    var googleSignIn: Boolean?
+    var googleSignIn: Boolean
         get() = prefs.getBoolean(PREF_GOOGLE, false)
-        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value!!).apply()
+        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value).apply()
 
 }
