@@ -12,4 +12,5 @@ object Constants {
     const val USER_STATUS_PENDING_RESET = "PENDING_RESET"
     const val URL_IMDB = "https://www.imdb.com/title/"
     const val RC_SIGN_IN = 777
+    const val TRANSITION_KEY_EMAIL = "EMAIL"
 }

@@ -38,16 +38,15 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun signIn() {
+        showProgress()
         val email = etEmail.text.toString().trim().toLowerCase()
         val password = etPassword.text.toString().trim()
         val user = UserDTO(email, password)
         when {
             !checkEmpty() -> {
-                showProgress()
                 UserService.validateUser(user).applySchedulers()
                         .subscribe(
                                 {
-                                    closeProgress()
                                     WatchlistApplication.prefs.googleSignIn = false
                                     nextActivity(it)
                                 },
@@ -66,6 +65,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun googleSignIn() {
+        showProgress()
         val providers = Arrays.asList(
                 AuthUI.IdpConfig.GoogleBuilder().build())
 
@@ -101,16 +101,14 @@ class LoginActivity : BaseActivity() {
 
     private fun onUserValidated(email: String?) {
         val user = UserDTO(email)
-        showProgress()
         UserService.googleSignIn(user).applySchedulers()
                 .subscribe(
                         { it ->
-                            closeProgress()
                             nextActivity(it)
                         },
                         { error ->
-                            handleException(error)
                             closeProgress()
+                            handleException(error)
                         }
                 )
     }
@@ -129,13 +127,14 @@ class LoginActivity : BaseActivity() {
                 finish()
             }
         }
+        closeProgress()
     }
 
     private fun warnUser(user: User, message: String) {
         alert(message, getString(R.string.title_pending_activation)) {
             positiveButton(R.string.ok) {
                 val intent = Intent(baseContext, ChangePasswordActivity::class.java)
-                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, user.email)
+                intent.putExtra(Constants.TRANSITION_KEY_EMAIL, user.email)
                 startActivity(intent)
                 finish()
             }

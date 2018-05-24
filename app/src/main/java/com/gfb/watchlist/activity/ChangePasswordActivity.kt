@@ -5,19 +5,22 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.User
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserDTO
-import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.UserService
+import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.activity_change_password.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
 class ChangePasswordActivity : BaseActivity() {
+    lateinit var email:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
         setupToolbar(R.string.title_new_password)
         setupActionBar()
+        email =  intent.getStringExtra(Constants.TRANSITION_KEY_EMAIL)
         etConfirmation.setOnEditorActionListener { _, _, _ ->
             prepare()
             true
@@ -49,7 +52,6 @@ class ChangePasswordActivity : BaseActivity() {
 
     private fun changePassword() {
         showProgress()
-        val email = prefs.userEmail
         val user = UserDTO(email, etConfirmation.text.toString())
         UserService.changePassword(user).applySchedulers()
                 .subscribe(
