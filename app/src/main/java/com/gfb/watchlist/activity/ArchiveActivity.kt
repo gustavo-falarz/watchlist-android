@@ -5,10 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
-import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_archive.*

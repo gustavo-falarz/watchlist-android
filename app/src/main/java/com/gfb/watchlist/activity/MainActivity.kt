@@ -1,6 +1,5 @@
 package com.gfb.watchlist.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -14,9 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import com.firebase.ui.auth.AuthUI
 import com.gfb.watchlist.R
-import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO

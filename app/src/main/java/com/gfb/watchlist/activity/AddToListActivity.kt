@@ -6,11 +6,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.gfb.watchlist.R
-import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
-import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService

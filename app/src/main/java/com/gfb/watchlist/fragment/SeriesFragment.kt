@@ -9,12 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gfb.watchlist.R
-import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.activity.ContentDetailsActivity
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
-import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
