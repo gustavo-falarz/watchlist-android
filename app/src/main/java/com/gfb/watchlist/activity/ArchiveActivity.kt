@@ -54,7 +54,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun findArchive() {
         showProgress()
-        ContentService.findArchive(prefs.userId).applySchedulers()
+        ContentService.findArchive(prefs.userId!!).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
@@ -74,7 +74,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun clearArchive() {
         showProgress()
-        ContentService.clearArchive(prefs.userId).applySchedulers()
+        ContentService.clearArchive(prefs.userId!!).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

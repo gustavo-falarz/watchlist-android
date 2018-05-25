@@ -58,7 +58,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
         when {
-            prefs.googleSignIn -> hideForgotPass()
+            prefs.googleSignIn!! -> hideForgotPass()
         }
     }
 
