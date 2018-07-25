@@ -10,6 +10,10 @@
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_archive_black"
             android:title="@string/nav_your_archive" />
+        <item
+            android:id="@+id/nav_password"
+            android:icon="@drawable/ic_change_password"
+            android:title="@string/nav_change_password" />
     </group>
 
     <item android:title="">

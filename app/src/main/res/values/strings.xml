@@ -72,4 +72,24 @@
     <string name="clear_archive">Clear archive</string>
     <string name="message_confirmation_logout">Are you sure?</string>
     <string name="title_logout">Logging you out</string>
+    <string name="message_activate_acc">You account is pending activation, change your password to proceed.</string>
+    <string name="title_pending_activation">Account pending</string>
+    <string name="prompt_confirmation">Confirmation</string>
+    <string name="action_change_password">Change password</string>
+    <string name="title_new_password">New password</string>
+    <string name="warning_passwords_do_not_match">Passwords do not match.</string>
+    <string name="message_password_changed">Password successfully changed.</string>
+    <string name="nav_change_password">Change password</string>
+    <string name="message_sign_up">Please provide an active email address so we can create your account and keep your lists stored :)</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="message_email_sent">Your account was successfully created, check you email for further instructions.</string>
+    <string name="title_account_created">Account created!</string>
+    <string name="action_reset_password">Reset password</string>
+    <string name="message_reset_password">Inform the email you used to sign up and we will reset your passowrd and send you a new one.</string>
+    <string name="action_forgot_password">Forgot password</string>
+    <string name="message_pending_reset">Your password has been reset, change it to proceed.</string>
+    <string name="ok">Ok</string>
+    <string name="action_add_content">Add to your list</string>
+    <string name="action_share_content">Share</string>
+    <string name="title_search">Search</string>
 </resources>

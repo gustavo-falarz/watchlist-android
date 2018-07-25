@@ -37,4 +37,7 @@ interface ContentEndpoint {
     @POST("content/findWithParameters")
     fun findContent(@Body dto: UserContentDTO): Observable<MutableList<Content>>
 
+    @GET("content/getContentDetails/{id}")
+    fun getContentDetails(@Path("id") param: String): Observable<Content>
+
 }

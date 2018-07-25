@@ -14,13 +14,13 @@ import kotlinx.android.synthetic.main.adapter_content.view.*
 */
 class ArchiveAdapter(private val items: List<Content>, private val listener: (Content) -> Unit) : RecyclerView.Adapter<ArchiveAdapter.ContentViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ContentViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_content, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_content, parent, false)
         return ContentViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ContentViewHolder?, position: Int) {
-        holder?.bindView(items[position], listener)
+    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
+        holder.bindView(items[position], listener)
     }
 
     override fun getItemCount(): Int = items.size

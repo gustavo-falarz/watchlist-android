@@ -19,7 +19,6 @@ object Service {
             .addConverterFactory(ResponseConverterFactory(GsonConverterFactory.create()))
             .addConverterFactory(GsonConverterFactory.create())
 
-
     fun <S> createService(serviceClass: Class<S>): S {
         val retrofit = builder
                 .build()

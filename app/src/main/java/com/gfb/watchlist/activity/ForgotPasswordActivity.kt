@@ -5,32 +5,32 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.entity.dto.UserDTO
 import com.gfb.watchlist.service.UserService
-import kotlinx.android.synthetic.main.activity_new_user.*
+import kotlinx.android.synthetic.main.activity_forgot_password.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class NewUserActivity : BaseActivity() {
+class ForgotPasswordActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_user)
-        btEnter.setOnClickListener({ addUser() })
+        setContentView(R.layout.activity_forgot_password)
+        btReset.setOnClickListener({ resetPassword() })
         btCancel.setOnClickListener({ onBackPressed() })
         etEmail.setOnEditorActionListener { _, _, _ ->
-            addUser()
+            resetPassword()
             true
         }
-
     }
 
-    private fun addUser() {
+
+    private fun resetPassword() {
         val email = etEmail.text.toString().trim().toLowerCase()
         val user = UserDTO(email)
         when {
             !checkEmpty() -> {
                 showProgress()
-                UserService.addUser(user).applySchedulers()
+                UserService.forgotPassword(user).applySchedulers()
                         .subscribe(
                                 {
                                     closeProgress()
@@ -46,8 +46,9 @@ class NewUserActivity : BaseActivity() {
         }
     }
 
+
     private fun warnUser(result: Result) {
-        alert(result.message, getString(R.string.title_account_created)) {
+        alert(result.message, getString(R.string.title_success)) {
             yesButton {
                 startActivity<LoginActivity>()
                 finish()

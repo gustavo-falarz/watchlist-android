@@ -13,8 +13,8 @@ import com.gfb.watchlist.activity.ContentDetailsActivity
 import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
-import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.util.Constants
 import org.jetbrains.anko.support.v4.alert
@@ -23,12 +23,14 @@ import org.jetbrains.anko.yesButton
 
 class RecentlyAddedFragment : BaseFragment() {
     private lateinit var recyclerViewContent: RecyclerView
+    private var inflated = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_recently_added, container, false)
         recyclerViewContent = view.findViewById(R.id.recyclerViewContent)
         recyclerViewContent.layoutManager = LinearLayoutManager(view.context)
+        setAdapter()
         return view
     }
 
@@ -39,17 +41,19 @@ class RecentlyAddedFragment : BaseFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        setAdapter()
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        when {
+            inflated && isVisibleToUser -> setAdapter()
+        }
     }
 
     private fun setAdapter() {
         val adapter = ContentAdapter(ContentContainer.content,
                 { content -> callActivity(content) },
                 { content -> confirmationArchive(content) })
-
         recyclerViewContent.adapter = adapter
+        inflated = true
     }
 
     private fun callActivity(content: Content) {
@@ -67,7 +71,7 @@ class RecentlyAddedFragment : BaseFragment() {
 
     private fun archiveContent(content: Content) {
         showProgress()
-        ContentService.archiveContent(UserContentDTO(UserInfo.userId, content)).applySchedulers()
+        ContentService.archiveContent(UserContentDTO(prefs.userId, content)).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()
@@ -84,4 +88,5 @@ class RecentlyAddedFragment : BaseFragment() {
                         }
                 )
     }
+
 }

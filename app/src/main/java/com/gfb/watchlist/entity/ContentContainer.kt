@@ -5,6 +5,7 @@ package com.gfb.watchlist.entity
  */
 object ContentContainer {
     var content: MutableList<Content> = mutableListOf()
+    var updated: Boolean = true
 
     fun initContent(newContent: MutableList<Content>) {
         content = newContent

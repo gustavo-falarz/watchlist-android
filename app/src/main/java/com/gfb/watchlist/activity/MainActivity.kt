@@ -1,5 +1,6 @@
 package com.gfb.watchlist.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -10,6 +11,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import com.gfb.watchlist.R
 import com.gfb.watchlist.entity.ContentContainer
@@ -18,7 +20,9 @@ import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.fragment.MoviesFragment
 import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.util.Constants
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.alert
@@ -29,7 +33,6 @@ import org.jetbrains.anko.startActivity
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var mSectionsPagerAdapter: MainActivity.SectionsPagerAdapter? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +54,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         navigationView.setNavigationItemSelectedListener(this)
         val header = navigationView.getHeaderView(0)
         val textUser = header.findViewById<TextView>(R.id.textView)
-        textUser.text = UserInfo.email
+        textUser.text = prefs.userEmail
 
         fab.setOnClickListener { startActivity<AddToListActivity>() }
-
+        when {
+            prefs.googleSignIn!! -> hideForgotPass()
+        }
     }
 
     override fun onBackPressed() {
@@ -62,10 +67,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            moveTaskToBack(true)
         }
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -76,6 +80,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_archive -> {
                 startActivity<ArchiveActivity>()
+            }
+            R.id.nav_password -> {
+                val intent = Intent(baseContext, ChangePasswordActivity::class.java)
+                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, prefs.userEmail)
+                startActivity(intent)
             }
             R.id.nav_logout -> {
                 logoutConfirmation()
@@ -111,16 +120,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onResume() {
         super.onResume()
-        findContent()
+        when {
+            ContentContainer.updated -> findContent()
+        }
     }
 
     private fun findContent() {
         showProgress()
-        ContentService.findContent(UserContentDTO(UserInfo.userId)).applySchedulers()
+        ContentService.findContent(UserContentDTO(prefs.userId)).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
                             ContentContainer.initContent(content)
+                            ContentContainer.updated = false
                             container.adapter = mSectionsPagerAdapter
                         },
                         { error ->
@@ -138,9 +150,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun logout() {
-        UserInfo.clearData(applicationContext)
+        UserInfo.clearData(this)
+        ContentContainer.updated = true
         startActivity<SplashActivity>()
     }
+
+    private fun hideForgotPass() {
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val navMenu = navigationView.menu
+        navMenu.findItem(R.id.nav_password).isVisible = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ContentContainer.updated = true
+    }
+
 
 }
 

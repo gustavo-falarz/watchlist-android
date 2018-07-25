@@ -7,11 +7,10 @@ import android.view.MenuItem
 import com.gfb.watchlist.R
 import com.gfb.watchlist.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
 import kotlinx.android.synthetic.main.activity_archive.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.toast
 
 class ArchiveActivity : BaseActivity() {
 
@@ -55,7 +54,7 @@ class ArchiveActivity : BaseActivity() {
 
     private fun findArchive() {
         showProgress()
-        ContentService.findArchive(UserInfo.userId).applySchedulers()
+        ContentService.findArchive(prefs.userId!!).applySchedulers()
                 .subscribe(
                         { content ->
                             closeProgress()
@@ -69,15 +68,13 @@ class ArchiveActivity : BaseActivity() {
     }
 
     private fun setAdapter(contents: List<Content>) {
-        val adapter = ArchiveAdapter(contents) {
-            toast("${it.title} selected")
-        }
+        val adapter = ArchiveAdapter(contents) {}
         recyclerViewContent.adapter = adapter
     }
 
     private fun clearArchive() {
         showProgress()
-        ContentService.clearArchive(UserInfo.userId).applySchedulers()
+        ContentService.clearArchive(prefs.userId!!).applySchedulers()
                 .subscribe(
                         { response ->
                             closeProgress()

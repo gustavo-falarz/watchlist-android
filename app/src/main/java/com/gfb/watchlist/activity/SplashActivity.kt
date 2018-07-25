@@ -3,7 +3,7 @@ package com.gfb.watchlist.activity
 import android.os.Bundle
 import android.os.Handler
 import com.gfb.watchlist.R
-import com.gfb.watchlist.entity.UserInfo
+import com.gfb.watchlist.prefs
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
@@ -20,11 +20,11 @@ class SplashActivity : BaseActivity() {
         super.onStart()
         Handler().postDelayed({
             checkStart()
-        }, 2500)
+        }, 2100)
     }
 
     private fun checkStart() {
-        if (UserInfo.userId == "") {
+        if (prefs.userId == "") {
             startActivity(intentFor<LoginActivity>().clearTask().newTask())
         } else {
             startActivity(intentFor<MainActivity>().clearTask().newTask())
