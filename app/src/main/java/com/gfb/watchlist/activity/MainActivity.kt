@@ -67,7 +67,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            moveTaskToBack(true)
         }
     }
 
@@ -160,6 +160,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val navMenu = navigationView.menu
         navMenu.findItem(R.id.nav_password).isVisible = false
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ContentContainer.updated = true
+    }
+
 
 }
 

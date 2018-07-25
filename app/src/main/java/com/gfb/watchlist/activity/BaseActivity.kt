@@ -26,7 +26,7 @@ import org.jetbrains.anko.*
 open class BaseActivity : AppCompatActivity() {
 
     private val tag = "BaseActivity"
-    private var mProgress: Progress? = null
+    private var progress: Progress? = null
 
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
@@ -66,7 +66,7 @@ open class BaseActivity : AppCompatActivity() {
         Crashlytics.logException(exception)
         exception.message?.let {
             alert(it, getString(R.string.error_title))
-            { yesButton { } }.show()
+            { yesButton { if (getActivity() !is MainActivity )finish()} }.show()
         }
     }
 
@@ -92,16 +92,19 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     protected fun showProgress() {
-        if (mProgress == null) {
-            mProgress = Progress(this)
+        if (progress == null) {
+            progress = Progress(this)
         }
-        mProgress!!.show()
+        progress!!.show()
     }
 
     protected fun closeProgress() {
-        if (mProgress != null && mProgress!!.isShowing) {
-            mProgress!!.dismiss()
+        if (progress != null && progress!!.isShowing) {
+            progress!!.dismiss()
         }
     }
+
+    fun getActivity() = this
+
 
 }

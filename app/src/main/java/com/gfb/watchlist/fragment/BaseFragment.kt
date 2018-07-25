@@ -1,13 +1,12 @@
 package com.gfb.watchlist.fragment
 
-import android.app.ProgressDialog
 import android.support.v4.app.Fragment
 import com.gfb.watchlist.R
+import com.gfb.watchlist.widget.Progress
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.indeterminateProgressDialog
 import org.jetbrains.anko.yesButton
 
 /**
@@ -15,19 +14,24 @@ import org.jetbrains.anko.yesButton
  */
 open class BaseFragment : Fragment() {
 
-    lateinit var progress: ProgressDialog
+    private var progress: Progress? = null
 
 
     fun <T> Observable<T>.applySchedulers(): Observable<T> {
         return subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun showProgress() {
-        progress = indeterminateProgressDialog(message = getString(R.string.message_loading), title = getString(R.string.title_loading))
+    protected fun showProgress() {
+        if (progress == null) {
+            progress = Progress(context)
+        }
+        progress!!.show()
     }
 
-    fun closeProgress() {
-        progress.hide()
+    protected fun closeProgress() {
+        if (progress != null && progress!!.isShowing) {
+            progress!!.dismiss()
+        }
     }
 
     fun handleException(exception: Throwable) {
@@ -37,4 +41,5 @@ open class BaseFragment : Fragment() {
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }
     }
+
 }

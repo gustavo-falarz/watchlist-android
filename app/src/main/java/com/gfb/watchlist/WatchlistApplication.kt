@@ -8,7 +8,7 @@ import com.gfb.watchlist.entity.UserInfo
  */
 
 val prefs: UserInfo by lazy {
-    WatchlistApplication.prefs!!
+    WatchlistApplication.prefs
 }
 
 class WatchlistApplication : Application() {

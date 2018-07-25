@@ -13,8 +13,8 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
         resConfigs "en"
-        versionCode 15
-        versionName "1.0.3"
+        versionCode 18
+        versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }

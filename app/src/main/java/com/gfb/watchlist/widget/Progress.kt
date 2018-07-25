@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import com.gfb.watchlist.R
 
 
-class Progress(context: Context) : Dialog(context, R.style.Library_Progress) {
+class Progress(context: Context?) : Dialog(context, R.style.Library_Progress) {
 
     init {
         val attributes = window!!.attributes
