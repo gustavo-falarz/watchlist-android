@@ -66,7 +66,12 @@ open class BaseActivity : AppCompatActivity() {
         Crashlytics.logException(exception)
         exception.message?.let {
             alert(it, getString(R.string.error_title))
-            { yesButton { if (getActivity() !is MainActivity )finish()} }.show()
+            { yesButton {
+                when {
+                    getActivity() !is MainActivity -> finish()
+                    getActivity() !is LoginActivity -> finish()
+                }
+            } }.show()
         }
     }
 
