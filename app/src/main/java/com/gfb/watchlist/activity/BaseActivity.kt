@@ -16,7 +16,8 @@ import com.gfb.watchlist.widget.Progress
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.yesButton
 
 /**
  * Created by Gustavo on 12/4/2017.
@@ -68,8 +69,10 @@ open class BaseActivity : AppCompatActivity() {
             alert(it, getString(R.string.error_title))
             { yesButton {
                 when {
-                    getActivity() !is MainActivity -> finish()
-                    getActivity() !is LoginActivity -> finish()
+                    getActivity() is MainActivity -> Log.d(tag, "Not finishing")
+                    getActivity() is LoginActivity -> Log.d(tag, "Not finishing")
+                    getActivity() is AddToListActivity -> Log.d(tag, "Not finishing")
+                    else -> finish()
                 }
             } }.show()
         }

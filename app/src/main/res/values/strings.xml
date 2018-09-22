@@ -92,4 +92,6 @@
     <string name="action_add_content">Add to your list</string>
     <string name="action_share_content">Share</string>
     <string name="title_search">Search</string>
+    <string name="warning_empty_search_query">Inform at least one title to search for.</string>
+    <string name="search_title">Search</string>
 </resources>
