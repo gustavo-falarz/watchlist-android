@@ -25,7 +25,7 @@ class AddToListActivity : BaseActivity() {
         setupActionBar()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        imSearchOnImdb.setOnClickListener({ searchOnImdb() })
+        imSearchOnImdb.setOnClickListener { searchOnImdb() }
         etSearchContent.setOnEditorActionListener(onActionSearch())
     }
 
@@ -44,6 +44,11 @@ class AddToListActivity : BaseActivity() {
     private fun searchOnImdb() {
         hideKeyboard()
         val query = etSearchContent.text.toString().trim()
+        if(query.isEmpty()){
+            showWarning(getString(R.string.warning_empty_search_query))
+            return
+        }
+
         showProgress()
         ContentService.searchOnImdb(query).applySchedulers()
                 .subscribe(
@@ -62,8 +67,6 @@ class AddToListActivity : BaseActivity() {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
                     showDetails(it)
-//                    confirmAddition(it)
-
                 },
                 {
                     confirmAddition(it)

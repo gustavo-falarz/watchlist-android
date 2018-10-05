@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
 android {
     def properties = { k -> "\"${project.properties.get(k)}\"" }
@@ -13,11 +14,21 @@ android {
         targetSdkVersion 27
         multiDexEnabled true
         resConfigs "en"
-        versionCode 18
-        versionName "1.0.6"
+        versionCode 23
+        versionName "1.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
+    signingConfigs {
+        release {
+            storeFile file('pineconekeystore.jks')
+            storePassword 'Cardoso@17'
+            keyAlias "pinecone"
+            keyPassword 'Cardoso@17'
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -29,9 +40,17 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField('String', 'URL_BASE', properties('release.server.url'))
+            signingConfig signingConfigs.release
+
         }
     }
 }
+
+play {
+    track = 'beta'
+    jsonFile = file('api-8256899968134872514-494710-6e3b4d36d3b3.json')
+}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -41,8 +60,7 @@ dependencies {
     implementation "com.android.support:support-v4:$google_support_lib_version"
     implementation 'com.firebaseui:firebase-ui-auth:3.3.1'
     implementation "com.google.android.gms:play-services-auth:$google_gms_lib_version"
-    implementation "com.google.firebase:firebase-ads:$google_gms_lib_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "com.android.support:appcompat-v7:$google_support_lib_version"
     implementation "com.android.support:design:$google_support_lib_version"
@@ -66,3 +84,4 @@ repositories {
     mavenCentral()
 }
 apply plugin: 'com.google.gms.google-services'
+
