@@ -8,7 +8,6 @@ import com.firebase.ui.auth.IdpResponse
 import com.gfb.watchlist.R
 import com.gfb.watchlist.activity.*
 import com.gfb.watchlist.entity.User
-import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.ui.login.LoginView
 import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.Constants.USER_STATUS_PENDING
@@ -133,11 +132,16 @@ class LoginViewImpl : BaseActivity(), LoginView {
     private fun warnUser(user: User, message: String) {
         alert(message, getString(R.string.title_pending_activation)) {
             positiveButton(R.string.ok) {
-                startActivity<ChangePasswordActivity>(Constants.TRANSITION_KEY_EMAIL to user.email)
-                finish()
+                presenter.changePassword(user)
             }
             negativeButton(R.string.cancel) {}
         }.show()
+    }
+
+
+    override fun changePassword(user: User) {
+        startActivity<ChangePasswordActivity>(Constants.TRANSITION_KEY_EMAIL to user.email)
+        finish()
     }
 
     override fun forgotPassword() {

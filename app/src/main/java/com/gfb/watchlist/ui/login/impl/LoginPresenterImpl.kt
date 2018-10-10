@@ -9,6 +9,10 @@ import com.gfb.watchlist.ui.login.LoginView
 import io.reactivex.Observable
 
 class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
+    override fun changePassword(user: User) {
+        view.changePassword(user)
+    }
+
     override fun forgotPassword() {
         view.forgotPassword()
     }

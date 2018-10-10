@@ -13,4 +13,6 @@ interface LoginView {
 
     fun forgotPassword()
 
+    fun changePassword(user: User)
+
 }

@@ -19,16 +19,14 @@ import com.gfb.watchlist.fragment.BaseFragment
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.ui.content.ContentView
 import com.gfb.watchlist.util.Constants
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
-import org.jetbrains.anko.startActivity
-
 
 
 class MoviesViewImpl : BaseFragment(), ContentView {
-
-    var presenter = ContentPresenterImpl()
+    var presenter = ContentPresenterImpl(this)
 
     private lateinit var recyclerViewContent: RecyclerView
     private var inflated = false
@@ -78,10 +76,13 @@ class MoviesViewImpl : BaseFragment(), ContentView {
         }.show()
     }
 
-    @SuppressLint("CheckResult")
-    override fun archiveContent(content: Content) {
+    fun archiveContent(content: Content) {
+        presenter.archiveContent(prefs.userId, content)
+    }
+
+    override fun onContentArchived(observable: Observable<Result>, content: Content) {
         showProgress()
-        presenter.archiveContent(prefs.userId, content).applySchedulers()
+        observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
                             deleteContent(it, content)
@@ -99,9 +100,13 @@ class MoviesViewImpl : BaseFragment(), ContentView {
     override fun deleteContent(result: Result, content: Content) {
         alert(result.message, getString(R.string.title_success)) {
             yesButton {
-                ContentContainer.content.remove(content)
-                createAdapter()
+                presenter.deleteContent(content)
             }
         }.show()
     }
+
+    override fun onContentDeleted() {
+        createAdapter()
+    }
+
 }

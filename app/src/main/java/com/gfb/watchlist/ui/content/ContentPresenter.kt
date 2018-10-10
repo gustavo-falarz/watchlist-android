@@ -6,6 +6,10 @@ import io.reactivex.Observable
 
 interface ContentPresenter {
 
-    fun archiveContent(userId: String, content: Content): Observable<Result>
+    fun archiveContent(userId: String, content: Content)
+
+    fun deleteContent(content: Content)
+
+    fun callActivity(content: Content)
 
 }
