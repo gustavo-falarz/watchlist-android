@@ -23,6 +23,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -63,6 +64,24 @@
             android:name=".activity.PreviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <!--New activities MVP-->
+        <activity android:name=".ui.archive.impl.ArchiveViewImpl"
+            android:label="@string/title_archive"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.login.impl.LoginViewImpl"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_login"/>
+        <activity android:name=".ui.preview.impl.PreviewViewImpl"
+            android:screenOrientation="portrait"
+            android:label=""/>
+        <activity android:name=".ui.addToList.impl.AddToListViewImpl"
+            android:screenOrientation="portrait"
+            android:label=""/>
+
+
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ object UserService {
 
     fun addUser(user: UserDTO): Observable<Result> = getService().addUser(user)
 
-    fun validateUser(user: UserDTO): Observable<User> = getService().validateUser(user)
+    fun signIn(user: UserDTO): Observable<User> = getService().signIn(user)
 
     fun changePassword(user: UserDTO): Observable<User> = getService().changePassword(user)
 

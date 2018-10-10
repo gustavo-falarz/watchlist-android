@@ -3,7 +3,6 @@ package com.gfb.watchlist.entity
 import android.content.Context
 import android.content.SharedPreferences
 import com.firebase.ui.auth.AuthUI
-import com.gfb.watchlist.WatchlistApplication
 import com.gfb.watchlist.prefs
 
 
@@ -35,16 +34,16 @@ class UserInfo(context: Context) {
     private val PREF_GOOGLE = "GOOGLE"
     private val prefs: SharedPreferences = context.getSharedPreferences(PREF_KEY, 0)
 
-    var userId: String?
+    var userId: String
         get() = prefs.getString(PREF_ID, "")
         set(value) = prefs.edit().putString(PREF_ID, value).apply()
 
-    var userEmail: String?
+    var userEmail: String
         get() = prefs.getString(PREF_EMAIL, "")
         set(value) = prefs.edit().putString(PREF_EMAIL, value).apply()
 
-    var googleSignIn: Boolean?
+    var googleSignIn: Boolean
         get() = prefs.getBoolean(PREF_GOOGLE, false)
-        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value!!).apply()
+        set(value) = prefs.edit().putBoolean(PREF_GOOGLE, value).apply()
 
 }

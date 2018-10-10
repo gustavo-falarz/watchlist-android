@@ -6,7 +6,7 @@ apply plugin: 'io.fabric'
 android {
     def properties = { k -> "\"${project.properties.get(k)}\"" }
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.gfb.watchlist"
         minSdkVersion 21
@@ -41,7 +41,6 @@ dependencies {
     implementation "com.android.support:support-v4:$google_support_lib_version"
     implementation 'com.firebaseui:firebase-ui-auth:3.3.1'
     implementation "com.google.android.gms:play-services-auth:$google_gms_lib_version"
-    implementation "com.google.firebase:firebase-ads:$google_gms_lib_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "com.android.support:appcompat-v7:$google_support_lib_version"
@@ -57,6 +56,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.chibatching.kotpref:kotpref:2.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
+
 
     androidTestImplementation 'junit:junit:4.12'
 }

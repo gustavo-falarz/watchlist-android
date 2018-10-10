@@ -19,7 +19,7 @@ interface UserEndpoint {
     fun addUser(@Body user: UserDTO): Observable<Result>
 
     @POST("user/validate")
-    fun validateUser(@Body user: UserDTO): Observable<User>
+    fun signIn(@Body user: UserDTO): Observable<User>
 
     @POST("user/changePassword")
     fun changePassword(@Body user: UserDTO): Observable<User>
