@@ -9,18 +9,21 @@ import com.gfb.watchlist.ui.login.LoginView
 import io.reactivex.Observable
 
 class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
+    override fun forgotPassword() {
+        view.forgotPassword()
+    }
 
-    override fun signIn(email: String, password: String){
+    override fun signIn(email: String, password: String) {
         val user = UserDTO(email, password)
-        view.onUserValidated(UserService.googleSignIn(user))
+        view.onUserValidated(UserService.signIn(user), false)
     }
 
     override fun googleSignIn(email: String) {
         val user = UserDTO(email)
-        view.onUserValidated(UserService.googleSignIn(user))
+        view.onUserValidated(UserService.googleSignIn(user), true)
     }
 
-    fun saveUserLocally(user: User, google: Boolean){
+    fun saveUserLocally(user: User, google: Boolean) {
         UserInfo.saveUserLocally(user, google)
         view.onUserSaved()
     }

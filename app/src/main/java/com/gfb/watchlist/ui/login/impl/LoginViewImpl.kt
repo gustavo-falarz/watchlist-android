@@ -36,7 +36,7 @@ class LoginViewImpl : BaseActivity(), LoginView {
         }
         btSignIn.setOnClickListener { signIn() }
         btSignInWithGoogle.setOnClickListener { googleSignIn() }
-        btForgotPassword.setOnClickListener { forgotPassword() }
+        btForgotPassword.setOnClickListener { presenter.forgotPassword() }
     }
 
     private fun signIn() {
@@ -101,10 +101,10 @@ class LoginViewImpl : BaseActivity(), LoginView {
         presenter.googleSignIn(email)
     }
 
-    override fun onUserValidated(observable: Observable<User>) {
+    override fun onUserValidated(observable: Observable<User>, google: Boolean) {
         observable.applySchedulers()
                 .subscribeBy(
-                        onNext = { nextActivity(it, true) },
+                        onNext = { nextActivity(it, google) },
                         onError = { handleException(it) },
                         onComplete = { closeProgress() }
                 )
@@ -130,7 +130,6 @@ class LoginViewImpl : BaseActivity(), LoginView {
         finish()
     }
 
-
     private fun warnUser(user: User, message: String) {
         alert(message, getString(R.string.title_pending_activation)) {
             positiveButton(R.string.ok) {
@@ -141,9 +140,8 @@ class LoginViewImpl : BaseActivity(), LoginView {
         }.show()
     }
 
-    private fun forgotPassword() {
+    override fun forgotPassword() {
         startActivity<ForgotPasswordActivity>()
     }
-
 
 }
