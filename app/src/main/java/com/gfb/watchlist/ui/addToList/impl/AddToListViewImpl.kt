@@ -9,10 +9,8 @@ import com.gfb.watchlist.activity.BaseActivity
 import com.gfb.watchlist.activity.MainActivity
 import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.prefs
-import com.gfb.watchlist.service.ContentService
 import com.gfb.watchlist.ui.addToList.AddToListView
 import com.gfb.watchlist.ui.preview.impl.PreviewViewImpl
 import com.gfb.watchlist.util.Constants
@@ -22,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.*
 
 class AddToListViewImpl : BaseActivity(), AddToListView {
+
     private val presenter = AddToListPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,24 +48,10 @@ class AddToListViewImpl : BaseActivity(), AddToListView {
     private fun searchOnImdb() {
         hideKeyboard()
         val query = etSearchContent.text.toString().trim()
-        showProgress()
-        ContentService.searchOnImdb(query).applySchedulers()
-                .subscribeBy(
-                        onNext = {
-                            createAdapter(it)
-                            closeProgress()
-                        },
-                        onError = {
-                            handleException(it)
-                            closeProgress()
-                        },
-                        onComplete = {
-                            closeProgress()
-                        }
-                )
+        presenter.searchOnImdb(query)
     }
 
-    private fun createAdapter(contents: List<Content>) {
+    override fun onContentFound(contents: List<Content>) {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
                     presenter.showDetails(it.imdbID)
@@ -85,21 +70,19 @@ class AddToListViewImpl : BaseActivity(), AddToListView {
         }.show()
     }
 
-    private fun handleResult(response: Result) {
+    private fun handleContentAdded(response: Result) {
         alert(response.message, getString(R.string.title_success)) {
             yesButton {
-                startActivity(intentFor<MainActivity>().clearTask().newTask())
-                ContentContainer.updated = true
-                finish()
+                presenter.handleContentAdded(response)
             }
         }.show()
     }
 
-    override fun onContentAdded(observable: Observable<Result>) {
+    override fun onAddContent(observable: Observable<Result>) {
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
-                            handleResult(it)
+                            handleContentAdded(it)
                         },
                         onError = {
                             closeProgress()
@@ -111,11 +94,11 @@ class AddToListViewImpl : BaseActivity(), AddToListView {
                 )
     }
 
-    override fun onContentFound(observable: Observable<List<Content>>) {
+    override fun onFindContent(observable: Observable<List<Content>>) {
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
-                            createAdapter(it)
+                            presenter.handleContentFound(it)
                             closeProgress()
                         },
                         onError = {
@@ -126,6 +109,11 @@ class AddToListViewImpl : BaseActivity(), AddToListView {
                             closeProgress()
                         }
                 )
+    }
+
+    override fun onContentAdded(result: Result) {
+        startActivity(intentFor<MainActivity>().clearTask().newTask())
+        finish()
     }
 
     override fun onShowDetails(imdbId: String) {

@@ -64,7 +64,7 @@ class ArchiveViewImpl : BaseActivity(), ArchiveView {
         presenter.getArchive(prefs.userId)
     }
 
-    override fun getArchive(observable: Observable<List<Content>>) {
+    override fun onGetArchive(observable: Observable<List<Content>>) {
         showProgress()
         observable.applySchedulers()
                 .subscribeBy(
@@ -81,7 +81,7 @@ class ArchiveViewImpl : BaseActivity(), ArchiveView {
                 )
     }
 
-    override fun clearArchive(observable: Observable<Result>) {
+    override fun onClearArchive(observable: Observable<Result>) {
         showProgress()
         observable.applySchedulers()
                 .subscribeBy(

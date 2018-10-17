@@ -1,6 +1,7 @@
 package com.gfb.watchlist.ui.addToList
 
 import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.entity.Result
 
 interface AddToListPresenter {
 
@@ -10,4 +11,7 @@ interface AddToListPresenter {
 
     fun showDetails(imdbId: String)
 
+    fun handleContentAdded(result: Result)
+
+    fun handleContentFound(content: List<Content>)
 }

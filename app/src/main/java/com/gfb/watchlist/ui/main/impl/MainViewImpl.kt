@@ -1,4 +1,4 @@
-package com.gfb.watchlist.activity
+package com.gfb.watchlist.ui.main.impl
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.gfb.watchlist.R
+import com.gfb.watchlist.activity.BaseActivity
+import com.gfb.watchlist.activity.ChangePasswordActivity
+import com.gfb.watchlist.activity.SplashActivity
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
@@ -22,6 +25,8 @@ import com.gfb.watchlist.fragment.RecentlyAddedFragment
 import com.gfb.watchlist.fragment.SeriesFragment
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.ui.addToList.impl.AddToListViewImpl
+import com.gfb.watchlist.ui.archive.impl.ArchiveViewImpl
 import com.gfb.watchlist.ui.content.impl.MoviesViewImpl
 import com.gfb.watchlist.ui.content.impl.RecentlyAddedViewImpl
 import com.gfb.watchlist.ui.content.impl.SeriesViewImpl
@@ -32,9 +37,9 @@ import org.jetbrains.anko.*
 
 
 @Suppress("DEPRECATION")
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var mSectionsPagerAdapter: MainActivity.SectionsPagerAdapter? = null
+    private var mSectionsPagerAdapter: MainViewImpl.SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +63,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val textUser = header.findViewById<TextView>(R.id.textView)
         textUser.text = prefs.userEmail
 
-        fab.setOnClickListener { startActivity<AddToListActivity>() }
+        fab.setOnClickListener { startActivity<AddToListViewImpl>() }
         when {
             prefs.googleSignIn!! -> hideForgotPass()
         }
@@ -78,10 +83,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         when (id) {
             R.id.nav_add_content -> {
-                startActivity<AddToListActivity>()
+                startActivity<AddToListViewImpl>()
             }
             R.id.nav_archive -> {
-                startActivity<ArchiveActivity>()
+                startActivity<ArchiveViewImpl>()
             }
             R.id.nav_password -> {
                 val intent = Intent(baseContext, ChangePasswordActivity::class.java)

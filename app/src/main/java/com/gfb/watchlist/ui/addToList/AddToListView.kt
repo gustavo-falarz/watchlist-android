@@ -6,10 +6,13 @@ import io.reactivex.Observable
 
 interface AddToListView {
 
-    fun onContentAdded(observable: Observable<Result>)
+    fun onAddContent(observable: Observable<Result>)
 
-    fun onContentFound(observable: Observable<List<Content>>)
+    fun onFindContent(observable: Observable<List<Content>>)
 
     fun onShowDetails(imdbId: String)
 
+    fun onContentAdded(result: Result)
+
+    fun onContentFound(contents: List<Content>)
 }

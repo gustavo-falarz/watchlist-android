@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
         val user = UserDTO(email, password)
         when {
             !checkEmpty() -> {
-                UserService.validateUser(user).applySchedulers()
+                UserService.signIn(user).applySchedulers()
                         .subscribe(
                                 {
                                     nextActivity(it, false)

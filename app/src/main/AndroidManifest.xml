@@ -80,6 +80,7 @@
         <activity android:name=".ui.addToList.impl.AddToListViewImpl"
             android:screenOrientation="portrait"
             android:label=""/>
+        <activity android:name=".ui.main.impl.MainViewImpl" />
 
 
     </application>

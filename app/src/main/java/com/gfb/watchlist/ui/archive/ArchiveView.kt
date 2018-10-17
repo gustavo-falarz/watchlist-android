@@ -6,8 +6,8 @@ import io.reactivex.Observable
 
 interface ArchiveView {
 
-    fun getArchive(observable: Observable<List<Content>>)
+    fun onGetArchive(observable: Observable<List<Content>>)
 
-    fun clearArchive(observable: Observable<Result>)
+    fun onClearArchive(observable: Observable<Result>)
 
 }
