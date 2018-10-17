@@ -5,14 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
 import com.gfb.watchlist.activity.BaseActivity
-import com.gfb.watchlist.activity.MainActivity
 import com.gfb.watchlist.entity.Content
-import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.ui.preview.PreviewView
 import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_content_details.*
 import org.jetbrains.anko.*
@@ -21,12 +20,14 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
     private lateinit var contentId: String
     private lateinit var content: Content
 
+    private val presenter = PreviewPresenterImpl(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
         setupToolbar(R.string.title_details)
         setupActionBar()
-
+        fab.setOnClickListener { confirmAddition() }
         contentId = intent.getStringExtra(Constants.TRANSITION_KEY_CONTENT) as String
         getContent()
     }
@@ -42,7 +43,6 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
         tvReleased.text = content.released
         tvActors.text = content.actors
         imPoster.load(content.poster) { request -> request.fit() }
-        fab.setOnClickListener { confirmAddition() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,9 +69,43 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
         return true
     }
 
-    override fun getContent() {
+    private fun getContent() {
+        presenter.getContent(contentId)
+    }
+
+    private fun addContent() {
+        presenter.addContent(prefs.userId, content)
+    }
+
+    private fun confirmAddition(): Boolean {
+        alert(String.format(getString(R.string.message_confirmation_add_content), content.title),
+                getString(R.string.title_add_content)) {
+            positiveButton(R.string.yes) { addContent() }
+            negativeButton(R.string.no) {}
+        }.show()
+        return true
+    }
+
+    override fun onAddContent(observable: Observable<Result>) {
         showProgress()
-        presenter.getContent(contentId).applySchedulers()
+        observable.applySchedulers()
+                .subscribeBy(
+                        onNext = {
+                            handleContentAdded(it)
+                        },
+                        onError = {
+                            handleException(it)
+                            closeProgress()
+                        },
+                        onComplete = {
+                            closeProgress()
+                        }
+                )
+    }
+
+    override fun onGetContent(observable: Observable<Content>) {
+        showProgress()
+        observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
                             content = it
@@ -87,41 +121,16 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
                 )
     }
 
-    private fun confirmAddition(): Boolean {
-        alert(String.format(getString(R.string.message_confirmation_add_content), content.title),
-                getString(R.string.title_add_content)) {
-            positiveButton(R.string.yes) { addToList() }
-            negativeButton(R.string.no) {}
-        }.show()
-        return true
+    override fun onContentAdded(result: Result) {
+        startActivity(intentFor<MainActivity>().clearTask().newTask())
+        finish()
     }
 
-    private val presenter = PreviewPresenterImpl()
-
-    override fun addToList() {
-        showProgress()
-        presenter.addToList(prefs.userId, content).applySchedulers()
-                .subscribeBy(
-                        onNext = {
-                            handleResult(it)
-                        },
-                        onError = {
-                            handleException(it)
-                            closeProgress()
-                        },
-                        onComplete = {
-                            closeProgress()
-                        }
-                )
-    }
-
-    private fun handleResult(it: Result) {
-        if (it.status) {
-            alert(it.message, getString(R.string.title_success)) {
+    private fun handleContentAdded(response: Result) {
+        if (response.status) {
+            alert(response.message, getString(R.string.title_success)) {
                 yesButton {
-                    startActivity(intentFor<MainActivity>().clearTask().newTask())
-                    ContentContainer.updated = true
-                    finish()
+                    presenter.onContentAdded(response)
                 }
             }.show()
         }

@@ -52,7 +52,7 @@ class LoginViewImpl : BaseActivity(), LoginView {
     override fun signIn(observable: Observable<User>) {
         observable.applySchedulers()
                 .subscribeBy(
-                        onNext = { nextActivity(it, false) },
+                        onNext = { presenter.onUserValidated(it, false) },
                         onError = { handleException(it) },
                         onComplete = { closeProgress() }
                 )
@@ -100,16 +100,16 @@ class LoginViewImpl : BaseActivity(), LoginView {
         presenter.googleSignIn(email)
     }
 
-    override fun onUserValidated(observable: Observable<User>, google: Boolean) {
+    override fun onValidateUser(observable: Observable<User>, google: Boolean) {
         observable.applySchedulers()
                 .subscribeBy(
-                        onNext = { nextActivity(it, google) },
+                        onNext = { presenter.onUserValidated(it, google) },
                         onError = { handleException(it) },
                         onComplete = { closeProgress() }
                 )
     }
 
-    private fun nextActivity(user: User, google: Boolean) {
+    override fun onUserValidated(user: User, google: Boolean) {
         when (user.status) {
             USER_STATUS_PENDING -> {
                 warnUser(user, getString(R.string.message_activate_acc))

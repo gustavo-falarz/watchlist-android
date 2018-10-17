@@ -6,11 +6,11 @@ import io.reactivex.Observable
 
 interface ContentView {
 
-    fun onContentArchived(observable: Observable<Result>, content: Content)
+    fun onArchiveContent(observable: Observable<Result>, content: Content)
 
     fun deleteContent(result: Result, content: Content)
 
     fun onContentDeleted()
 
-    fun callActivity(content: Content)
+    fun onShowDetails(content: Content)
 }

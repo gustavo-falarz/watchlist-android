@@ -11,4 +11,6 @@ interface LoginPresenter {
     fun forgotPassword()
 
     fun changePassword(user: User)
+
+    fun onUserValidated(user: User, google: Boolean)
 }

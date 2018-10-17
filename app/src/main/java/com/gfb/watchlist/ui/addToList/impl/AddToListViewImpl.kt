@@ -6,7 +6,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.gfb.watchlist.R
 import com.gfb.watchlist.activity.BaseActivity
-import com.gfb.watchlist.activity.MainActivity
 import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.Result

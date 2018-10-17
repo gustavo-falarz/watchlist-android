@@ -7,7 +7,9 @@ interface LoginView {
 
     fun signIn(observable: Observable<User>)
 
-    fun onUserValidated(observable: Observable<User>, google: Boolean)
+    fun onValidateUser(observable: Observable<User>, google: Boolean)
+
+    fun onUserValidated(user: User, google: Boolean)
 
     fun onUserSaved()
 

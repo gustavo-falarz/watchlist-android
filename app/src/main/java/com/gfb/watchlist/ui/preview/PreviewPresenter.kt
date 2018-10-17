@@ -6,7 +6,10 @@ import io.reactivex.Observable
 
 interface PreviewPresenter {
 
-    fun addToList(userId: String, content: Content): Observable<Result>
+    fun addContent(userId: String, content: Content)
 
-    fun getContent(contentId: String): Observable<Content>
+    fun onContentAdded(result: Result)
+
+    fun getContent(contentId: String)
+
 }

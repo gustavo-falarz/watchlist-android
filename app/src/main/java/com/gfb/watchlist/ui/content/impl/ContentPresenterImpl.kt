@@ -9,12 +9,12 @@ import com.gfb.watchlist.ui.content.ContentView
 
 class ContentPresenterImpl(val view: ContentView) : ContentPresenter {
 
-    override fun callActivity(content: Content) {
-        view.callActivity(content)
+    override fun showDetails(content: Content) {
+        view.onShowDetails(content)
     }
 
     override fun archiveContent(userId: String, content: Content) {
-        view.onContentArchived(ContentService.archiveContent(UserContentDTO(userId)), content)
+        view.onArchiveContent(ContentService.archiveContent(UserContentDTO(userId)), content)
     }
 
     override fun deleteContent(content: Content) {

@@ -17,6 +17,7 @@ import com.gfb.watchlist.R
 import com.gfb.watchlist.activity.BaseActivity
 import com.gfb.watchlist.activity.ChangePasswordActivity
 import com.gfb.watchlist.activity.SplashActivity
+import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.UserInfo
 import com.gfb.watchlist.entity.dto.UserContentDTO
@@ -30,15 +31,19 @@ import com.gfb.watchlist.ui.archive.impl.ArchiveViewImpl
 import com.gfb.watchlist.ui.content.impl.MoviesViewImpl
 import com.gfb.watchlist.ui.content.impl.RecentlyAddedViewImpl
 import com.gfb.watchlist.ui.content.impl.SeriesViewImpl
+import com.gfb.watchlist.ui.main.MainPresenter
+import com.gfb.watchlist.ui.main.MainView
 import com.gfb.watchlist.util.Constants
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.*
 
 
 @Suppress("DEPRECATION")
-class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, MainView {
+    private val presenter = MainPresenterImpl(this, this)
     private var mSectionsPagerAdapter: MainViewImpl.SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +70,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         fab.setOnClickListener { startActivity<AddToListViewImpl>() }
         when {
-            prefs.googleSignIn!! -> hideForgotPass()
+            prefs.googleSignIn -> hideForgotPass()
         }
     }
 
@@ -133,20 +138,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun findContent() {
-        showProgress()
-        ContentService.findContent(UserContentDTO(prefs.userId)).applySchedulers()
-                .subscribe(
-                        { content ->
-                            closeProgress()
-                            ContentContainer.initContent(content)
-                            ContentContainer.updated = false
-                            container.adapter = mSectionsPagerAdapter
-                        },
-                        { error ->
-                            closeProgress()
-                            handleException(error)
-                        }
-                )
+        presenter.getContent()
     }
 
     private fun logoutConfirmation() {
@@ -157,9 +149,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun logout() {
-        UserInfo.clearData(this)
-        ContentContainer.updated = true
-        startActivity(intentFor<SplashActivity>().clearTask().newTask())
+        presenter.logout()
     }
 
     private fun hideForgotPass() {
@@ -173,6 +163,29 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         ContentContainer.updated = true
     }
 
+    override fun onGetContent(observable: Observable<MutableList<Content>>) {
+        observable.applySchedulers()
+                .subscribeBy(
+                        onNext = { content ->
+                            presenter.onContentLoaded(content)
+                        },
+                        onError = { error ->
+                            closeProgress()
+                            handleException(error)
+                        },
+                        onComplete = {
+                            closeProgress()
+                        }
+                )
+    }
+
+    override fun onContentLoaded() {
+        container.adapter = mSectionsPagerAdapter
+    }
+
+    override fun onLogout() {
+        startActivity(intentFor<SplashActivity>().clearTask().newTask())
+    }
 
 }
 

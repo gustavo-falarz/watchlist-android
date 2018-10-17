@@ -1,8 +1,14 @@
 package com.gfb.watchlist.ui.preview
 
+import com.gfb.watchlist.entity.Content
+import com.gfb.watchlist.entity.Result
+import io.reactivex.Observable
+
 interface PreviewView {
 
-    fun addToList()
+    fun onAddContent(observable: Observable<Result>)
 
-    fun getContent()
+    fun onContentAdded(result: Result)
+
+    fun onGetContent(observable: Observable<Content>)
 }

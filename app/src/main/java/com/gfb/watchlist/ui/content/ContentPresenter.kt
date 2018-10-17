@@ -10,6 +10,6 @@ interface ContentPresenter {
 
     fun deleteContent(content: Content)
 
-    fun callActivity(content: Content)
+    fun showDetails(content: Content)
 
 }

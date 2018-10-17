@@ -12,6 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.crashlytics.android.Crashlytics
 import com.gfb.watchlist.R
+import com.gfb.watchlist.ui.main.impl.MainViewImpl
 import com.gfb.watchlist.widget.Progress
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -66,7 +67,7 @@ open class BaseActivity : AppCompatActivity() {
         Crashlytics.logException(exception)
         exception.message?.let {
             alert(it, getString(R.string.error_title))
-            { yesButton { if (getActivity() !is MainActivity )finish()} }.show()
+            { yesButton { if (getActivity() !is MainViewImpl )finish()} }.show()
         }
     }
 

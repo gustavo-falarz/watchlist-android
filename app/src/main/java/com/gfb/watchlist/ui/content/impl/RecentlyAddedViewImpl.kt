@@ -59,10 +59,10 @@ class RecentlyAddedViewImpl : BaseFragment(), ContentView {
     }
 
     private fun showDetails(content: Content) {
-        presenter.callActivity(content)
+        presenter.showDetails(content)
     }
 
-    override fun callActivity(content: Content) {
+    override fun onShowDetails(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
         intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
@@ -82,7 +82,7 @@ class RecentlyAddedViewImpl : BaseFragment(), ContentView {
         presenter.archiveContent(prefs.userId, content)
     }
 
-    override fun onContentArchived(observable: Observable<Result>, content: Content) {
+    override fun onArchiveContent(observable: Observable<Result>, content: Content) {
         showProgress()
         observable.applySchedulers()
                 .subscribeBy(
