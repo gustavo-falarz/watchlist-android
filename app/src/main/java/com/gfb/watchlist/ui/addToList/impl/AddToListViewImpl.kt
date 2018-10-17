@@ -1,6 +1,5 @@
 package com.gfb.watchlist.ui.addToList.impl
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.inputmethod.EditorInfo
@@ -12,16 +11,18 @@ import com.gfb.watchlist.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.Result
-import com.gfb.watchlist.entity.dto.UserContentDTO
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.ui.addToList.AddToListView
 import com.gfb.watchlist.ui.preview.impl.PreviewViewImpl
 import com.gfb.watchlist.util.Constants
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.*
 
-class AddToListViewImpl : BaseActivity() {
+class AddToListViewImpl : BaseActivity(), AddToListView {
+    private val presenter = AddToListPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,6 @@ class AddToListViewImpl : BaseActivity() {
             }
         }
     }
-
 
     private fun searchOnImdb() {
         hideKeyboard()
@@ -69,7 +69,7 @@ class AddToListViewImpl : BaseActivity() {
     private fun createAdapter(contents: List<Content>) {
         recyclerView.adapter = ResumedContentAdapter(contents,
                 {
-                    showDetails(it)
+                    presenter.showDetails(it.imdbID)
                 },
                 {
                     confirmAddition(it)
@@ -78,21 +78,25 @@ class AddToListViewImpl : BaseActivity() {
 
     private fun confirmAddition(content: Content) {
         alert(String.format(getString(R.string.message_confirmation_add_content), content.title), getString(R.string.title_add_content)) {
-            positiveButton(R.string.yes) { addToList(content) }
+            positiveButton(R.string.yes) {
+                presenter.addContent(prefs.userId, content)
+            }
             negativeButton(R.string.no) {}
         }.show()
     }
 
-    private fun showDetails(content: Content) {
-        val intent = Intent(this, PreviewViewImpl::class.java)
-        intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content.imdbID)
-        startActivity(intent)
+    private fun handleResult(response: Result) {
+        alert(response.message, getString(R.string.title_success)) {
+            yesButton {
+                startActivity(intentFor<MainActivity>().clearTask().newTask())
+                ContentContainer.updated = true
+                finish()
+            }
+        }.show()
     }
 
-    private fun addToList(content: Content) {
-        showProgress()
-        //TODO
-        ContentService.addContent(UserContentDTO(prefs.userId, content, null)).applySchedulers()
+    override fun onContentAdded(observable: Observable<Result>) {
+        observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
                             handleResult(it)
@@ -107,16 +111,26 @@ class AddToListViewImpl : BaseActivity() {
                 )
     }
 
-    private fun handleResult(response: Result) {
-        alert(response.message, getString(R.string.title_success)) {
-            yesButton {
-                startActivity(intentFor<MainActivity>().clearTask().newTask())
-                ContentContainer.updated = true
-                finish()
-            }
-        }.show()
+    override fun onContentFound(observable: Observable<List<Content>>) {
+        observable.applySchedulers()
+                .subscribeBy(
+                        onNext = {
+                            createAdapter(it)
+                            closeProgress()
+                        },
+                        onError = {
+                            handleException(it)
+                            closeProgress()
+                        },
+                        onComplete = {
+                            closeProgress()
+                        }
+                )
     }
 
+    override fun onShowDetails(imdbId: String) {
+        startActivity<PreviewViewImpl>(Constants.TRANSITION_KEY_CONTENT to imdbId)
+    }
 }
 
 

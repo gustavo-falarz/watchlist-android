@@ -1,7 +1,6 @@
 package com.gfb.watchlist.ui.content.impl
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -55,13 +54,17 @@ class MoviesViewImpl : BaseFragment(), ContentView {
 
     private fun createAdapter() {
         val adapter = ContentAdapter(ContentContainer.getContent(Constants.TYPE_MOVIE),
-                { content -> callActivity(content) },
+                { content -> showDetails(content) },
                 { content -> confirmationArchive(content) })
         recyclerViewContent.adapter = adapter
         inflated = true
     }
 
-    private fun callActivity(content: Content) {
+    private fun showDetails(content: Content) {
+        presenter.callActivity(content)
+    }
+
+    override fun callActivity(content: Content) {
         val intent = Intent(context, ContentDetailsActivity::class.java)
         intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
@@ -69,9 +72,10 @@ class MoviesViewImpl : BaseFragment(), ContentView {
 
     private fun confirmationArchive(content: Content) {
         alert(String.format(getString(R.string.message_confirmation_archive_content),
-                content.title),
-                getString(R.string.title_archive_content)) {
-            positiveButton(R.string.yes) { archiveContent(content) }
+                content.title), getString(R.string.title_archive_content)) {
+            positiveButton(R.string.yes) {
+                archiveContent(content)
+            }
             negativeButton(R.string.no) {}
         }.show()
     }
@@ -108,5 +112,4 @@ class MoviesViewImpl : BaseFragment(), ContentView {
     override fun onContentDeleted() {
         createAdapter()
     }
-
 }

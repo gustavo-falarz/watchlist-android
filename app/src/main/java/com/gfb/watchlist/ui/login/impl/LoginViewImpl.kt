@@ -138,7 +138,6 @@ class LoginViewImpl : BaseActivity(), LoginView {
         }.show()
     }
 
-
     override fun changePassword(user: User) {
         startActivity<ChangePasswordActivity>(Constants.TRANSITION_KEY_EMAIL to user.email)
         finish()
@@ -147,5 +146,4 @@ class LoginViewImpl : BaseActivity(), LoginView {
     override fun forgotPassword() {
         startActivity<ForgotPasswordActivity>()
     }
-
 }
