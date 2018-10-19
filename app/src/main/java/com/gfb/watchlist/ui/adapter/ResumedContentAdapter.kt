@@ -1,4 +1,4 @@
-package com.gfb.watchlist.adapter
+package com.gfb.watchlist.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.gfb.watchlist.fragment
+package com.gfb.watchlist.ui
 
 import android.support.v4.app.Fragment
 import com.gfb.watchlist.R
@@ -23,7 +23,7 @@ open class BaseFragment : Fragment() {
 
     protected fun showProgress() {
         if (progress == null) {
-            progress = Progress(context)
+            progress = Progress(context!!)
         }
         progress!!.show()
     }
@@ -34,10 +34,12 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    @Suppress("NestedLambdaShadowedImplicitParameter")
     fun handleException(exception: Throwable) {
         exception.message?.let { alert(it, getString(R.string.error_title)) { yesButton { } }.show() }
     }
 
+    @Suppress("unused")
     fun showWarning(message: String) {
         alert(message, getString(R.string.error_title)) { yesButton { } }
     }

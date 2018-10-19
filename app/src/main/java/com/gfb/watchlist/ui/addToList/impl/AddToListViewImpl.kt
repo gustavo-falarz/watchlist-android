@@ -5,12 +5,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.BaseActivity
-import com.gfb.watchlist.adapter.ResumedContentAdapter
+import com.gfb.watchlist.ui.BaseView
+import com.gfb.watchlist.ui.adapter.ResumedContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.prefs
 import com.gfb.watchlist.ui.addToList.AddToListView
+import com.gfb.watchlist.ui.main.impl.MainViewImpl
 import com.gfb.watchlist.ui.preview.impl.PreviewViewImpl
 import com.gfb.watchlist.util.Constants
 import io.reactivex.Observable
@@ -18,14 +19,14 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.*
 
-class AddToListViewImpl : BaseActivity(), AddToListView {
+class AddToListViewImpl : BaseView(), AddToListView {
 
     private val presenter = AddToListPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_list)
-        setupToolbar(R.string.title_search)
+        (R.string.title_search)
         setupActionBar()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -111,7 +112,7 @@ class AddToListViewImpl : BaseActivity(), AddToListView {
     }
 
     override fun onContentAdded(result: Result) {
-        startActivity(intentFor<MainActivity>().clearTask().newTask())
+        startActivity(intentFor<MainViewImpl>().clearTask().newTask())
         finish()
     }
 

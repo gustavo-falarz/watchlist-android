@@ -1,6 +1,5 @@
 package com.gfb.watchlist.ui.main.impl
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -14,26 +13,19 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.BaseActivity
-import com.gfb.watchlist.activity.ChangePasswordActivity
-import com.gfb.watchlist.activity.SplashActivity
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
-import com.gfb.watchlist.entity.UserInfo
-import com.gfb.watchlist.entity.dto.UserContentDTO
-import com.gfb.watchlist.fragment.MoviesFragment
-import com.gfb.watchlist.fragment.RecentlyAddedFragment
-import com.gfb.watchlist.fragment.SeriesFragment
 import com.gfb.watchlist.prefs
-import com.gfb.watchlist.service.ContentService
+import com.gfb.watchlist.ui.BaseView
 import com.gfb.watchlist.ui.addToList.impl.AddToListViewImpl
 import com.gfb.watchlist.ui.archive.impl.ArchiveViewImpl
+import com.gfb.watchlist.ui.changePassword.impl.ChangePasswordViewImpl
 import com.gfb.watchlist.ui.content.impl.MoviesViewImpl
 import com.gfb.watchlist.ui.content.impl.RecentlyAddedViewImpl
 import com.gfb.watchlist.ui.content.impl.SeriesViewImpl
-import com.gfb.watchlist.ui.main.MainPresenter
 import com.gfb.watchlist.ui.main.MainView
-import com.gfb.watchlist.util.Constants
+import com.gfb.watchlist.ui.splash.impl.SplashViewImpl
+import com.gfb.watchlist.util.Constants.TRANSITION_KEY_CONTENT
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -42,7 +34,7 @@ import org.jetbrains.anko.*
 
 
 @Suppress("DEPRECATION")
-class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, MainView {
+class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener, MainView {
     private val presenter = MainPresenterImpl(this, this)
     private var mSectionsPagerAdapter: MainViewImpl.SectionsPagerAdapter? = null
 
@@ -94,9 +86,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 startActivity<ArchiveViewImpl>()
             }
             R.id.nav_password -> {
-                val intent = Intent(baseContext, ChangePasswordActivity::class.java)
-                intent.putExtra(Constants.TRANSITION_KEY_CONTENT, prefs.userEmail)
-                startActivity(intent)
+                startActivity<ChangePasswordViewImpl>(TRANSITION_KEY_CONTENT to prefs.userEmail)
             }
             R.id.nav_logout -> {
                 logoutConfirmation()
@@ -122,7 +112,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     return SeriesViewImpl.newInstance()
                 }
             }
-            return RecentlyAddedFragment.newInstance()
+            return RecentlyAddedViewImpl.newInstance()
         }
 
         override fun getCount(): Int {
@@ -184,7 +174,7 @@ class MainViewImpl : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onLogout() {
-        startActivity(intentFor<SplashActivity>().clearTask().newTask())
+        startActivity(intentFor<SplashViewImpl>().clearTask().newTask())
     }
 
 }

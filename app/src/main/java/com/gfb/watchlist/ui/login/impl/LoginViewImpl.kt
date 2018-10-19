@@ -6,12 +6,14 @@ import android.os.Bundle
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.*
+import com.gfb.watchlist.ui.BaseView
 import com.gfb.watchlist.entity.User
+import com.gfb.watchlist.ui.changePassword.impl.ChangePasswordViewImpl
+import com.gfb.watchlist.ui.forgotPassword.impl.ForgotPasswordViewImpl
 import com.gfb.watchlist.ui.login.LoginView
+import com.gfb.watchlist.ui.main.impl.MainViewImpl
+import com.gfb.watchlist.ui.newUser.impl.NewUserViewImpl
 import com.gfb.watchlist.util.Constants
-import com.gfb.watchlist.util.Constants.USER_STATUS_PENDING
-import com.gfb.watchlist.util.Constants.USER_STATUS_PENDING_RESET
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
@@ -21,14 +23,14 @@ import org.jetbrains.anko.startActivity
 import java.util.*
 
 
-class LoginViewImpl : BaseActivity(), LoginView {
+class LoginViewImpl : BaseView(), LoginView {
     var presenter = LoginPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        btSignUp.setOnClickListener { startActivity<NewUserActivity>() }
+        btSignUp.setOnClickListener { startActivity<NewUserViewImpl>() }
         etPassword.setOnEditorActionListener { _, _, _ ->
             signIn()
             true
@@ -76,7 +78,8 @@ class LoginViewImpl : BaseActivity(), LoginView {
                 Constants.RC_SIGN_IN)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             Constants.RC_SIGN_IN -> {
@@ -94,6 +97,7 @@ class LoginViewImpl : BaseActivity(), LoginView {
                 }
             }
         }
+        closeProgress()
     }
 
     private fun googleSignIn(email: String) {
@@ -101,32 +105,37 @@ class LoginViewImpl : BaseActivity(), LoginView {
     }
 
     override fun onValidateUser(observable: Observable<User>, google: Boolean) {
+        showProgress()
         observable.applySchedulers()
                 .subscribeBy(
-                        onNext = { presenter.onUserValidated(it, google) },
-                        onError = { handleException(it) },
-                        onComplete = { closeProgress() }
+                        onNext = {
+                            presenter.onUserValidated(it, google)
+                        },
+                        onError = {
+                            closeProgress()
+                            handleException(it)
+                        },
+                        onComplete = {
+                            closeProgress()
+                        }
                 )
     }
 
     override fun onUserValidated(user: User, google: Boolean) {
-        when (user.status) {
-            USER_STATUS_PENDING -> {
-                warnUser(user, getString(R.string.message_activate_acc))
-            }
-            USER_STATUS_PENDING_RESET -> {
-                warnUser(user, getString(R.string.message_pending_reset))
-            }
-            else -> {
-                presenter.saveUserLocally(user, google)
-            }
-        }
-        closeProgress()
+        presenter.saveUserLocally(user, google)
     }
 
     override fun onUserSaved() {
-        startActivity<MainActivity>()
+        startActivity<MainViewImpl>()
         finish()
+    }
+
+    override fun onUserStatusPendingReset(user: User) {
+        warnUser(user, getString(R.string.message_activate_acc))
+    }
+
+    override fun onUserStatusPending(user: User) {
+        warnUser(user, getString(R.string.message_pending_reset))
     }
 
     private fun warnUser(user: User, message: String) {
@@ -139,11 +148,11 @@ class LoginViewImpl : BaseActivity(), LoginView {
     }
 
     override fun changePassword(user: User) {
-        startActivity<ChangePasswordActivity>(Constants.TRANSITION_KEY_EMAIL to user.email)
+        startActivity<ChangePasswordViewImpl>(Constants.TRANSITION_KEY_EMAIL to user.email)
         finish()
     }
 
     override fun forgotPassword() {
-        startActivity<ForgotPasswordActivity>()
+        startActivity<ForgotPasswordViewImpl>()
     }
 }

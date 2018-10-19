@@ -4,10 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_PROFILE" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
     <application
         android:name=".WatchlistApplication"
         android:allowBackup="true"
@@ -17,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".ui.splash.impl.SplashViewImpl"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -29,41 +25,45 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activity.NewUserActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".activity.ContentDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".activity.ChangePasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.ForgotPasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
         <!--New activities MVP-->
-        <activity android:name=".ui.archive.impl.ArchiveViewImpl"
+        <activity
+            android:name=".ui.archive.impl.ArchiveViewImpl"
             android:label="@string/title_archive"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.login.impl.LoginViewImpl"
+        <activity
+            android:name=".ui.login.impl.LoginViewImpl"
+            android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_login"/>
-        <activity android:name=".ui.preview.impl.PreviewViewImpl"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.preview.impl.PreviewViewImpl"
+            android:label="@string/title_details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.addToList.impl.AddToListViewImpl"
+            android:label="@string/title_add_content"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.impl.MainViewImpl"
             android:screenOrientation="portrait"
-            android:label=""/>
-        <activity android:name=".ui.addToList.impl.AddToListViewImpl"
-            android:screenOrientation="portrait"
-            android:label=""/>
-        <activity android:name=".ui.main.impl.MainViewImpl" />
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.newUser.impl.NewUserViewImpl"
+            android:label="@string/title_new_user"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.changePassword.impl.ChangePasswordViewImpl"
+            android:label="@string/title_change_password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.forgotPassword.impl.ForgotPasswordViewImpl"
+            android:label="@string/title_forgot_password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contentDetails.impl.ContentDetailsViewImpl"
+            android:label="@string/title_details"
+            android:screenOrientation="portrait" />
 
     </application>
 

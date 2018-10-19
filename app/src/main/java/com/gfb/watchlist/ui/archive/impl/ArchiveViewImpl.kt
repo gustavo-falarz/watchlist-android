@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.BaseActivity
-import com.gfb.watchlist.adapter.ArchiveAdapter
+import com.gfb.watchlist.ui.BaseView
+import com.gfb.watchlist.ui.adapter.ArchiveAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.prefs
@@ -16,14 +16,14 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_archive.*
 import org.jetbrains.anko.alert
 
-class ArchiveViewImpl : BaseActivity(), ArchiveView {
+class ArchiveViewImpl : BaseView(), ArchiveView {
 
     private val presenter = ArchivePresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archive)
-        setupToolbar(R.string.title_archive)
+        (R.string.title_archive)
         setupActionBar()
 
         recyclerViewContent.layoutManager = LinearLayoutManager(this)

@@ -9,9 +9,18 @@ class User(
         var id: String,
         var email: String,
         var password: String,
-        var status: String,
+        var status: Status,
         var watchList: List<Content>,
-        var archive: List<Content>): Serializable
+        var archive: List<Content>): Serializable{
+
+    enum class Status {
+        PENDING,
+        PENDING_RESET,
+        ACTIVE
+    }
+}
+
+
 
 
 

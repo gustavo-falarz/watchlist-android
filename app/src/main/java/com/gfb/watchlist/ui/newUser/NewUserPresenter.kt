@@ -1,10 +1,10 @@
 package com.gfb.watchlist.ui.newUser
 
-import com.gfb.watchlist.entity.dto.UserDTO
+import com.gfb.watchlist.entity.Result
 
 interface NewUserPresenter {
 
-    fun addUser(userDTO: UserDTO)
+    fun addUser(email: String)
 
-
+    fun onUserAdded(result: Result)
 }

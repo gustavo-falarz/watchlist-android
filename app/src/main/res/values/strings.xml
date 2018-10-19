@@ -59,7 +59,6 @@
     <string name="nav_your_archive">Your archive</string>
     <string name="nav_add_new_content">Add new content</string>
     <string name="nav_logout">Logout</string>
-    <string name="title_add_new_content">Add new content</string>
     <string name="warning_empty_fields">Looks like some fields are empty</string>
     <string name="user_profile">User profile</string>
     <string name="description_archive_content">Archive content</string>
@@ -92,4 +91,7 @@
     <string name="action_add_content">Add to your list</string>
     <string name="action_share_content">Share</string>
     <string name="title_search">Search</string>
+    <string name="title_new_user">Register</string>
+    <string name="title_change_password">Change password</string>
+    <string name="title_forgot_password">Forgot password</string>
 </resources>

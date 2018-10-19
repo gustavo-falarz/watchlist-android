@@ -6,6 +6,7 @@ import com.firebase.ui.auth.AuthUI
 import com.gfb.watchlist.prefs
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 /**
  * Created by Gustavo on 12/26/2017.
  */

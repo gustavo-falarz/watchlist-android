@@ -1,47 +1,44 @@
-package com.gfb.watchlist.ui.newUser.impl
+package com.gfb.watchlist.ui.forgotPassword.impl
 
 import android.os.Bundle
 import com.gfb.watchlist.R
 import com.gfb.watchlist.ui.BaseView
 import com.gfb.watchlist.entity.Result
+import com.gfb.watchlist.ui.forgotPassword.ForgotPasswordView
 import com.gfb.watchlist.ui.login.impl.LoginViewImpl
-import com.gfb.watchlist.ui.newUser.NewUserView
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
-import kotlinx.android.synthetic.main.activity_new_user.*
+import kotlinx.android.synthetic.main.activity_forgot_password.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.yesButton
 
-class NewUserViewImpl : BaseView(), NewUserView {
-    private val presenter = NewUserPresenterImpl(this)
+class ForgotPasswordViewImpl : BaseView(), ForgotPasswordView {
+       val presenter = ForgotPasswordPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_user)
+        setContentView(R.layout.activity_forgot_password)
         setupActionBar()
-        btEnter.setOnClickListener { addUser() }
+        btReset.setOnClickListener { resetPassword() }
         btCancel.setOnClickListener { onBackPressed() }
         etEmail.setOnEditorActionListener { _, _, _ ->
-            addUser()
+            resetPassword()
             true
         }
     }
 
-    private fun addUser() {
-        val email = etEmail.text.toString().trim().toLowerCase()
-        when {
-            !checkEmpty() -> presenter.addUser(email)
-            else -> showWarning(R.string.warning_empty_fields)
-        }
+    private fun resetPassword() {
+        presenter.resetPassword(etEmail.text.toString())
     }
 
-    override fun onAddUser(observable: Observable<Result>) {
+    override fun onResetPassword(observable: Observable<Result>) {
         showProgress()
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
-                            presenter.onUserAdded(it)
+                            presenter.onPasswordReset(it)
                         },
                         onError = { error ->
                             handleException(error)
@@ -53,16 +50,18 @@ class NewUserViewImpl : BaseView(), NewUserView {
                 )
     }
 
-    override fun onUserAdded(result: Result) {
-        alert(result.message, getString(R.string.title_account_created)) {
+    override fun onFieldsEmpty() {
+        showWarning(R.string.warning_empty_fields)
+    }
+
+    override fun onPasswordReset(result: Result) {
+        alert(result.message, getString(R.string.title_success)) {
             yesButton {
                 startActivity<LoginViewImpl>()
                 finish()
             }
+            noButton {  }
         }.show()
     }
 
-    private fun checkEmpty(): Boolean {
-        return etEmail.text.isNullOrEmpty()
-    }
 }

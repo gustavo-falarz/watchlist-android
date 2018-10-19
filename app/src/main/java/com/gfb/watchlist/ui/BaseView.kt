@@ -1,7 +1,8 @@
 @file:Suppress("DEPRECATION")
 
-package com.gfb.watchlist.activity
+package com.gfb.watchlist.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
@@ -24,9 +25,10 @@ import org.jetbrains.anko.*
  */
 
 
-open class BaseActivity : AppCompatActivity() {
+@SuppressLint("Registered")
+open class BaseView : AppCompatActivity() {
 
-    private val tag = "BaseActivity"
+    private val tag = "BaseView"
     private var progress: Progress? = null
 
 

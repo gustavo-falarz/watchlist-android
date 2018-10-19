@@ -9,7 +9,17 @@ import com.gfb.watchlist.ui.login.LoginView
 
 class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
     override fun onUserValidated(user: User, google: Boolean) {
-        view.onUserValidated(user, google)
+        when (user.status) {
+            User.Status.PENDING -> {
+                view.onUserStatusPending(user)
+            }
+            User.Status.PENDING_RESET -> {
+                view.onUserStatusPendingReset(user)
+            }
+            User.Status.ACTIVE -> {
+                view.onUserValidated(user, google)
+            }
+        }
     }
 
     override fun changePassword(user: User) {

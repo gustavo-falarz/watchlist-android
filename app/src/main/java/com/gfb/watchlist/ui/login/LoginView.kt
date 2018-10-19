@@ -11,6 +11,10 @@ interface LoginView {
 
     fun onUserValidated(user: User, google: Boolean)
 
+    fun onUserStatusPending(user: User)
+
+    fun onUserStatusPendingReset(user: User)
+
     fun onUserSaved()
 
     fun forgotPassword()

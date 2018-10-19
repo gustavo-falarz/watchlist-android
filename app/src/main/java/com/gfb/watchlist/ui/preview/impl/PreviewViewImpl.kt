@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.BaseActivity
+import com.gfb.watchlist.ui.BaseView
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.Result
 import com.gfb.watchlist.prefs
+import com.gfb.watchlist.ui.main.impl.MainViewImpl
 import com.gfb.watchlist.ui.preview.PreviewView
 import com.gfb.watchlist.util.Constants
 import com.gfb.watchlist.util.ImageUtil.load
@@ -16,7 +17,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_content_details.*
 import org.jetbrains.anko.*
 
-class PreviewViewImpl : BaseActivity(), PreviewView {
+class PreviewViewImpl : BaseView(), PreviewView {
     private lateinit var contentId: String
     private lateinit var content: Content
 
@@ -25,7 +26,7 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
-        setupToolbar(R.string.title_details)
+        (R.string.title_details)
         setupActionBar()
         fab.setOnClickListener { confirmAddition() }
         contentId = intent.getStringExtra(Constants.TRANSITION_KEY_CONTENT) as String
@@ -122,7 +123,7 @@ class PreviewViewImpl : BaseActivity(), PreviewView {
     }
 
     override fun onContentAdded(result: Result) {
-        startActivity(intentFor<MainActivity>().clearTask().newTask())
+        startActivity(intentFor<MainViewImpl>().clearTask().newTask())
         finish()
     }
 

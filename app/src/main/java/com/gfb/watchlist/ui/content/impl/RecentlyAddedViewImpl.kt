@@ -9,14 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gfb.watchlist.R
-import com.gfb.watchlist.activity.ContentDetailsActivity
-import com.gfb.watchlist.adapter.ContentAdapter
 import com.gfb.watchlist.entity.Content
 import com.gfb.watchlist.entity.ContentContainer
 import com.gfb.watchlist.entity.Result
-import com.gfb.watchlist.fragment.BaseFragment
 import com.gfb.watchlist.prefs
+import com.gfb.watchlist.ui.BaseFragment
+import com.gfb.watchlist.ui.adapter.ContentAdapter
 import com.gfb.watchlist.ui.content.ContentView
+import com.gfb.watchlist.ui.contentDetails.impl.ContentDetailsViewImpl
 import com.gfb.watchlist.util.Constants
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
@@ -63,7 +63,7 @@ class RecentlyAddedViewImpl : BaseFragment(), ContentView {
     }
 
     override fun onShowDetails(content: Content) {
-        val intent = Intent(context, ContentDetailsActivity::class.java)
+        val intent = Intent(context, ContentDetailsViewImpl::class.java)
         intent.putExtra(Constants.TRANSITION_KEY_CONTENT, content)
         startActivity(intent)
     }

@@ -9,19 +9,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-        </android.support.design.widget.AppBarLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -120,23 +107,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="bottom|end">
-
-                            <LinearLayout
-                                android:id="@+id/btWatch"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:background="@drawable/circle_layout"
-                                android:gravity="center"
-                                android:visibility="gone">
-
-                                <ImageView
-                                    android:id="@+id/imStatus"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:contentDescription="@string/description_archive_content"
-                                    android:src="@drawable/ic_not_watched" />
-
-                            </LinearLayout>
 
                         </LinearLayout>
 
