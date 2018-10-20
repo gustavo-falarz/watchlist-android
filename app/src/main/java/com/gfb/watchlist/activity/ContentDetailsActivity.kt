@@ -38,7 +38,6 @@ class ContentDetailsActivity : BaseActivity() {
         tvActors.text = content.actors
         imPoster.load(content.poster) { request -> request.fit() }
         fab.setOnClickListener { confirmationArchive() }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
