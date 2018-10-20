@@ -77,7 +77,6 @@ class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-
         when (id) {
             R.id.nav_add_content -> {
                 startActivity<AddToListViewImpl>()
@@ -154,6 +153,7 @@ class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener
     }
 
     override fun onGetContent(observable: Observable<MutableList<Content>>) {
+        showProgress()
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = { content ->

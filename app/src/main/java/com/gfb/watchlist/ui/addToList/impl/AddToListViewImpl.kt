@@ -20,13 +20,11 @@ import kotlinx.android.synthetic.main.activity_add_to_list.*
 import org.jetbrains.anko.*
 
 class AddToListViewImpl : BaseView(), AddToListView {
-
     private val presenter = AddToListPresenterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_list)
-        (R.string.title_search)
         setupActionBar()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -79,6 +77,7 @@ class AddToListViewImpl : BaseView(), AddToListView {
     }
 
     override fun onAddContent(observable: Observable<Result>) {
+        showProgress()
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
@@ -95,6 +94,7 @@ class AddToListViewImpl : BaseView(), AddToListView {
     }
 
     override fun onFindContent(observable: Observable<List<Content>>) {
+        showProgress()
         observable.applySchedulers()
                 .subscribeBy(
                         onNext = {
@@ -109,6 +109,10 @@ class AddToListViewImpl : BaseView(), AddToListView {
                             closeProgress()
                         }
                 )
+    }
+
+    override fun onEmptyFields() {
+        showWarning(R.string.warning_empty_fields)
     }
 
     override fun onContentAdded(result: Result) {

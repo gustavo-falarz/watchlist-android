@@ -23,7 +23,6 @@ class ArchiveViewImpl : BaseView(), ArchiveView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archive)
-        (R.string.title_archive)
         setupActionBar()
 
         recyclerViewContent.layoutManager = LinearLayoutManager(this)

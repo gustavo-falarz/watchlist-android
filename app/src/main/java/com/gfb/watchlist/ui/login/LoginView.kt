@@ -5,8 +5,6 @@ import io.reactivex.Observable
 
 interface LoginView {
 
-    fun signIn(observable: Observable<User>)
-
     fun onValidateUser(observable: Observable<User>, google: Boolean)
 
     fun onUserValidated(user: User, google: Boolean)
@@ -20,5 +18,7 @@ interface LoginView {
     fun forgotPassword()
 
     fun changePassword(user: User)
+
+    fun onEmptyFields()
 
 }

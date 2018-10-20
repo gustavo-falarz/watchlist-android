@@ -15,4 +15,6 @@ interface AddToListView {
     fun onContentAdded(result: Result)
 
     fun onContentFound(contents: List<Content>)
+
+    fun onEmptyFields()
 }

@@ -26,7 +26,6 @@ class PreviewViewImpl : BaseView(), PreviewView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
-        (R.string.title_details)
         setupActionBar()
         fab.setOnClickListener { confirmAddition() }
         contentId = intent.getStringExtra(Constants.TRANSITION_KEY_CONTENT) as String

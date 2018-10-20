@@ -15,7 +15,7 @@ class AddToListPresenterImpl(val view: AddToListView) : AddToListPresenter {
 
     override fun handleContentAdded(result: Result) {
         ContentContainer.updated = true
-        view. onContentAdded(result)
+        view.onContentAdded(result)
     }
 
     override fun showDetails(imdbId: String) {
@@ -27,7 +27,11 @@ class AddToListPresenterImpl(val view: AddToListView) : AddToListPresenter {
     }
 
     override fun searchOnImdb(query: String) {
-        view.onFindContent(ContentService.searchOnImdb(query))
+        if (query.isEmpty()) {
+            view.onEmptyFields()
+        } else {
+            view.onFindContent(ContentService.searchOnImdb(query))
+        }
     }
 
 }

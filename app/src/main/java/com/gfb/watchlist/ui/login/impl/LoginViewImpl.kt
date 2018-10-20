@@ -51,21 +51,11 @@ class LoginViewImpl : BaseView(), LoginView {
         }
     }
 
-    override fun signIn(observable: Observable<User>) {
-        observable.applySchedulers()
-                .subscribeBy(
-                        onNext = { presenter.onUserValidated(it, false) },
-                        onError = { handleException(it) },
-                        onComplete = { closeProgress() }
-                )
-    }
-
     private fun checkEmpty(): Boolean {
         return etEmail.text.isNullOrEmpty() || etPassword.text.isNullOrEmpty()
     }
 
     private fun googleSignIn() {
-        showProgress()
         val providers = Arrays.asList(
                 AuthUI.IdpConfig.GoogleBuilder().build())
 
@@ -97,7 +87,6 @@ class LoginViewImpl : BaseView(), LoginView {
                 }
             }
         }
-        closeProgress()
     }
 
     private fun googleSignIn(email: String) {
@@ -119,6 +108,10 @@ class LoginViewImpl : BaseView(), LoginView {
                             closeProgress()
                         }
                 )
+    }
+
+    override fun onEmptyFields() {
+        showWarning(R.string.warning_empty_fields)
     }
 
     override fun onUserValidated(user: User, google: Boolean) {

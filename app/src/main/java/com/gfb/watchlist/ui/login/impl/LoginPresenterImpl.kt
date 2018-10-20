@@ -31,8 +31,12 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
     }
 
     override fun signIn(email: String, password: String) {
-        val user = UserDTO(email, password)
-        view.onValidateUser(UserService.signIn(user), false)
+        if (email.isEmpty() || password.isEmpty()) {
+            view.onEmptyFields()
+        } else {
+            val user = UserDTO(email, password)
+            view.onValidateUser(UserService.signIn(user), false)
+        }
     }
 
     override fun googleSignIn(email: String) {
@@ -44,4 +48,5 @@ class LoginPresenterImpl(val view: LoginView) : LoginPresenter {
         UserInfo.saveUserLocally(user, google)
         view.onUserSaved()
     }
+
 }
