@@ -23,9 +23,9 @@ android {
     signingConfigs {
         release {
             storeFile file('pineconekeystore.jks')
-            storePassword 'Cardoso@17'
-            keyAlias "pinecone"
-            keyPassword 'Cardoso@17'
+            storePassword 'password'
+            keyAlias "alias"
+            keyPassword 'password'
         }
     }
 
