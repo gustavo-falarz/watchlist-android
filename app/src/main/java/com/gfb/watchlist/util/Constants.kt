@@ -7,6 +7,7 @@ package com.gfb.watchlist.util
 object Constants {
     const val TYPE_MOVIE = "movie"
     const val TYPE_SERIES = "series"
+    const val TYPE_ALL = "ALL"
     const val TRANSITION_KEY_CONTENT = "content"
     const val URL_IMDB = "https://www.imdb.com/title/"
     const val RC_SIGN_IN = 777

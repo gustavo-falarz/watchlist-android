@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.adapter_content.view.*
 /**
  * Created by Gustavo on 12/22/2017.
  */
-class ContentAdapter(private val items: List<Content>, private val listener: (Content) -> Unit, private val watchListener: (Content) -> Unit) : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
+class ContentAdapter(private var items: List<Content>, private val listener: (Content) -> Unit, private val watchListener: (Content) -> Unit) : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.adapter_content, parent, false)
@@ -35,5 +35,9 @@ class ContentAdapter(private val items: List<Content>, private val listener: (Co
             btWatch.setOnClickListener { watchListener(content) }
             setOnClickListener { listener(content) }
         }
+    }
+
+    fun setItems(items: List<Content>){
+        this.items = items
     }
 }

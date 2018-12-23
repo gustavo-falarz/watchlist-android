@@ -94,4 +94,8 @@
     <string name="title_new_user">Register</string>
     <string name="title_change_password">Change password</string>
     <string name="title_forgot_password">Forgot password</string>
+    <string name="hint_search_content">Search for content on your list</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

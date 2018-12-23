@@ -12,4 +12,6 @@ interface ContentPresenter {
 
     fun showDetails(content: Content)
 
+    fun searchContent(term: String, type :String)
+
 }

@@ -25,7 +25,7 @@ class ArchiveViewImpl : BaseView(), ArchiveView {
         setContentView(R.layout.activity_archive)
         setupActionBar()
 
-        recyclerViewContent.layoutManager = LinearLayoutManager(this)
+        recyclerViewArchive.layoutManager = LinearLayoutManager(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,7 +43,7 @@ class ArchiveViewImpl : BaseView(), ArchiveView {
 
     private fun createAdapter(contents: List<Content>) {
         val adapter = ArchiveAdapter(contents) {}
-        recyclerViewContent.adapter = adapter
+        recyclerViewArchive.adapter = adapter
     }
 
     private fun confirmationDelete(): Boolean {
