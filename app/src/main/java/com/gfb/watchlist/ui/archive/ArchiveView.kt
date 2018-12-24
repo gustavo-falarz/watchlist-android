@@ -10,4 +10,6 @@ interface ArchiveView {
 
     fun onClearArchive(observable: Observable<Result>)
 
+    fun confirmationDelete(): Boolean
+    fun getArchive()
 }

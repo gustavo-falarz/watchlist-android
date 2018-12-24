@@ -61,7 +61,7 @@ class PreviewViewImpl : BaseView(), PreviewView {
         }
     }
 
-    private fun shareContent(): Boolean {
+    override fun shareContent(): Boolean {
         when {
             share("${Constants.URL_IMDB}${content.imdbID}") ->
                 closeProgress()
@@ -73,7 +73,7 @@ class PreviewViewImpl : BaseView(), PreviewView {
         presenter.getContent(contentId)
     }
 
-    private fun addContent() {
+    override fun addContent() {
         presenter.addContent(prefs.userId, content)
     }
 

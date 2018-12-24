@@ -11,6 +11,9 @@ import com.gfb.watchlist.ui.main.MainPresenter
 import com.gfb.watchlist.ui.main.MainView
 
 class MainPresenterImpl(val view: MainView, val context: Context) : MainPresenter {
+    override fun addNewContent() {
+        view.onCallAddNewContent()
+    }
 
     override fun getContent() {
         view.onGetContent(ContentService.findContent(UserContentDTO(prefs.userId)))
@@ -27,4 +30,6 @@ class MainPresenterImpl(val view: MainView, val context: Context) : MainPresente
         ContentContainer.updated = true
         view.onLogout()
     }
+
+
 }

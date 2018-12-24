@@ -30,7 +30,7 @@ class ContentPresenterImpl(val view: ContentView) : ContentPresenter {
     }
 
     override fun archiveContent(userId: String, content: Content) {
-        view.onArchiveContent(ContentService.archiveContent(UserContentDTO(userId)), content)
+        view.onArchiveContent(ContentService.archiveContent(UserContentDTO(userId, content)), content)
     }
 
     override fun deleteContent(content: Content) {

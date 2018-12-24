@@ -8,4 +8,5 @@ interface NewUserView {
     fun onUserAdded(result: Result)
 
     fun onAddUser(observable: Observable<Result>)
+    fun addUser()
 }

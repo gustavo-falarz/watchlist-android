@@ -10,5 +10,6 @@ interface MainPresenter {
 
     fun logout()
 
+    fun addNewContent()
 
 }

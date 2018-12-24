@@ -46,7 +46,7 @@ class ArchiveViewImpl : BaseView(), ArchiveView {
         recyclerViewArchive.adapter = adapter
     }
 
-    private fun confirmationDelete(): Boolean {
+    override fun confirmationDelete(): Boolean {
         alert(getString(R.string.message_clear_archive), getString(R.string.title_clear_archive)) {
             positiveButton(R.string.yes) { presenter.clearArchive(prefs.userId) }
             negativeButton(R.string.no) {}
@@ -59,7 +59,7 @@ class ArchiveViewImpl : BaseView(), ArchiveView {
         getArchive()
     }
 
-    private fun getArchive() {
+    override fun getArchive() {
         presenter.getArchive(prefs.userId)
     }
 

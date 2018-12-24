@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -60,7 +61,7 @@ class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener
         val textUser = header.findViewById<TextView>(R.id.textView)
         textUser.text = prefs.userEmail
 
-        fab.setOnClickListener { startActivity<AddToListViewImpl>() }
+        fab.setOnClickListener { addNewContent() }
         when {
             prefs.googleSignIn -> hideForgotPass()
         }
@@ -126,22 +127,22 @@ class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener
         }
     }
 
-    private fun findContent() {
+    override fun findContent() {
         presenter.getContent()
     }
 
-    private fun logoutConfirmation() {
+    override fun logoutConfirmation() {
         alert(String.format(getString(R.string.message_confirmation_logout)), getString(R.string.title_logout)) {
             positiveButton(R.string.yes) { logout() }
             negativeButton(R.string.no) {}
         }.show()
     }
 
-    private fun logout() {
+    override fun logout() {
         presenter.logout()
     }
 
-    private fun hideForgotPass() {
+    override fun hideForgotPass() {
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         val navMenu = navigationView.menu
         navMenu.findItem(R.id.nav_password).isVisible = false
@@ -177,5 +178,26 @@ class MainViewImpl : BaseView(), NavigationView.OnNavigationItemSelectedListener
         startActivity(intentFor<SplashViewImpl>().clearTask().newTask())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_find_content -> addNewContent()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun addNewContent(): Boolean {
+        presenter.addNewContent()
+        return true
+    }
+
+
+    override fun onCallAddNewContent() {
+        startActivity<AddToListViewImpl>()
+    }
 }
 

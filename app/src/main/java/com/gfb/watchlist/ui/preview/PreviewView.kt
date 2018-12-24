@@ -11,4 +11,6 @@ interface PreviewView {
     fun onContentAdded(result: Result)
 
     fun onGetContent(observable: Observable<Content>)
+    fun shareContent(): Boolean
+    fun addContent()
 }

@@ -28,7 +28,7 @@ class NewUserViewImpl : BaseView(), NewUserView {
         }
     }
 
-    private fun addUser() {
+    override fun addUser() {
         val email = etEmail.text.toString().trim().toLowerCase()
         when {
             !checkEmpty() -> presenter.addUser(email)

@@ -10,4 +10,11 @@ interface MainView {
     fun onContentLoaded()
 
     fun onLogout()
+
+    fun onCallAddNewContent()
+    fun addNewContent(): Boolean
+    fun findContent()
+    fun logoutConfirmation()
+    fun logout()
+    fun hideForgotPass()
 }

@@ -37,7 +37,7 @@ class ChangePasswordViewImpl : BaseView(), ChangePasswordView {
 
     override fun onChangePassword(observable: Observable<User>) {
         showProgress()
-        observable.subscribeBy(
+        observable.applySchedulers().subscribeBy(
                 onNext = {
                     presenter.onPasswordChanged(it)
                 },

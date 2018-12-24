@@ -87,7 +87,7 @@
     <string name="message_reset_password">Inform the email you used to sign up and we will reset your passowrd and send you a new one.</string>
     <string name="action_forgot_password">Forgot password</string>
     <string name="message_pending_reset">Your password has been reset, change it to proceed.</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="action_add_content">Add to your list</string>
     <string name="action_share_content">Share</string>
     <string name="title_search">Search</string>
@@ -96,6 +96,5 @@
     <string name="title_forgot_password">Forgot password</string>
     <string name="hint_search_content">Search for content on your list</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_find_content">Search  movies/series</string>
 </resources>
