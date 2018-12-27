@@ -13,12 +13,12 @@ class ContentPresenterImpl(val view: ContentView) : ContentPresenter {
     override fun searchContent(term: String, type: String) {
         when (type) {
             (Constants.TYPE_ALL) -> {
-                view.onContentSearch(ContentContainer.content.filter {
+                view.updateList(ContentContainer.content.filter {
                     it.title.contains(term, true)
                 })
             }
             else -> {
-                view.onContentSearch(ContentContainer.getContent(type).filter {
+                view.updateList(ContentContainer.getContent(type).filter {
                     it.title.contains(term, true)
                 })
             }
@@ -48,4 +48,5 @@ class ContentPresenterImpl(val view: ContentView) : ContentPresenter {
             }
         }
     }
+
 }

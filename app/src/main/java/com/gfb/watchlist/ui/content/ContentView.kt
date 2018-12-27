@@ -16,7 +16,7 @@ interface ContentView {
 
     fun onShowDetails(content: Content)
 
-    fun onContentSearch(items: List<Content>)
+    fun updateList(items: List<Content>)
 
     fun onSearch(): TextWatcher?
 

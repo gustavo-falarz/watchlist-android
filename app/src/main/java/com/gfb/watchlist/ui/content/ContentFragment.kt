@@ -20,12 +20,12 @@ import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.yesButton
 
 open class ContentFragment : BaseFragment(), ContentView {
-    private lateinit var adapter: ContentAdapter
     private var inflated = false
+    private lateinit var adapter: ContentAdapter
     protected lateinit var etSearch: EditText
+    protected lateinit var type: String
     protected lateinit var recyclerView: RecyclerView
     protected val presenter = ContentPresenterImpl(this)
-    protected lateinit var type: String
 
     override fun onArchiveContent(observable: Observable<Result>, content: Content) {
         showProgress()
@@ -64,7 +64,7 @@ open class ContentFragment : BaseFragment(), ContentView {
         startActivity<ContentDetailsViewImpl>(Constants.TRANSITION_KEY_CONTENT to content)
     }
 
-    override fun onContentSearch(items: List<Content>) {
+    override fun updateList(items: List<Content>) {
         adapter.setItems(items)
         adapter.notifyDataSetChanged()
     }
@@ -110,9 +110,8 @@ open class ContentFragment : BaseFragment(), ContentView {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         when {
-            inflated && isVisibleToUser -> {
-//                etSearch.setText("")
-//                presenter.setupAdapter(type)
+            inflated && !isVisibleToUser -> {
+                etSearch.setText("")
             }
         }
     }
