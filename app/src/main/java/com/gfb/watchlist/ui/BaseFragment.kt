@@ -1,6 +1,7 @@
 package com.gfb.watchlist.ui
 
 import android.support.v4.app.Fragment
+import com.crashlytics.android.Crashlytics
 import com.gfb.watchlist.R
 import com.gfb.watchlist.widget.Progress
 import io.reactivex.Observable
@@ -22,15 +23,23 @@ open class BaseFragment : Fragment() {
     }
 
     protected fun showProgress() {
-        if (progress == null) {
-            progress = Progress(context!!)
+        try {
+            if (progress == null) {
+                progress = Progress(context!!)
+            }
+            progress!!.show()
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
         }
-        progress!!.show()
     }
 
     protected fun closeProgress() {
-        if (progress != null && progress!!.isShowing) {
-            progress!!.dismiss()
+        try {
+            if (progress != null && progress!!.isShowing) {
+                progress!!.dismiss()
+            }
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
         }
     }
 

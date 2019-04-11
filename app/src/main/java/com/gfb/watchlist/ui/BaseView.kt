@@ -51,8 +51,8 @@ open class BaseView : AppCompatActivity() {
 
     fun setupActionBar() {
         val ab = supportActionBar
-        ab?.setDisplayHomeAsUpEnabled(true)
         ab?.setHomeButtonEnabled(true)
+        ab?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -103,19 +103,26 @@ open class BaseView : AppCompatActivity() {
     }
 
     protected fun showProgress() {
-        if (progress == null) {
-            progress = Progress(this)
+        try {
+            if (progress == null) {
+                progress = Progress(this)
+            }
+            progress!!.show()
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
         }
-        progress!!.show()
     }
 
     protected fun closeProgress() {
-        if (progress != null && progress!!.isShowing) {
-            progress!!.dismiss()
+        try {
+            if (progress != null && progress!!.isShowing) {
+                progress!!.dismiss()
+            }
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
         }
     }
 
     fun getActivity() = this
-
 
 }
